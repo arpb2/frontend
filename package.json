@@ -8,10 +8,11 @@
     "url": "git@github.com:arpb2/frontend.git"
   },
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "npm run build && node src/server/index.js",
+    "build": "webpack --mode production && babel -d ./dist ./src/server",
+    "start": "npm run build && NODE_ENV=production node ./dist/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "nodemon src/server/index.js",
+    "server": "nodemon --exec babel-node src/server/index.js",
+    "debug": "nodemon --inspect --exec babel-node src/server/index.js",
     "start-dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "ARPB2",
@@ -24,10 +25,12 @@
     "react-dom": "^16.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^1.0.0",
