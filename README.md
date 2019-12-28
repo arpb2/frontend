@@ -8,5 +8,5 @@ Uses Node 10 + Express + React. [Blockly](https://github.com/google/blockly) for
 
 ```bash
 npm i
-npm run dev
+npm run start-dev
 ```
