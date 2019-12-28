@@ -11,8 +11,8 @@ export default class TestEditor extends React.Component {
     super(props);
     this.state = {
       toolboxCategories: parseWorkspaceXml(
-        ConfigFiles.INITIAL_TOOLBOX_XML
-      )
+        ConfigFiles.INITIAL_TOOLBOX_XML,
+      ),
     };
   }
 
@@ -31,14 +31,14 @@ export default class TestEditor extends React.Component {
                       type: 'text',
                       shadow: true,
                       fields: {
-                        TEXT: 'abc'
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          ])
+                        TEXT: 'abc',
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ]),
         });
       }, 2000);
     };
@@ -48,7 +48,7 @@ export default class TestEditor extends React.Component {
         alert('button is pressed');
       });
       const newXml = Blockly.Xml.domToText(
-        Blockly.Xml.workspaceToDom(workspace)
+        Blockly.Xml.workspaceToDom(workspace),
       );
       document.getElementById('generated-xml').innerText = newXml;
 
@@ -64,8 +64,8 @@ export default class TestEditor extends React.Component {
             spacing: 20,
             length: 3,
             colour: '#ccc',
-            snap: true
-          }
+            snap: true,
+          },
         }}
         initialXml={ConfigFiles.INITIAL_XML}
         wrapperDivClassName="fill-height"
