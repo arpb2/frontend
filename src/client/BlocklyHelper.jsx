@@ -8,7 +8,7 @@ export default function parseWorkspaceXml(xml) {
     'colour',
     'categories',
     'blocks',
-    'button'
+    'button',
   ];
   let xmlDoc = null;
   if (window.DOMParser) {
@@ -18,7 +18,7 @@ export default function parseWorkspaceXml(xml) {
     xmlDoc.async = false;
     if (!xmlDoc.loadXML(xml)) {
       throw new Error(
-        `${xmlDoc.parseError.reason} ${xmlDoc.parseError.srcText}`
+        `${xmlDoc.parseError.reason} ${xmlDoc.parseError.srcText}`,
       );
     }
   } else {
@@ -154,7 +154,7 @@ function parseObject(obj) {
   if (obj.mutation) {
     res.mutation = {
       attributes: obj.mutation,
-      innerContent: obj.mutation.value
+      innerContent: obj.mutation.value,
     };
   }
   if (obj.field) {
@@ -168,7 +168,7 @@ function parseObject(obj) {
   }
   if (obj.statement) {
     res.statements = {
-      [obj.statement.name]: parseObject(obj.statement)
+      [obj.statement.name]: parseObject(obj.statement),
     };
   }
 
