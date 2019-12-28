@@ -16,9 +16,10 @@
     "start-dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "ARPB2",
-  "license": "GNUPLv3",
+  "license": "GPL-3.0",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "blockly": "^3.20191014.4",
     "express": "^4.16.3",
     "react": "^16.5.2",
     "react-blockly": "^4.1.0",
