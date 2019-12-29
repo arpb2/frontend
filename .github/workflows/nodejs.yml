@@ -17,11 +17,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
+    - name: Install yarn
+      run: npm install -g yarn
     - name: yarn install, build, and test
       run: |
         yarn --frozen-lockfile
         yarn build
-        yarn test
+        # yarn test
       env:
         CI: true
