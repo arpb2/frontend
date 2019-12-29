@@ -20,7 +20,7 @@ jobs:
     - run: npm install -g yarn
     - name: yarn install, build, and test
       run: |
-        yarn
+        yarn --frozen-lockfile
         yarn build --if-present
         yarn test
       env:
