@@ -1,25 +1,32 @@
-import React, { Component } from 'react';
-import './app.css';
-import Dashboard from './Dashboard';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Chart } from 'react-chartjs-2';
+import { ThemeProvider } from '@material-ui/styles';
+import validate from 'validate.js';
 
-export default class App extends Component {
-  state = { username: null };
+import { chartjs } from './helpers';
+import theme from './theme';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import './assets/scss/index.scss';
+import validators from './common/validators';
+import Routes from './Routes';
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
 
-  render() {
-    return (
-      <Dashboard />
+Chart.helpers.extend(Chart.elements.Rectangle.prototype, {
+  draw: chartjs.draw,
+});
 
-    // <div>
-    //   <div style={{ height: '600px', width: '800px' }} id="blockly" />
-    //   <pre id="generated-xml" />
-    //   <textarea readOnly id="code" style={{ height: '200px', width: '400px' }} value="" />
-    // </div>
-    );
-  }
+validate.validators = {
+  ...validate.validators,
+  ...validators,
+};
+
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes />
+      </Router>
+    </ThemeProvider>
+  );
 }
