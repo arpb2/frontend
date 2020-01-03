@@ -17,6 +17,8 @@ import {
   NotFound as NotFoundView,
 } from './views';
 
+import TestEditor from './views_old/Blockly/TestEditor';
+
 const Routes = () => (
   <Switch>
     <Redirect
@@ -77,6 +79,12 @@ const Routes = () => (
       exact
       layout={MinimalLayout}
       path="/sign-in"
+    />
+    <RouteWithLayout
+      component={TestEditor}
+      exact
+      layout={MinimalLayout}
+      path="/blockly"
     />
     <RouteWithLayout
       component={NotFoundView}
