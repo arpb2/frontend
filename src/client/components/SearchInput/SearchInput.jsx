@@ -11,22 +11,24 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: theme.spacing(1),
     display: 'flex',
-    flexBasis: 420
+    flexBasis: 420,
   },
   icon: {
     marginRight: theme.spacing(1),
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   input: {
     flexGrow: 1,
     fontSize: '14px',
     lineHeight: '16px',
-    letterSpacing: '-0.05px'
-  }
+    letterSpacing: '-0.05px',
+  },
 }));
 
-const SearchInput = props => {
-  const { className, onChange, style, ...rest } = props;
+const SearchInput = (props) => {
+  const {
+    className, onChange, style, ...rest
+  } = props;
 
   const classes = useStyles();
 
@@ -50,7 +52,7 @@ const SearchInput = props => {
 SearchInput.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default SearchInput;
