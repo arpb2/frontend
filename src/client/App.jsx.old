@@ -1,0 +1,69 @@
+import React from 'react';
+import './app.css';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {
+  BrowserRouter as Router, Switch, Route, Link,
+} from 'react-router-dom';
+import Dashboard from './views/Dashboard/Dashboard';
+import TestEditor from './views/Blockly/TestEditor';
+
+export default function App() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = React.useMemo(
+    () => createMuiTheme({
+      palette: {
+        type: prefersDarkMode ? 'dark' : 'light',
+      },
+    }),
+    [prefersDarkMode],
+  );
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/blockly">About</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route
+            path="/"
+            name="Home"
+            // render={props => <Dashboard {...props} />}
+            render={() => <h1>Chau</h1>}
+          />
+          <Route
+            path="/blockly"
+            name="Blockly"
+            // render={() => <TestEditor />}
+            render={() => (<h1>Hola</h1>)}
+          />
+        </Switch>
+        {/* <div>
+          <div
+            style={{ height: '600px', width: '800px' }}
+            id="blockly"
+          />
+          <pre id="generated-xml" />
+          <textarea
+            readOnly
+            id="code"
+            style={{ height: '200px', width: '400px' }}
+            value=""
+          />
+        </div> */}
+      </Router>
+    </ThemeProvider>
+  );
+}

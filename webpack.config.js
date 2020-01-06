@@ -19,8 +19,8 @@ module.exports = {
       },
     },
     {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader'],
+      test: /\.s?css$/,
+      use: ['style-loader', 'css-loader', 'sass-loader'],
     },
     {
       test: /\.(png|woff|woff2|eot|ttf|svg)$/,
@@ -41,8 +41,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.ico',
+      template: './src/client/public/index.html',
+      favicon: './src/client/public/favicon.ico',
     }),
   ],
 };

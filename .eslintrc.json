@@ -2,12 +2,17 @@
   "parser": "babel-eslint",
   "extends": ["airbnb"],
   "env": {
-    "browser": true,
-    "node": true
+      "browser": true,
+      "node": true
   },
+  "plugins": [
+      "react-hooks"
+  ],
   "rules": {
-    "no-console": "warn",
-    "comma-dangle": "error",
-    "react/jsx-filename-extension": "warn"
+      "no-console": "warn",
+      "comma-dangle": "error",
+      "react/jsx-filename-extension": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
   }
 }
