@@ -4,6 +4,7 @@ import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';
+import 'blockly/python';
 
 export default class TestEditor extends React.Component {
   constructor(props) {
