@@ -1,8 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import Blockly from 'blockly';
-
 import ReactBlocklyComponent from 'react-blockly';
+import Blockly from 'blockly';
 import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';
 
@@ -52,7 +51,9 @@ export default class TestEditor extends React.Component {
       );
       document.getElementById('generated-xml').innerText = newXml;
 
-      const code = Blockly.JavaScript.workspaceToCode(workspace);
+      console.log(Blockly);
+
+      const code = Blockly.Python.workspaceToCode(workspace);
       document.getElementById('code').value = code;
     };
 
