@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
+import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
-import TestEditor from './TestEditor';
+import ReactBlocklyComponent from 'react-blockly';
+import Blockly from 'blockly';
+import ConfigFiles from './initContent/content';
+import parseWorkspaceXml from './BlocklyHelper';
+import 'blockly/python';
+import 'blockly/php';
+import 'blockly/lua';
+import 'blockly/javascript';
+import 'blockly/dart';
 
 const MyBlockly = (props) => {
   const {
@@ -32,43 +41,59 @@ const MyBlockly = (props) => {
 
   const [values, setValues] = useState({
     language: 'JavaScript',
-    editorCreated: false,
     currentCode: '',
+    toolboxCategories: parseWorkspaceXml(
+      ConfigFiles.INITIAL_TOOLBOX_XML,
+    ),
   });
 
-  useEffect(() => {
-  });
+  const regenCode = (language, workspace) => Blockly[language].workspaceToCode(workspace || values.workspace);
 
-  const handleChange = (event) => {
+  const handleLanguageChange = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value,
+      language: event.target.value,
+      currentCode: regenCode(event.target.value),
     });
-    console.log(`current code: ${values.currentCode}`);
   };
 
-  const updateCode = (currentCode) => {
-    setValues({ ...values, currentCode });
+  const workspaceDidChange = (workspace) => {
+    workspace.registerButtonCallback('myFirstButtonPressed', () => {
+      alert('button is pressed');
+    });
+    setValues({ ...values, workspace, currentCode: regenCode(values.language, workspace) });
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div style={{ height: '600px', width: '800px' }} id="blockly">
-          <TestEditor updateCode={updateCode} language={values.language} regenCode={false} />
+          <ReactBlocklyComponent.BlocklyEditor
+            toolboxCategories={values.toolboxCategories}
+            workspaceConfiguration={{
+              grid: {
+                spacing: 20,
+                length: 3,
+                colour: '#ccc',
+                snap: true,
+              },
+            }}
+            initialXml={ConfigFiles.INITIAL_XML}
+            wrapperDivClassName="fill-height"
+            workspaceDidChange={workspaceDidChange}
+          />
         </div>
         <TextField
           fullWidth
           label="Select Language"
           margin="dense"
           name="language"
-          onChange={handleChange}
+          onChange={handleLanguageChange}
           select
           SelectProps={{ native: true }}
           value={values.language}
           variant="outlined"
           style={{ flexBasis: '30%' }}
-          defaultValue="JavaScript"
         >
           {languages.map(option => (
             <option
@@ -80,7 +105,6 @@ const MyBlockly = (props) => {
           ))}
         </TextField>
       </div>
-      <pre id="generated-xml" />
       <textarea
         readOnly
         id="code"
