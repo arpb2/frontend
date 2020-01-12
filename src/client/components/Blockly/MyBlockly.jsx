@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import ConfigFiles from './initContent/content';
@@ -45,15 +45,21 @@ const MyBlockly = (props) => {
     toolboxCategories: parseWorkspaceXml(
       ConfigFiles.INITIAL_TOOLBOX_XML,
     ),
+    runnableCode: '',
   });
 
-  const regenCode = (language, workspace) => Blockly[language].workspaceToCode(workspace || values.workspace);
+  const regenCode = (language, workspace) => ({
+    compiled: Blockly[language].workspaceToCode(workspace || values.workspace),
+    runnable: Blockly.JavaScript.workspaceToCode(workspace || values.workspace),
+  });
 
   const handleLanguageChange = (event) => {
+    const newCode = regenCode(event.target.value);
     setValues({
       ...values,
       language: event.target.value,
-      currentCode: regenCode(event.target.value),
+      currentCode: newCode.compiled,
+      runnableCode: newCode.runnable,
     });
   };
 
@@ -61,7 +67,18 @@ const MyBlockly = (props) => {
     workspace.registerButtonCallback('myFirstButtonPressed', () => {
       alert('button is pressed');
     });
-    setValues({ ...values, workspace, currentCode: regenCode(values.language, workspace) });
+    const newCode = regenCode(values.language, workspace);
+    setValues({
+      ...values, workspace, currentCode: newCode.compiled, runnableCode: newCode.runnable,
+    });
+  };
+
+  const runCode = () => {
+    try {
+      eval(values.runnableCode);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   return (
@@ -104,6 +121,7 @@ const MyBlockly = (props) => {
             </option>
           ))}
         </TextField>
+        <Button variant="contained" onClick={runCode}>Run!</Button>
       </div>
       <textarea
         readOnly

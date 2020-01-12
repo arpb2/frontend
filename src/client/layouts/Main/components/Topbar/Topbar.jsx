@@ -9,7 +9,6 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import logo from '../../../../public/images/logos/logo--white.svg';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +38,7 @@ const Topbar = (props) => {
         <RouterLink to="/">
           <img
             alt="Logo"
-            src={logo}
+            src="/public/images/logos/logo--white.svg"
           />
         </RouterLink>
         <div className={classes.flexGrow} />
