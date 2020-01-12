@@ -13,69 +13,48 @@ import 'blockly/dart';
 export default class TestEditor extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       toolboxCategories: parseWorkspaceXml(
         ConfigFiles.INITIAL_TOOLBOX_XML,
       ),
+      language: this.props.language,
+      workspace: null,
     };
   }
 
-    componentDidMount = () => {
-      window.setTimeout(() => {
-        this.setState({
-          toolboxCategories: this.state.toolboxCategories.concat([
-            {
-              name: 'Text2',
-              blocks: [
-                { type: 'text' },
-                {
-                  type: 'text_print',
-                  values: {
-                    TEXT: {
-                      type: 'text',
-                      shadow: true,
-                      fields: {
-                        TEXT: 'abc',
-                      },
-                    },
-                  },
-                },
-              ],
-            },
-          ]),
-        });
-      }, 2000);
-    };
+  componentDidMount = () => {
+  };
 
-    workspaceDidChange = (workspace) => {
-      workspace.registerButtonCallback('myFirstButtonPressed', () => {
-        alert('button is pressed');
-      });
-      const newXml = Blockly.Xml.domToText(
-        Blockly.Xml.workspaceToDom(workspace),
-      );
-      document.getElementById('generated-xml').innerText = newXml;
-
-      console.log(Blockly);
-
-      const code = Blockly.Python.workspaceToCode(workspace);
-      document.getElementById('code').value = code;
-    };
-
-    render = () => (
-      <ReactBlocklyComponent.BlocklyEditor
-        toolboxCategories={this.state.toolboxCategories}
-        workspaceConfiguration={{
-          grid: {
-            spacing: 20,
-            length: 3,
-            colour: '#ccc',
-            snap: true,
-          },
-        }}
-        initialXml={ConfigFiles.INITIAL_XML}
-        wrapperDivClassName="fill-height"
-        workspaceDidChange={this.workspaceDidChange}
-      />
+  workspaceDidChange = (workspace) => {
+    const { language } = this.state;
+    workspace.registerButtonCallback('myFirstButtonPressed', () => {
+      alert('button is pressed');
+    });
+    const newXml = Blockly.Xml.domToText(
+      Blockly.Xml.workspaceToDom(workspace),
     );
+    document.getElementById('generated-xml').innerText = newXml;
+
+    const code = Blockly[language].workspaceToCode(workspace);
+    this.props.updateCode(code);
+    this.setState({ workspace });
+  };
+
+  render = () => (
+    <ReactBlocklyComponent.BlocklyEditor
+      toolboxCategories={this.state.toolboxCategories}
+      workspaceConfiguration={{
+        grid: {
+          spacing: 20,
+          length: 3,
+          colour: '#ccc',
+          snap: true,
+        },
+      }}
+      initialXml={ConfigFiles.INITIAL_XML}
+      wrapperDivClassName="fill-height"
+      workspaceDidChange={this.workspaceDidChange}
+    />
+  )
 }
