@@ -83,7 +83,7 @@ const MyBlockly = (props) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6} style={{ height: '600px', width: '800px' }} id="blockly">
+      <Grid item xs={12} md={6} id="blockly" style={{ minHeight: '60vh', minWidht: '80vh' }}>
         <ReactBlocklyComponent.BlocklyEditor
           toolboxCategories={values.toolboxCategories}
           workspaceConfiguration={{
@@ -99,7 +99,7 @@ const MyBlockly = (props) => {
           workspaceDidChange={workspaceDidChange}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <React.Fragment>
           <Grid item xs={4}>
             <TextField
