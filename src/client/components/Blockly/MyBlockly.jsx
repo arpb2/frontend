@@ -98,7 +98,6 @@ const MyBlockly = (props) => {
           wrapperDivClassName="fill-height"
           workspaceDidChange={workspaceDidChange}
         />
-        {/* </div> */}
       </Grid>
       <Grid item xs={6}>
         <React.Fragment>
