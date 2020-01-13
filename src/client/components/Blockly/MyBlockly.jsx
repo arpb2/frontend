@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Grid } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import ConfigFiles from './initContent/content';
@@ -82,54 +82,63 @@ const MyBlockly = (props) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <div style={{ height: '600px', width: '800px' }} id="blockly">
-          <ReactBlocklyComponent.BlocklyEditor
-            toolboxCategories={values.toolboxCategories}
-            workspaceConfiguration={{
-              grid: {
-                spacing: 20,
-                length: 3,
-                colour: '#ccc',
-                snap: true,
-              },
-            }}
-            initialXml={ConfigFiles.INITIAL_XML}
-            wrapperDivClassName="fill-height"
-            workspaceDidChange={workspaceDidChange}
-          />
-        </div>
-        <TextField
-          fullWidth
-          label="Select Language"
-          margin="dense"
-          name="language"
-          onChange={handleLanguageChange}
-          select
-          SelectProps={{ native: true }}
-          value={values.language}
-          variant="outlined"
-          style={{ flexBasis: '30%' }}
-        >
-          {languages.map(option => (
-            <option
-              key={option.value}
-              value={option.value}
+    <Grid container spacing={2}>
+      <Grid item xs={6} style={{ height: '600px', width: '800px' }} id="blockly">
+        <ReactBlocklyComponent.BlocklyEditor
+          toolboxCategories={values.toolboxCategories}
+          workspaceConfiguration={{
+            grid: {
+              spacing: 20,
+              length: 3,
+              colour: '#ccc',
+              snap: true,
+            },
+          }}
+          initialXml={ConfigFiles.INITIAL_XML}
+          wrapperDivClassName="fill-height"
+          workspaceDidChange={workspaceDidChange}
+        />
+        {/* </div> */}
+      </Grid>
+      <Grid item xs={6}>
+        <React.Fragment>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              label="Select Language"
+              margin="dense"
+              name="language"
+              onChange={handleLanguageChange}
+              select
+              SelectProps={{ native: true }}
+              value={values.language}
+              variant="outlined"
+              style={{ flexBasis: '30%' }}
             >
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        <Button variant="contained" onClick={runCode}>Run!</Button>
-      </div>
-      <textarea
-        readOnly
-        id="code"
-        style={{ height: '200px', width: '400px' }}
-        value={values.currentCode}
-      />
-    </div>
+              {languages.map(option => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={4}>
+            <Button variant="contained" onClick={runCode}>Run!</Button>
+          </Grid>
+        </React.Fragment>
+      </Grid>
+      <Grid item xs={6}>
+        <textarea
+          readOnly
+          id="code"
+          style={{ height: '200px', width: '400px' }}
+          value={values.currentCode}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
