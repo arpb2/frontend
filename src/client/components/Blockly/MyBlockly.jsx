@@ -129,7 +129,7 @@ const MyBlockly = (props) => {
           </Grid>
         </React.Fragment>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <textarea
           readOnly
           id="code"
