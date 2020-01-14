@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Grid } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
+import { makeStyles } from '@material-ui/styles';
 import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';
 import 'blockly/python';
@@ -11,10 +12,23 @@ import 'blockly/lua';
 import 'blockly/javascript';
 import 'blockly/dart';
 
+const useStyles = makeStyles({
+  blockly: {
+    minHeight: '60vh',
+    minWidth: '80vh',
+  },
+  outputCode: {
+    height: '200px',
+    width: '400px',
+  },
+});
+
 const MyBlockly = (props) => {
   const {
     className, onChange, style, ...rest
   } = props;
+
+  const classes = useStyles();
 
   const languages = [
     {
@@ -83,7 +97,7 @@ const MyBlockly = (props) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6} id="blockly" style={{ minHeight: '60vh', minWidht: '80vh' }}>
+      <Grid item xs={12} md={6} id="blockly" className={classes.blockly}>
         <ReactBlocklyComponent.BlocklyEditor
           toolboxCategories={values.toolboxCategories}
           workspaceConfiguration={{
@@ -112,7 +126,6 @@ const MyBlockly = (props) => {
               SelectProps={{ native: true }}
               value={values.language}
               variant="outlined"
-              style={{ flexBasis: '30%' }}
             >
               {languages.map(option => (
                 <option
@@ -133,7 +146,7 @@ const MyBlockly = (props) => {
         <textarea
           readOnly
           id="code"
-          style={{ height: '200px', width: '400px' }}
+          className={classes.outputCode}
           value={values.currentCode}
         />
       </Grid>
