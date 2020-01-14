@@ -4,6 +4,13 @@ import { TextField, Button, Grid } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import { makeStyles } from '@material-ui/styles';
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
+import lua from 'react-syntax-highlighter/dist/esm/languages/hljs/lua';
+import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
+import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
+import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
 import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';
 import 'blockly/python';
@@ -11,6 +18,12 @@ import 'blockly/php';
 import 'blockly/lua';
 import 'blockly/javascript';
 import 'blockly/dart';
+
+SyntaxHighlighter.registerLanguage('javascript', javascript);
+SyntaxHighlighter.registerLanguage('python', python);
+SyntaxHighlighter.registerLanguage('lua', lua);
+SyntaxHighlighter.registerLanguage('php', php);
+SyntaxHighlighter.registerLanguage('dart', dart);
 
 const useStyles = makeStyles({
   blockly: {
@@ -142,13 +155,10 @@ const MyBlockly = (props) => {
           </Grid>
         </React.Fragment>
       </Grid>
-      <Grid item xs={12}>
-        <textarea
-          readOnly
-          id="code"
-          className={classes.outputCode}
-          value={values.currentCode}
-        />
+      <Grid item xs={6}>
+        <SyntaxHighlighter language={values.language.toLowerCase()} style={darcula} showLineNumbers id="code">
+          {values.currentCode}
+        </SyntaxHighlighter>
       </Grid>
     </Grid>
   );
