@@ -26,6 +26,12 @@ module.exports = {
       test: /\.(png|woff|woff2|eot|ttf|svg)$/,
       loader: 'url-loader?limit=100000',
     },
+    {
+      test: /\.(png|svg|jpg|gif)$/,
+      use: [
+        'file-loader',
+      ],
+    },
     ],
   },
   resolve: {
@@ -41,8 +47,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
-      template: './src/client/public/index.html',
-      favicon: './src/client/public/favicon.ico',
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
     }),
   ],
 };
