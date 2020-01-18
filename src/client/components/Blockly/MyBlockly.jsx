@@ -28,7 +28,6 @@ SyntaxHighlighter.registerLanguage('dart', dart);
 const useStyles = makeStyles({
   blockly: {
     minHeight: '60vh',
-    minWidth: '80vh',
   },
   outputCode: {
     height: '200px',
@@ -110,7 +109,15 @@ const MyBlockly = (props) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6} id="blockly" className={classes.blockly}>
+      <Grid
+        xs={12}
+        md={12}
+        lg={12}
+        xl={12}
+        item
+        id="blockly"
+        className={classes.blockly}
+      >
         <ReactBlocklyComponent.BlocklyEditor
           toolboxCategories={values.toolboxCategories}
           workspaceConfiguration={{
@@ -126,7 +133,7 @@ const MyBlockly = (props) => {
           workspaceDidChange={workspaceDidChange}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} lg={6} xl={6}>
         <React.Fragment>
           <Grid item xs={4}>
             <TextField
@@ -141,22 +148,26 @@ const MyBlockly = (props) => {
               variant="outlined"
             >
               {languages.map(option => (
-                <option
-                  key={option.value}
-                  value={option.value}
-                >
+                <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}
             </TextField>
           </Grid>
-          <Grid item xs={4}>
-            <Button variant="contained" onClick={runCode}>Run!</Button>
+          <Grid item xs={6} md={6} lg={6} xl={6}>
+            <Button variant="contained" onClick={runCode}>
+                          Run!
+            </Button>
           </Grid>
         </React.Fragment>
       </Grid>
-      <Grid item xs={6}>
-        <SyntaxHighlighter language={values.language.toLowerCase()} style={darcula} showLineNumbers id="code">
+      <Grid item xs={12} md={12} lg={12} xl={12}>
+        <SyntaxHighlighter
+          language={values.language.toLowerCase()}
+          style={darcula}
+          showLineNumbers
+          id="code"
+        >
           {values.currentCode}
         </SyntaxHighlighter>
       </Grid>
