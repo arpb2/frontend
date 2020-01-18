@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import { RouteWithLayout, Blockly } from './components';
+import { RouteWithLayout, MyBlockly } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
@@ -79,7 +79,7 @@ const Routes = () => (
       path="/sign-in"
     />
     <RouteWithLayout
-      component={Blockly}
+      component={MyBlockly}
       exact
       layout={MinimalLayout}
       path="/blockly"

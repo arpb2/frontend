@@ -1,1 +1,1 @@
-export { default } from './Blockly';
+export { default } from './MyBlockly';
