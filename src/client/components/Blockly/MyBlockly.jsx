@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Grid } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
@@ -68,10 +68,16 @@ const MyBlockly = (props) => {
   const [values, setValues] = useState({
     language: 'JavaScript',
     currentCode: '',
-    toolboxCategories: parseWorkspaceXml(
-      ConfigFiles.INITIAL_TOOLBOX_XML,
-    ),
+    toolboxCategories: null,
     runnableCode: '',
+  });
+
+  useEffect(() => {
+    fetch('/api/blockly/initial')
+      .then(res => res.text())
+      .then((xml) => {
+        setValues({ ...values, toolboxCategories: parseWorkspaceXml(xml) });
+      });
   });
 
   const regenCode = (language, workspace) => ({
@@ -118,6 +124,7 @@ const MyBlockly = (props) => {
         id="blockly"
         className={classes.blockly}
       >
+        {values.toolboxCategories && (
         <ReactBlocklyComponent.BlocklyEditor
           toolboxCategories={values.toolboxCategories}
           workspaceConfiguration={{
@@ -132,6 +139,7 @@ const MyBlockly = (props) => {
           wrapperDivClassName="fill-height"
           workspaceDidChange={workspaceDidChange}
         />
+        ) }
       </Grid>
       <Grid item xs={12} md={6} lg={6} xl={6}>
         <React.Fragment>
