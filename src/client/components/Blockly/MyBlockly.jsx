@@ -73,11 +73,13 @@ const MyBlockly = (props) => {
   });
 
   useEffect(() => {
-    fetch('/api/blockly/initial')
-      .then(res => res.text())
-      .then((xml) => {
-        setValues({ ...values, toolboxCategories: parseWorkspaceXml(xml) });
-      });
+    if (!values.toolboxCategories) {
+      fetch('/api/blockly/initial')
+        .then(res => res.text())
+        .then((xml) => {
+          setValues({ ...values, toolboxCategories: parseWorkspaceXml(xml) });
+        });
+    }
   });
 
   const regenCode = (language, workspace) => ({

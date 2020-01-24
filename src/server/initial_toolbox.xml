@@ -231,9 +231,10 @@
       </block>
    </category>
    <sep />
-   <category name="Custom Button" colour="#A6745C">
-      <button text="A button" callbackKey="myFirstButtonPressed" />
+   <category name="Actions" colour="#A6745C">
+   <block type="rotate_arpb2" />
    </category>
+   <sep />
    <category name="Variables" colour="#A65C81" custom="VARIABLE" />
    <category name="Functions" colour="#9A5CA6" custom="PROCEDURE" />
 </xml>
