@@ -53,6 +53,7 @@ module.exports = {
     }),
     new CopyPlugin([
       { from: 'public', to: 'public' },
+      { from: 'src/server/assets', to: 'assets' },
     ]),
   ],
 };
