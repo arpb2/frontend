@@ -17,6 +17,7 @@ import 'blockly/php';
 import 'blockly/lua';
 import 'blockly/javascript';
 import 'blockly/dart';
+import './blocks/custom/blocks';
 
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('python', python);
