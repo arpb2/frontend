@@ -1,0 +1,82 @@
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="factory_base" id="Smuqt`fmStRj`[,x]{7N" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="TOP"/>
+    <field name="NAME">rotate_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">TOP</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="X;t}z2`dV?xVgxmrYDj1">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="dXVPX%pmKpFaOf=t8;u0">
+            <field name="TEXT">rotate</field>
+            <next>
+              <block type="field_dropdown" id="P2*S9D,A3l2m?}DeOs3n">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"/>
+                <field name="FIELDNAME">direction</field>
+                <field name="USER0">left</field>
+                <field name="CPU0">rotate_left</field>
+                <field name="USER1">right</field>
+                <field name="CPU1">rotate_right</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="2=U**+j$ys7UfU:(Xl^8" deletable="false" movable="false">
+        <field name="TEXT">Rotate ARPB2 in the selected direction</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="uoCXId_$}D7e}3JbY^k#" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="ypkSo(vFXz+45;=`gv4)"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="MeYILf2gz%MX..W+r#7A">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="81R_iMfR=fM%=dhu]HI5" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">move_forward_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="nyp3L0.ZPypr8])(nkho">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="c%;MZCn@k)Rd=4_FvnkM">
+            <field name="TEXT">move forward</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="W7P(Ai-z8/UQKx,94E|X" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="LMj!nEjDCn~*7-M!E~DP" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="}n80Xw/+%H+xyQbnShSD"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id=";k8xJGfz|sSg3bYAlqcQ"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="eBKzi2LCn!9ca)zb=/:O">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block></xml>
