@@ -74,6 +74,16 @@ Blockly.Blocks.use_object_arpb2 = {
   },
 };
 
+Blockly.Blocks.open_bag_arpb2 = {
+  init() {
+    this.appendDummyInput().appendField('open bag');
+    this.setPreviousStatement(true, null);
+    this.setColour(0);
+    this.setTooltip('Open bag');
+    this.setHelpUrl('');
+  },
+};
+
 Blockly.JavaScript.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
   const code = `() => { return ACTION_ROTATE_${dropdownDirection.toUpperCase()}; }`;
@@ -102,6 +112,11 @@ Blockly.JavaScript.save_in_bag_arpb2 = (block) => {
 
 Blockly.JavaScript.use_object_arpb2 = (block) => {
   const code = '() => { return ACTION_SAVE_IN_BAG; }';
+  return code;
+};
+
+Blockly.JavaScript.open_bag_arpb2 = (block) => {
+  const code = '() => { return ACTION_OPEN_BAG; }';
   return code;
 };
 
@@ -136,6 +151,11 @@ Blockly.Python.use_object_arpb2 = (block) => {
   return code;
 };
 
+Blockly.Python.open_bag_arpb2 = (block) => {
+  const code = 'def open_bag_arpb2():\n  return ACTION_OPEN_BAG';
+  return code;
+};
+
 Blockly.PHP.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
   const code = `function rotate_arpb2() {\n  return ACTION_ROTATE_${dropdownDirection};\n}`;
@@ -164,6 +184,11 @@ Blockly.PHP.save_in_bag_arpb2 = (block) => {
 
 Blockly.PHP.use_object_arpb2 = (block) => {
   const code = 'function use_object_arpb2() {\n  return ACTION_USE_OBJECT;\n}';
+  return code;
+};
+
+Blockly.PHP.open_bag_arpb2 = (block) => {
+  const code = 'function open_bag_arpb2() {\n  return ACTION_OPEN_BAG;\n}';
   return code;
 };
 
@@ -198,6 +223,11 @@ Blockly.Lua.use_object_arpb2 = (block) => {
   return code;
 };
 
+Blockly.Lua.open_bag_arpb2 = (block) => {
+  const code = 'function open_bag_arpb2()\n  return ACTION_OPEN_BAG\nend';
+  return code;
+};
+
 Blockly.Dart.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
   const code = `dynamic rotate_arpb2() {\n  return ACTION_ROTATE_${dropdownDirection};\n}`;
@@ -226,5 +256,10 @@ Blockly.Dart.save_in_bag_arpb2 = (block) => {
 
 Blockly.Dart.use_object_arpb2 = (block) => {
   const code = 'dynamic use_object_arpb2() {\n  return ACTION_USE_OBJECT;\n}';
+  return code;
+};
+
+Blockly.Dart.open_bag_arpb2 = (block) => {
+  const code = 'dynamic open_bag_arpb2() {\n  return ACTION_OPEN_BAG;\n}';
   return code;
 };
