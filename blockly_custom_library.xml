@@ -1,0 +1,230 @@
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="factory_base" id="Smuqt`fmStRj`[,x]{7N" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="TOP"/>
+    <field name="NAME">rotate_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">TOP</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="X;t}z2`dV?xVgxmrYDj1">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="dXVPX%pmKpFaOf=t8;u0">
+            <field name="TEXT">rotate</field>
+            <next>
+              <block type="field_dropdown" id="P2*S9D,A3l2m?}DeOs3n">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"/>
+                <field name="FIELDNAME">direction</field>
+                <field name="USER0">left</field>
+                <field name="CPU0">rotate_left</field>
+                <field name="USER1">right</field>
+                <field name="CPU1">rotate_right</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="2=U**+j$ys7UfU:(Xl^8" deletable="false" movable="false">
+        <field name="TEXT">Rotate ARPB2 in the selected direction</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="uoCXId_$}D7e}3JbY^k#" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="ypkSo(vFXz+45;=`gv4)"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="MeYILf2gz%MX..W+r#7A">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="81R_iMfR=fM%=dhu]HI5" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">move_forward_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="nyp3L0.ZPypr8])(nkho">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="c%;MZCn@k)Rd=4_FvnkM">
+            <field name="TEXT">move forward</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="W7P(Ai-z8/UQKx,94E|X" deletable="false" movable="false">
+        <field name="TEXT">Move ARPB2 in the current direction</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="LMj!nEjDCn~*7-M!E~DP" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="}n80Xw/+%H+xyQbnShSD"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id=";k8xJGfz|sSg3bYAlqcQ"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="eBKzi2LCn!9ca)zb=/:O">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="J4P|}{o0q#-tj{27;$r9" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">jump_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="lU0^[p?,q,4ua=]XwFfn">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="$0!0JNRNU+LycLLy/+Q^">
+            <field name="TEXT">jump</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="VvQM)dH:4yE#egr2%yee" deletable="false" movable="false">
+        <field name="TEXT">Make ARPB2 jump in the current direction</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="{3H(8VncI$Ep9Zu)6T8#" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="yRjC,iZ$kbQv*[HMYm9t"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="YRZ)UAdrm@(CVf}olPKA"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="mmWKwn4GN7dM+.KM=cx^">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="?()uApsI2)8t9*jahzAq" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">pickup_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id=",I=kNf(+=.39(^`hMaPd">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="3j%TOUsaJ7fFJgIa?/9L">
+            <field name="TEXT">pick up</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="Z-=dOOU%4p%M?y2C{gMg" deletable="false" movable="false">
+        <field name="TEXT">Pick up an object</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="aSJa[,!PYYKoW(XQw6w)" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="REM[`r@[0jc${_Vm/$WH"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="[@bxX-nV8tY(gFNoI|j="/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="1k,DHsMo#N9oD%aa|LIl">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="vF_mEJkC}8i9vXmcbi/e" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">save_in_bag_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id=";:[R8q-]K![;C~b5`]5t">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="bHp1n]$CF}cey63aiQ}H">
+            <field name="TEXT">save in bag</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="-[9v9u4a9ri%Mb|4p;wQ" deletable="false" movable="false">
+        <field name="TEXT">Save current object in the bag</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="7)QcveJ]gIz6R67Y(EnQ" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="3vPiZ(~0)ifZlrFp)mDo"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="J9c8n{%!d?K.]95]b?}Z"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="z|{w#|E?kCCKRF}C(,6]">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id=".SBjX%-#9-hb/YRmf)mi" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">use_object_arpb2</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id=":-QrcigC549dfBk(s%c{">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="RN2#(X=.y)`j.c6j9_%u">
+            <field name="TEXT">use object</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="6*Yy?)P|fo4~clC5CHmg" deletable="false" movable="false">
+        <field name="TEXT">Use current object</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="8^cx=h$#B%DKFb_-eI^O" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="V0|m_-b_3s`V6K?(4@9_"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="CK)atLts~sZj;SgLQd]_"/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="uV{`Z`GQ(_(iCXQCDuD+">
+        <mutation colour="#a55b5b"/>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block></xml>

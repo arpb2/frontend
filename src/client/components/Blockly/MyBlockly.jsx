@@ -11,13 +11,13 @@ import lua from 'react-syntax-highlighter/dist/esm/languages/hljs/lua';
 import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
 import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
-import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';
 import 'blockly/python';
 import 'blockly/php';
 import 'blockly/lua';
 import 'blockly/javascript';
 import 'blockly/dart';
+import './blocks/custom/blocks';
 
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('python', python);
@@ -109,6 +109,7 @@ const MyBlockly = (props) => {
 
   const runCode = () => {
     try {
+      // eslint-disable-next-line no-eval
       eval(values.runnableCode);
     } catch (e) {
       alert(e);
@@ -127,21 +128,21 @@ const MyBlockly = (props) => {
         className={classes.blockly}
       >
         {values.toolboxCategories && (
-        <ReactBlocklyComponent.BlocklyEditor
-          toolboxCategories={values.toolboxCategories}
-          workspaceConfiguration={{
-            grid: {
-              spacing: 20,
-              length: 3,
-              colour: '#ccc',
-              snap: true,
-            },
-          }}
-          initialXml={ConfigFiles.INITIAL_XML}
-          wrapperDivClassName="fill-height"
-          workspaceDidChange={workspaceDidChange}
-        />
-        ) }
+          <ReactBlocklyComponent.BlocklyEditor
+            toolboxCategories={values.toolboxCategories}
+            workspaceConfiguration={{
+              grid: {
+                spacing: 20,
+                length: 3,
+                colour: '#ccc',
+                snap: true,
+              },
+            }}
+            initialXml={'<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'}
+            wrapperDivClassName="fill-height"
+            workspaceDidChange={workspaceDidChange}
+          />
+        )}
       </Grid>
       <Grid item xs={12} md={6} lg={6} xl={6}>
         <React.Fragment>
