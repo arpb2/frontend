@@ -11,7 +11,7 @@ import {
   Link,
   FormHelperText,
   Checkbox,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -19,46 +19,46 @@ const schema = {
   firstName: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 32
-    }
+      maximum: 32,
+    },
   },
   lastName: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 32
-    }
+      maximum: 32,
+    },
   },
   email: {
     presence: { allowEmpty: false, message: 'is required' },
     email: true,
     length: {
-      maximum: 64
-    }
+      maximum: 64,
+    },
   },
   password: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 128
-    }
+      maximum: 128,
+    },
   },
   policy: {
     presence: { allowEmpty: false, message: 'is required' },
-    checked: true
-  }
+    checked: true,
+  },
 };
 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.default,
-    height: '100%'
+    height: '100%',
   },
   grid: {
-    height: '100%'
+    height: '100%',
   },
   quoteContainer: {
     [theme.breakpoints.down('md')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   quote: {
     backgroundColor: theme.palette.neutral,
@@ -69,28 +69,28 @@ const useStyles = makeStyles(theme => ({
     backgroundImage: 'url(/public/images/auth.jpg)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
   },
   quoteInner: {
     textAlign: 'center',
-    flexBasis: '600px'
+    flexBasis: '600px',
   },
   quoteText: {
     color: theme.palette.white,
-    fontWeight: 300
+    fontWeight: 300,
   },
   name: {
     marginTop: theme.spacing(3),
-    color: theme.palette.white
+    color: theme.palette.white,
   },
   bio: {
-    color: theme.palette.white
+    color: theme.palette.white,
   },
   contentContainer: {},
   content: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   contentHeader: {
     display: 'flex',
@@ -98,18 +98,18 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(5),
     paddingBototm: theme.spacing(2),
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+    paddingRight: theme.spacing(2),
   },
   logoImage: {
-    marginLeft: theme.spacing(4)
+    marginLeft: theme.spacing(4),
   },
   contentBody: {
     flexGrow: 1,
     display: 'flex',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
-      justifyContent: 'center'
-    }
+      justifyContent: 'center',
+    },
   },
   form: {
     paddingLeft: 100,
@@ -118,29 +118,29 @@ const useStyles = makeStyles(theme => ({
     flexBasis: 700,
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2)
-    }
+      paddingRight: theme.spacing(2),
+    },
   },
   title: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   textField: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   policy: {
     marginTop: theme.spacing(1),
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   policyCheckbox: {
-    marginLeft: '-14px'
+    marginLeft: '-14px',
   },
   signUpButton: {
-    margin: theme.spacing(2, 0)
-  }
+    margin: theme.spacing(2, 0),
+  },
 }));
 
-const SignUp = props => {
+const SignUp = (props) => {
   const { history } = props;
 
   const classes = useStyles();
@@ -149,7 +149,7 @@ const SignUp = props => {
     isValid: false,
     values: {},
     touched: {},
-    errors: {}
+    errors: {},
   });
 
   useEffect(() => {
@@ -157,12 +157,12 @@ const SignUp = props => {
 
     setFormState(formState => ({
       ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {}
+      isValid: !errors,
+      errors: errors || {},
     }));
   }, [formState.values]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     event.persist();
 
     setFormState(formState => ({
@@ -172,12 +172,12 @@ const SignUp = props => {
         [event.target.name]:
           event.target.type === 'checkbox'
             ? event.target.checked
-            : event.target.value
+            : event.target.value,
       },
       touched: {
         ...formState.touched,
-        [event.target.name]: true
-      }
+        [event.target.name]: true,
+      },
     }));
   };
 
@@ -185,13 +185,12 @@ const SignUp = props => {
     history.goBack();
   };
 
-  const handleSignUp = event => {
+  const handleSignUp = (event) => {
     event.preventDefault();
     history.push('/');
   };
 
-  const hasError = field =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = field => (!!(formState.touched[field] && formState.errors[field]));
 
   return (
     <div className={classes.root}>
@@ -328,7 +327,8 @@ const SignUp = props => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    I have read the{' '}
+                    I have read the
+                    {' '}
                     <Link
                       color="primary"
                       component={RouterLink}
@@ -360,7 +360,8 @@ const SignUp = props => {
                   color="textSecondary"
                   variant="body1"
                 >
-                  Have an account?{' '}
+                  Have an account?
+                  {' '}
                   <Link
                     component={RouterLink}
                     to="/sign-in"
@@ -379,7 +380,7 @@ const SignUp = props => {
 };
 
 SignUp.propTypes = {
-  history: PropTypes.object
+  history: PropTypes.object,
 };
 
 export default withRouter(SignUp);
