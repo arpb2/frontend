@@ -9,4 +9,10 @@ router.post('/signin', (req, res, next) => {
     .catch(err => res.status(err.statusCode ? err.statusCode : 500).json({ error: err.message }));
 });
 
+router.post('/', (req, res, next) => {
+  UserService.create(req.body.firstName, req.body.lastName, req.body.password, req.body.email)
+    .then(payload => res.json(payload))
+    .catch(err => res.status(err.statusCode ? err.statusCode : 500).json({ error: err.message }));
+});
+
 export default router;

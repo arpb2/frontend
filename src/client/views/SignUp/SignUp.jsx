@@ -9,8 +9,6 @@ import {
   IconButton,
   TextField,
   Link,
-  FormHelperText,
-  Checkbox,
   Typography,
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -40,10 +38,6 @@ const schema = {
     length: {
       maximum: 128,
     },
-  },
-  policy: {
-    presence: { allowEmpty: false, message: 'is required' },
-    checked: true,
   },
 };
 
@@ -187,7 +181,17 @@ const SignUp = (props) => {
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    history.push('/');
+    fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify(formState.values),
+    })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        history.push('/');
+      });
   };
 
   const hasError = field => (!!(formState.touched[field] && formState.errors[field]));
@@ -198,37 +202,6 @@ const SignUp = (props) => {
         className={classes.grid}
         container
       >
-        <Grid
-          className={classes.quoteContainer}
-          item
-          lg={5}
-        >
-          <div className={classes.quote}>
-            <div className={classes.quoteInner}>
-              <Typography
-                className={classes.quoteText}
-                variant="h1"
-              >
-                Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
-                they sold out High Life.
-              </Typography>
-              <div className={classes.person}>
-                <Typography
-                  className={classes.name}
-                  variant="body1"
-                >
-                  Takamaru Ayako
-                </Typography>
-                <Typography
-                  className={classes.bio}
-                  variant="body2"
-                >
-                  Manager at inVision
-                </Typography>
-              </div>
-            </div>
-          </div>
-        </Grid>
         <Grid
           className={classes.content}
           item
@@ -314,37 +287,6 @@ const SignUp = (props) => {
                   value={formState.values.password || ''}
                   variant="outlined"
                 />
-                <div className={classes.policy}>
-                  <Checkbox
-                    checked={formState.values.policy || false}
-                    className={classes.policyCheckbox}
-                    color="primary"
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography
-                    className={classes.policyText}
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    I have read the
-                    {' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </div>
-                {hasError('policy') && (
-                  <FormHelperText error>
-                    {formState.errors.policy[0]}
-                  </FormHelperText>
-                )}
                 <Button
                   className={classes.signUpButton}
                   color="primary"
