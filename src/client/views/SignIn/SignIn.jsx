@@ -181,7 +181,7 @@ const SignIn = (props) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        localStorage.setItem('session', JSON.stringify(data));
         history.push('/');
       })
       .catch(error => console.error(error));
