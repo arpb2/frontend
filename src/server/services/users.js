@@ -1,4 +1,4 @@
-class UserService {
+export default class UserService {
   static signIn(email, password) {
     return new Promise((resolve, reject) => {
       fetch(`${process.env.BACKEND_HOST}/session`, {
@@ -52,5 +52,3 @@ class UserService {
     });
   }
 }
-
-export default UserService;

@@ -11,6 +11,7 @@ app.use(express.urlencoded({
 
 app.use(express.static('dist'));
 app.use('/api/users', require('./users').default);
+app.use('/api/code', require('./services/code').default);
 
 app.get('/api/blockly/initial', (req, res) => res.send(fs.readFileSync(`${__dirname}/assets/initial_toolbox.xml`)));
 
