@@ -82,6 +82,17 @@ const MyBlockly = (props) => {
     }
   });
 
+  const handleSave = () => {
+    fetch('/api/code', {
+      method: 'POST',
+      body: JSON.stringify({
+        code: values.runnableCode,
+        workspace: values.workspace,
+        userId: JSON.parse(localStorage.getItem('session')).userId,
+      }),
+    });
+  };
+
   const regenCode = (language, workspace) => ({
     compiled: Blockly[language].workspaceToCode(workspace || values.workspace),
     runnable: Blockly.JavaScript.workspaceToCode(workspace || values.workspace),
