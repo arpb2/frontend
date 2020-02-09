@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
   blockly: {
     minHeight: '60vh',
   },
+  outputCode: {
+    marginTop: '8px',
+  },
 }));
 
 const MyBlockly = (props) => {
@@ -178,12 +181,17 @@ const MyBlockly = (props) => {
             ))}
           </TextField>
         </Grid>
-        <Grid container xs={12} md={6} lg={4} xl={4} spacing={2} alignItems="center">
+        <Grid
+          container
+          xs={12}
+          md={6}
+          lg={4}
+          xl={4}
+          spacing={2}
+          alignItems="center"
+        >
           <Grid item>
-            <Button
-              variant="contained"
-              onClick={runCode}
-            >
+            <Button variant="contained" onClick={runCode}>
                           Run!
             </Button>
           </Grid>
@@ -198,15 +206,17 @@ const MyBlockly = (props) => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={12} lg={12} xl={12}>
-        <SyntaxHighlighter
-          language={values.language.toLowerCase()}
-          style={darcula}
-          showLineNumbers
-          id="code"
-        >
-          {values.currentCode}
-        </SyntaxHighlighter>
+      <Grid container spacing={2} className={classes.outputCode}>
+        <Grid item xs={12} md={12} lg={12} xl={12}>
+          <SyntaxHighlighter
+            language={values.language.toLowerCase()}
+            style={darcula}
+            showLineNumbers
+            id="code"
+          >
+            {values.currentCode}
+          </SyntaxHighlighter>
+        </Grid>
       </Grid>
     </Grid>
   );
