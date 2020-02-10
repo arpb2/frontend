@@ -28,8 +28,6 @@ SyntaxHighlighter.registerLanguage('dart', dart);
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: '1px',
-    marginRight: '1px',
   },
   blockly: {
     minHeight: '60vh',
@@ -133,15 +131,7 @@ const MyBlockly = (props) => {
 
   return (
     <Grid container spacing={2} className={classes.root}>
-      <Grid
-        xs={12}
-        md={12}
-        lg={12}
-        xl={12}
-        item
-        id="blockly"
-        className={classes.blockly}
-      >
+      <Grid xs item id="blockly" className={classes.blockly}>
         {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
             toolboxCategories={values.toolboxCategories}
@@ -162,7 +152,7 @@ const MyBlockly = (props) => {
         )}
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={4} xl={4}>
+        <Grid item xs={6} sm={6} md={6} lg={3} xl={3}>
           <TextField
             fullWidth
             label="Select Language"
@@ -183,11 +173,13 @@ const MyBlockly = (props) => {
         </Grid>
         <Grid
           container
-          xs={12}
+          xs={6}
+          sm={6}
           md={6}
-          lg={4}
-          xl={4}
+          lg={9}
+          xl={9}
           spacing={2}
+          justify="flex-end"
           alignItems="center"
         >
           <Grid item>
@@ -207,7 +199,7 @@ const MyBlockly = (props) => {
         </Grid>
       </Grid>
       <Grid container spacing={2} className={classes.outputCode}>
-        <Grid item xs={12} md={12} lg={12} xl={12}>
+        <Grid item xs>
           <SyntaxHighlighter
             language={values.language.toLowerCase()}
             style={darcula}
