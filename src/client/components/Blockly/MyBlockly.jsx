@@ -89,7 +89,7 @@ const MyBlockly = (props) => {
       method: 'POST',
       body: JSON.stringify({
         code: values.runnableCode,
-        workspace: JSON.stringify(values.workspace),
+        workspace: btoa(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace))),
         userId: JSON.parse(localStorage.getItem('session')).userId,
       }),
     });
