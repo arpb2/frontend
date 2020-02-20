@@ -4,6 +4,7 @@ import { TextField, Button, Grid } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import { makeStyles } from '@material-ui/styles';
+import SaveIcon from '@material-ui/icons/Save';
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
@@ -25,15 +26,16 @@ SyntaxHighlighter.registerLanguage('lua', lua);
 SyntaxHighlighter.registerLanguage('php', php);
 SyntaxHighlighter.registerLanguage('dart', dart);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  root: {
+  },
   blockly: {
     minHeight: '60vh',
   },
   outputCode: {
-    height: '200px',
-    width: '400px',
+    marginTop: '8px',
   },
-});
+}));
 
 const MyBlockly = (props) => {
   const {
@@ -82,6 +84,17 @@ const MyBlockly = (props) => {
     }
   });
 
+  const handleSave = () => {
+    fetch('/api/code', {
+      method: 'POST',
+      body: JSON.stringify({
+        code: values.runnableCode,
+        workspace: btoa(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace))),
+        userId: JSON.parse(localStorage.getItem('session')).userId,
+      }),
+    });
+  };
+
   const regenCode = (language, workspace) => ({
     compiled: Blockly[language].workspaceToCode(workspace || values.workspace),
     runnable: Blockly.JavaScript.workspaceToCode(workspace || values.workspace),
@@ -117,16 +130,8 @@ const MyBlockly = (props) => {
   };
 
   return (
-    <Grid container spacing={2}>
-      <Grid
-        xs={12}
-        md={12}
-        lg={12}
-        xl={12}
-        item
-        id="blockly"
-        className={classes.blockly}
-      >
+    <Grid container spacing={2} className={classes.root}>
+      <Grid xs item id="blockly" className={classes.blockly}>
         {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
             toolboxCategories={values.toolboxCategories}
@@ -138,49 +143,72 @@ const MyBlockly = (props) => {
                 snap: true,
               },
             }}
-            initialXml={'<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'}
+            initialXml={
+                          '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'
+                      }
             wrapperDivClassName="fill-height"
             workspaceDidChange={workspaceDidChange}
           />
         )}
       </Grid>
-      <Grid item xs={12} md={6} lg={6} xl={6}>
-        <React.Fragment>
-          <Grid item xs={4}>
-            <TextField
-              fullWidth
-              label="Select Language"
-              margin="dense"
-              name="language"
-              onChange={handleLanguageChange}
-              select
-              SelectProps={{ native: true }}
-              value={values.language}
-              variant="outlined"
-            >
-              {languages.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={6} md={6} lg={6} xl={6}>
+      <Grid container spacing={2}>
+        <Grid item xs={6} sm={6} md={6} lg={3} xl={3}>
+          <TextField
+            fullWidth
+            label="Select Language"
+            margin="dense"
+            name="language"
+            onChange={handleLanguageChange}
+            select
+            SelectProps={{ native: true }}
+            value={values.language}
+            variant="outlined"
+          >
+            {languages.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid
+          container
+          xs={6}
+          sm={6}
+          md={6}
+          lg={9}
+          xl={9}
+          spacing={2}
+          justify="flex-end"
+          alignItems="center"
+        >
+          <Grid item>
             <Button variant="contained" onClick={runCode}>
                           Run!
             </Button>
           </Grid>
-        </React.Fragment>
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={handleSave}
+              startIcon={<SaveIcon />}
+            >
+                          Save
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={12} lg={12} xl={12}>
-        <SyntaxHighlighter
-          language={values.language.toLowerCase()}
-          style={darcula}
-          showLineNumbers
-          id="code"
-        >
-          {values.currentCode}
-        </SyntaxHighlighter>
+      <Grid container spacing={2} className={classes.outputCode}>
+        <Grid item xs>
+          <SyntaxHighlighter
+            language={values.language.toLowerCase()}
+            style={darcula}
+            showLineNumbers
+            id="code"
+          >
+            {values.currentCode}
+          </SyntaxHighlighter>
+        </Grid>
       </Grid>
     </Grid>
   );
