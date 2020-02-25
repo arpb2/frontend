@@ -12,13 +12,16 @@ import lua from 'react-syntax-highlighter/dist/esm/languages/hljs/lua';
 import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
 import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
+import { Steps } from 'intro.js-react';
 import parseWorkspaceXml from './BlocklyHelper';
+
 import 'blockly/python';
 import 'blockly/php';
 import 'blockly/lua';
 import 'blockly/javascript';
 import 'blockly/dart';
 import './blocks/custom/blocks';
+import 'intro.js/introjs.css';
 
 SyntaxHighlighter.registerLanguage('javascript', javascript);
 SyntaxHighlighter.registerLanguage('python', python);
@@ -34,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   },
   outputCode: {
     marginTop: '8px',
+  },
+  tooltip: {
+    fontFamily: 'roboto',
   },
 }));
 
@@ -72,6 +78,30 @@ const MyBlockly = (props) => {
     currentCode: '',
     toolboxCategories: null,
     runnableCode: '',
+    stepsEnabled: true,
+    initialStep: 0,
+    steps: [
+      {
+        element: '.step-one',
+        intro: 'Build your solution using blocks',
+        tooltipClass: classes.tooltip,
+      },
+      {
+        element: '.step-two',
+        intro: 'See the output code here',
+        tooltipClass: classes.tooltip,
+      },
+      {
+        element: '.step-three',
+        intro: 'You can even change the language',
+        tooltipClass: classes.tooltip,
+      },
+      {
+        element: '.step-four',
+        intro: 'Run or save for later',
+        tooltipClass: classes.tooltip,
+      },
+    ],
   });
 
   useEffect(() => {
@@ -129,8 +159,18 @@ const MyBlockly = (props) => {
     }
   };
 
+  const onExit = () => {
+    setValues({ ...values, stepsEnabled: false });
+  };
+
   return (
     <Grid container spacing={2} className={classes.root}>
+      <Steps
+        enabled={values.stepsEnabled}
+        steps={values.steps}
+        initialStep={values.initialStep}
+        onExit={onExit}
+      />
       <Grid xs item id="blockly" className={classes.blockly}>
         {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
@@ -148,6 +188,7 @@ const MyBlockly = (props) => {
                       }
             wrapperDivClassName="fill-height"
             workspaceDidChange={workspaceDidChange}
+            className="step-one"
           />
         )}
       </Grid>
@@ -163,6 +204,7 @@ const MyBlockly = (props) => {
             SelectProps={{ native: true }}
             value={values.language}
             variant="outlined"
+            className="step-three"
           >
             {languages.map(option => (
               <option key={option.value} value={option.value}>
@@ -173,14 +215,10 @@ const MyBlockly = (props) => {
         </Grid>
         <Grid
           container
-          xs={6}
-          sm={6}
-          md={6}
-          lg={9}
-          xl={9}
           spacing={2}
           justify="flex-end"
           alignItems="center"
+          className="step-four"
         >
           <Grid item>
             <Button variant="contained" onClick={runCode}>
@@ -205,6 +243,7 @@ const MyBlockly = (props) => {
             style={darcula}
             showLineNumbers
             id="code"
+            className="step-two"
           >
             {values.currentCode}
           </SyntaxHighlighter>
