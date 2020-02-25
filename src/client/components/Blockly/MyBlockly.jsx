@@ -12,7 +12,7 @@ import lua from 'react-syntax-highlighter/dist/esm/languages/hljs/lua';
 import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
 import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
-import { Steps, Hints } from 'intro.js-react';
+import { Steps } from 'intro.js-react';
 import parseWorkspaceXml from './BlocklyHelper';
 
 import 'blockly/python';
@@ -37,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   },
   outputCode: {
     marginTop: '8px',
+  },
+  tooltip: {
+    fontFamily: 'roboto',
   },
 }));
 
@@ -80,19 +83,23 @@ const MyBlockly = (props) => {
     steps: [
       {
         element: '.step-one',
-        intro: 'Hello step',
+        intro: 'Build your solution using blocks',
+        tooltipClass: classes.tooltip,
       },
       {
         element: '.step-two',
-        intro: 'World step',
+        intro: 'See the output code here',
+        tooltipClass: classes.tooltip,
       },
-    ],
-    hintsEnabled: true,
-    hints: [
       {
-        element: '.step-one',
-        hint: 'Hello hint',
-        hintPosition: 'middle-right',
+        element: '.step-three',
+        intro: 'You can even change the language',
+        tooltipClass: classes.tooltip,
+      },
+      {
+        element: '.step-four',
+        intro: 'Run or save for later',
+        tooltipClass: classes.tooltip,
       },
     ],
   });
@@ -157,20 +164,15 @@ const MyBlockly = (props) => {
   };
 
   return (
-    <div>
+    <Grid container spacing={2} className={classes.root}>
       <Steps
         enabled={values.stepsEnabled}
         steps={values.steps}
         initialStep={values.initialStep}
         onExit={onExit}
       />
-      <Hints
-        enabled={values.hintsEnabled}
-        hints={values.hints}
-      />
-      <Grid container spacing={2} className={classes.root}>
-        <Grid xs item id="blockly" className={classes.blockly}>
-          {values.toolboxCategories && (
+      <Grid xs item id="blockly" className={classes.blockly}>
+        {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
             toolboxCategories={values.toolboxCategories}
             workspaceConfiguration={{
@@ -188,65 +190,66 @@ const MyBlockly = (props) => {
             workspaceDidChange={workspaceDidChange}
             className="step-one"
           />
-          )}
-        </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={6} sm={6} md={6} lg={3} xl={3}>
-            <TextField
-              fullWidth
-              label="Select Language"
-              margin="dense"
-              name="language"
-              onChange={handleLanguageChange}
-              select
-              SelectProps={{ native: true }}
-              value={values.language}
-              variant="outlined"
-            >
-              {languages.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid
-            container
-            spacing={2}
-            justify="flex-end"
-            alignItems="center"
+        )}
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={6} sm={6} md={6} lg={3} xl={3}>
+          <TextField
+            fullWidth
+            label="Select Language"
+            margin="dense"
+            name="language"
+            onChange={handleLanguageChange}
+            select
+            SelectProps={{ native: true }}
+            value={values.language}
+            variant="outlined"
+            className="step-three"
           >
-            <Grid item>
-              <Button variant="contained" onClick={runCode}>
-                          Run!
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={handleSave}
-                startIcon={<SaveIcon />}
-              >
-                          Save
-              </Button>
-            </Grid>
-          </Grid>
+            {languages.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
         </Grid>
-        <Grid container spacing={2} className={classes.outputCode}>
-          <Grid item xs>
-            <SyntaxHighlighter
-              language={values.language.toLowerCase()}
-              style={darcula}
-              showLineNumbers
-              id="code"
-              className="step-two"
+        <Grid
+          container
+          spacing={2}
+          justify="flex-end"
+          alignItems="center"
+          className="step-four"
+        >
+          <Grid item>
+            <Button variant="contained" onClick={runCode}>
+                          Run!
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={handleSave}
+              startIcon={<SaveIcon />}
             >
-              {values.currentCode}
-            </SyntaxHighlighter>
+                          Save
+            </Button>
           </Grid>
         </Grid>
       </Grid>
-    </div>
+      <Grid container spacing={2} className={classes.outputCode}>
+        <Grid item xs>
+          <SyntaxHighlighter
+            language={values.language.toLowerCase()}
+            style={darcula}
+            showLineNumbers
+            id="code"
+            className="step-two"
+          >
+            {values.currentCode}
+          </SyntaxHighlighter>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
