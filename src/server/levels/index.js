@@ -14,3 +14,5 @@ router.get('/:id', (req, res, next) => {
     .then(payload => res.json(payload))
     .catch(err => res.status(err.statusCode ? err.statusCode : 500).json({ error: err.message }));
 });
+
+export default router;

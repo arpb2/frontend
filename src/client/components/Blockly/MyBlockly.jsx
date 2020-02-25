@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid } from '@material-ui/core';
+import {
+  TextField, Button, Grid, Typography,
+} from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import { makeStyles } from '@material-ui/styles';
@@ -40,6 +42,14 @@ const useStyles = makeStyles(theme => ({
   },
   tooltip: {
     fontFamily: 'roboto',
+  },
+  level: {
+    marginTop: '8px',
+    marginLeft: '8px',
+  },
+  subtitle: {
+    marginTop: '8px',
+    marginLeft: '8px',
   },
 }));
 
@@ -171,7 +181,13 @@ const MyBlockly = (props) => {
         initialStep={values.initialStep}
         onExit={onExit}
       />
-      <Grid xs item id="blockly" className={classes.blockly}>
+      <Grid item id="levelNumber" sm={9} xs={12} className={classes.level}>
+        <Typography variant="h1">Level 1</Typography>
+      </Grid>
+      <Grid item id="objective" sm={9} xs={12} className={classes.subtitle}>
+        <Typography variant="subtitle1">Objective</Typography>
+      </Grid>
+      <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
         {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
             toolboxCategories={values.toolboxCategories}
