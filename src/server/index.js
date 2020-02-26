@@ -17,4 +17,5 @@ app.use('/api/levels', require('./levels').default);
 app.get('/api/blockly/initial', (req, res) => res.send(fs.readFileSync(`${__dirname}/assets/initial_toolbox.xml`)));
 
 
+// eslint-disable-next-line no-console
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 export default class LevelsService {
   static getAll() {
     return new Promise((resolve, reject) => {

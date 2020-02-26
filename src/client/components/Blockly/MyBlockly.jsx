@@ -33,6 +33,7 @@ SyntaxHighlighter.registerLanguage('dart', dart);
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginLeft: '8px',
   },
   blockly: {
     minHeight: '60vh',
@@ -45,11 +46,6 @@ const useStyles = makeStyles(theme => ({
   },
   level: {
     marginTop: '8px',
-    marginLeft: '8px',
-  },
-  subtitle: {
-    marginTop: '8px',
-    marginLeft: '8px',
   },
 }));
 
@@ -88,7 +84,11 @@ const MyBlockly = (props) => {
     currentCode: '',
     toolboxCategories: null,
     runnableCode: '',
-    stepsEnabled: true,
+    currentLevel: {
+      title: null,
+      objective: null,
+    },
+    stepsEnabled: false, // Change when prod ready, it's annoying for development
     initialStep: 0,
     steps: [
       {
@@ -120,6 +120,22 @@ const MyBlockly = (props) => {
         .then(res => res.text())
         .then((xml) => {
           setValues({ ...values, toolboxCategories: parseWorkspaceXml(xml) });
+        });
+    }
+  });
+
+  useEffect(() => {
+    if (!values.currentLevel.title || !values.currentLevel.title) {
+      fetch('/api/levels/1')
+        .then(res => res.json())
+        .then((level) => {
+          setValues({
+            ...values,
+            currentLevel: {
+              title: level.name,
+              objective: level.objective.title,
+            },
+          });
         });
     }
   });
@@ -182,12 +198,12 @@ const MyBlockly = (props) => {
         onExit={onExit}
       />
       <Grid item id="levelNumber" sm={9} xs={12} className={classes.level}>
-        <Typography variant="h1">Level 1</Typography>
+        <Typography variant="h1">{values.currentLevel.title}</Typography>
       </Grid>
-      <Grid item id="objective" sm={9} xs={12} className={classes.subtitle}>
-        <Typography variant="subtitle1">Objective</Typography>
+      <Grid item id="objective" sm={9} xs={12}>
+        <Typography variant="subtitle1">{values.currentLevel.objective}</Typography>
       </Grid>
-      <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
+      <Grid xs={12} sm={12} item id="blockly" className={classes.blockly}>
         {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
             toolboxCategories={values.toolboxCategories}
@@ -208,8 +224,9 @@ const MyBlockly = (props) => {
           />
         )}
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={6} sm={6} md={6} lg={3} xl={3}>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item sm={3}>
           <TextField
             fullWidth
             label="Select Language"
@@ -229,31 +246,27 @@ const MyBlockly = (props) => {
             ))}
           </TextField>
         </Grid>
-        <Grid
-          container
-          spacing={2}
-          justify="flex-end"
-          alignItems="center"
-          className="step-four"
-        >
+        <Grid item container spacing={2} sm={9} className="step-four">
           <Grid item>
             <Button variant="contained" onClick={runCode}>
-                          Run!
+            Run!
             </Button>
           </Grid>
+
           <Grid item>
             <Button
               variant="contained"
               onClick={handleSave}
               startIcon={<SaveIcon />}
             >
-                          Save
+            Save
             </Button>
           </Grid>
         </Grid>
+
       </Grid>
       <Grid container spacing={2} className={classes.outputCode}>
-        <Grid item xs>
+        <Grid item xs={12} sm={12}>
           <SyntaxHighlighter
             language={values.language.toLowerCase()}
             style={darcula}
