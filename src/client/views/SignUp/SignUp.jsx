@@ -184,6 +184,9 @@ const SignUp = (props) => {
     fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify(formState.values),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);

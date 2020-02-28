@@ -6,13 +6,14 @@ const router = express.Router();
 router.post('/signin', (req, res, next) => {
   UserService.signIn(req.body.email, req.body.password)
     .then(payload => res.json(payload))
-    .catch(err => res.status(err.statusCode ? err.statusCode : 500).json({ error: err.message }));
+    .catch(err => next(err));
 });
 
 router.post('/', (req, res, next) => {
+  console.log(req.body);
   UserService.create(req.body.firstName, req.body.lastName, req.body.password, req.body.email)
     .then(payload => res.json(payload))
-    .catch(err => res.status(err.statusCode ? err.statusCode : 500).json({ error: err.message }));
+    .catch(err => next(err));
 });
 
 export default router;

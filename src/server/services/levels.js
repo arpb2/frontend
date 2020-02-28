@@ -34,25 +34,25 @@ export default class LevelsService {
       fetch(`${process.env.BACKEND_HOST}/levels/${id}`, {
         method: 'GET',
       })
+        // .then((res) => {
+        //   // TODO: Delete this then when back is up and uncomment the following lines
+        //   resolve(JSON.parse(`
+        //     {
+        //         "name": "nivel 1",
+        //         "description": "desc",
+        //         "objective": {
+        //             "title": "your objective",
+        //             "value": ["USE_IF", "USE_BAG", "asdasd"]
+        //         }
+        //     }`));
+        // })
         .then((res) => {
-          // TODO: Delete this then when back is up and uncomment the following lines
-          resolve(JSON.parse(`
-            {
-                "name": "nivel 1",
-                "description": "desc",
-                "objective": {
-                    "title": "your objective",
-                    "value": ["USE_IF", "USE_BAG", "asdasd"]
-                }
-            }`));
+          if (!res.ok) reject(res);
+          return res.json();
         })
-      // .then((res) => {
-      //   if (!res.ok) reject(res.statusText);
-      //   return res.json();
-      // })
-      // .then((data) => {
-      //   resolve(data);
-      // })
+        .then((data) => {
+          resolve({ ...data, objective: { title: data.description } });
+        })
         .catch(error => reject(error));
     });
   }

@@ -1,12 +1,17 @@
+import fetch from 'node-fetch';
+
 export default class CodeService {
-  static save(code, workspace, userId) {
+  static save(code, workspace, userId, levelId) {
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.BACKEND_HOST}/users/${userId}/code`, {
-        method: 'POST',
+      fetch(`${process.env.BACKEND_HOST}/users/${userId}/levels/${levelId}`, {
+        method: 'PUT',
         body: JSON.stringify({
           code,
           workspace,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
         .then((res) => {
           // TODO: Delete this then when back is up and uncomment the following lines

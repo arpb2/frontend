@@ -147,7 +147,11 @@ const MyBlockly = (props) => {
         code: values.runnableCode,
         workspace: btoa(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace))),
         userId: JSON.parse(localStorage.getItem('session')).userId,
+        levelId: 1, // TODO: Get from route
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   };
 
