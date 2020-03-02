@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import {
-  TextField, Button, Grid, Typography, Paper, Container,
+  TextField, Button, Grid, Typography, Paper, Container, Snackbar,
 } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
@@ -15,7 +15,9 @@ import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
 import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
 import { Steps } from 'intro.js-react';
+import MuiAlert from '@material-ui/lab/Alert';
 import parseWorkspaceXml from './BlocklyHelper';
+
 
 import 'blockly/python';
 import 'blockly/php';
@@ -115,6 +117,10 @@ const MyBlockly = (props) => {
     ],
   });
 
+  const [open, setOpen] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({ severity: '', message: '' });
+
   useEffect(() => {
     if (!values.toolboxCategories) {
       fetch('/api/blockly/initial')
@@ -142,18 +148,30 @@ const MyBlockly = (props) => {
   });
 
   const handleSave = () => {
+    const session = JSON.parse(localStorage.getItem('session'));
     fetch('/api/code', {
       method: 'POST',
       body: JSON.stringify({
         code: values.runnableCode,
         workspace: btoa(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace))),
-        userId: JSON.parse(localStorage.getItem('session')).userId,
+        userId: session.user_id,
         levelId: 1, // TODO: Get from route
       }),
       headers: {
+        Authentication: session.token,
         'Content-Type': 'application/json',
       },
-    });
+    }).then((res) => {
+      if (!res.ok) throw new Error();
+      res.json();
+    })
+      .then((res) => {
+        setSnackbar({ severity: 'success', message: 'Code saved!' });
+        setOpen(true);
+      }).catch((err) => {
+        setSnackbar({ severity: 'error', message: 'An error ocurred while saving the code' });
+        setOpen(true);
+      });
   };
 
   const regenCode = (language, workspace) => ({
@@ -186,6 +204,8 @@ const MyBlockly = (props) => {
       // eslint-disable-next-line no-eval
       eval(values.runnableCode);
     } catch (e) {
+      setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
+      setOpen(true);
       alert(e);
     }
   };
@@ -194,8 +214,23 @@ const MyBlockly = (props) => {
     setValues({ ...values, stepsEnabled: false });
   };
 
+  const Alert = alertProps => <MuiAlert elevation={6} variant="filled" {...alertProps} />;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <Container className={classes.root} maxWidth={false}>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
       <Grid container direction="column" spacing={2}>
         <Steps
           enabled={values.stepsEnabled}

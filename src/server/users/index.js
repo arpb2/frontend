@@ -10,7 +10,6 @@ router.post('/signin', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log(req.body);
   UserService.create(req.body.firstName, req.body.lastName, req.body.password, req.body.email)
     .then(payload => res.json(payload))
     .catch(err => next(err));
