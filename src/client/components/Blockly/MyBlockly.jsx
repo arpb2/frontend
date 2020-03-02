@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import {
-  TextField, Button, Grid, Typography,
+  TextField, Button, Grid, Typography, Paper, Container,
 } from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
@@ -33,10 +33,14 @@ SyntaxHighlighter.registerLanguage('dart', dart);
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: '8px',
   },
   blockly: {
     minHeight: '60vh',
+  },
+  '@media (min-width: 400px)': {
+    theory: {
+      minHeight: '60vh',
+    },
   },
   outputCode: {
     marginTop: '8px',
@@ -194,7 +198,7 @@ const MyBlockly = (props) => {
   };
 
   return (
-    <Grid container spacing={2} className={classes.root}>
+    <Container className={classes.root} maxWidth={false}>
       <Steps
         enabled={values.stepsEnabled}
         steps={values.steps}
@@ -207,8 +211,12 @@ const MyBlockly = (props) => {
       <Grid item id="objective" sm={9} xs={12}>
         <Typography variant="subtitle1">{values.currentLevel.objective}</Typography>
       </Grid>
-      <Grid xs={12} sm={12} item id="blockly" className={classes.blockly}>
-        {values.toolboxCategories && (
+      <Grid
+        container
+        spacing={2}
+      >
+        <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
+          {values.toolboxCategories && (
           <ReactBlocklyComponent.BlocklyEditor
             toolboxCategories={values.toolboxCategories}
             workspaceConfiguration={{
@@ -226,9 +234,14 @@ const MyBlockly = (props) => {
             workspaceDidChange={workspaceDidChange}
             className="step-one"
           />
-        )}
+          )}
+        </Grid>
+        <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
+          <Paper className={classes.theory}>
+            <Typography variant="body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+          </Paper>
+        </Grid>
       </Grid>
-
       <Grid container spacing={2} alignItems="center">
         <Grid item sm={3}>
           <TextField
@@ -282,7 +295,7 @@ const MyBlockly = (props) => {
           </SyntaxHighlighter>
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 
