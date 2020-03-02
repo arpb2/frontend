@@ -42,14 +42,8 @@ const useStyles = makeStyles(theme => ({
       minHeight: '60vh',
     },
   },
-  outputCode: {
-    marginTop: '8px',
-  },
   tooltip: {
     fontFamily: 'roboto',
-  },
-  level: {
-    marginTop: '8px',
   },
 }));
 
@@ -199,91 +193,91 @@ const MyBlockly = (props) => {
 
   return (
     <Container className={classes.root} maxWidth={false}>
-      <Steps
-        enabled={values.stepsEnabled}
-        steps={values.steps}
-        initialStep={values.initialStep}
-        onExit={onExit}
-      />
-      <Grid item id="levelNumber" sm={9} xs={12} className={classes.level}>
-        <Typography variant="h1">{values.currentLevel.title}</Typography>
-      </Grid>
-      <Grid item id="objective" sm={9} xs={12}>
-        <Typography variant="subtitle1">{values.currentLevel.objective}</Typography>
-      </Grid>
-      <Grid
-        container
-        spacing={2}
-      >
-        <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
-          {values.toolboxCategories && (
-          <ReactBlocklyComponent.BlocklyEditor
-            toolboxCategories={values.toolboxCategories}
-            workspaceConfiguration={{
-              grid: {
-                spacing: 20,
-                length: 3,
-                colour: '#ccc',
-                snap: true,
-              },
-            }}
-            initialXml={
+      <Grid container direction="column" spacing={2}>
+        <Steps
+          enabled={values.stepsEnabled}
+          steps={values.steps}
+          initialStep={values.initialStep}
+          onExit={onExit}
+        />
+        <Grid item id="levelNumber" sm={9} xs={12} className={classes.level}>
+          <Typography variant="h1">{values.currentLevel.title}</Typography>
+        </Grid>
+        <Grid item id="objective" sm={9} xs={12}>
+          <Typography variant="subtitle1">{values.currentLevel.objective}</Typography>
+        </Grid>
+        <Grid
+          container
+          item
+          spacing={2}
+        >
+          <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
+            {values.toolboxCategories && (
+            <ReactBlocklyComponent.BlocklyEditor
+              toolboxCategories={values.toolboxCategories}
+              workspaceConfiguration={{
+                grid: {
+                  spacing: 20,
+                  length: 3,
+                  colour: '#ccc',
+                  snap: true,
+                },
+              }}
+              initialXml={
                           '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'
                       }
-            wrapperDivClassName="fill-height"
-            workspaceDidChange={workspaceDidChange}
-            className="step-one"
-          />
-          )}
-        </Grid>
-        <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
-          <Paper className={classes.theory}>
-            <Typography variant="body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
-          </Paper>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item sm={3}>
-          <TextField
-            fullWidth
-            label="Select Language"
-            margin="dense"
-            name="language"
-            onChange={handleLanguageChange}
-            select
-            SelectProps={{ native: true }}
-            value={values.language}
-            variant="outlined"
-            className="step-three"
-          >
-            {languages.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item container spacing={2} sm={9} className="step-four">
-          <Grid item>
-            <Button variant="contained" onClick={runCode}>
-            Run!
-            </Button>
+              wrapperDivClassName="fill-height"
+              workspaceDidChange={workspaceDidChange}
+              className="step-one"
+            />
+            )}
           </Grid>
-
-          <Grid item>
-            <Button
-              variant="contained"
-              onClick={handleSave}
-              startIcon={<SaveIcon />}
+          <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
+            <Paper className={classes.theory}>
+              <Typography variant="body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+        <Grid container item spacing={2} alignItems="center">
+          <Grid item sm={3}>
+            <TextField
+              fullWidth
+              label="Select Language"
+              margin="dense"
+              name="language"
+              onChange={handleLanguageChange}
+              select
+              SelectProps={{ native: true }}
+              value={values.language}
+              variant="outlined"
+              className="step-three"
             >
+              {languages.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item container spacing={2} sm={9} className="step-four">
+            <Grid item>
+              <Button variant="contained" onClick={runCode}>
+            Run!
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={handleSave}
+                startIcon={<SaveIcon />}
+              >
             Save
-            </Button>
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-
-      </Grid>
-      <Grid container spacing={2} className={classes.outputCode}>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12}>
           <SyntaxHighlighter
             language={values.language.toLowerCase()}
             style={darcula}
