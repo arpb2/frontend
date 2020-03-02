@@ -42,6 +42,9 @@ const useStyles = makeStyles(theme => ({
       minHeight: '60vh',
     },
   },
+  theory: {
+    padding: '8px',
+  },
   tooltip: {
     fontFamily: 'roboto',
   },
