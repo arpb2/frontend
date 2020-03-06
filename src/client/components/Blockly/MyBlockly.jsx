@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid } from '@material-ui/core';
+import {
+  TextField, Button, Grid, Typography, Paper, Container, Snackbar,
+} from '@material-ui/core';
 import ReactBlocklyComponent from 'react-blockly';
 import Blockly from 'blockly';
 import { makeStyles } from '@material-ui/styles';
@@ -13,7 +15,9 @@ import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
 import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
 import { Steps } from 'intro.js-react';
+import MuiAlert from '@material-ui/lab/Alert';
 import parseWorkspaceXml from './BlocklyHelper';
+
 
 import 'blockly/python';
 import 'blockly/php';
@@ -35,8 +39,13 @@ const useStyles = makeStyles(theme => ({
   blockly: {
     minHeight: '60vh',
   },
-  outputCode: {
-    marginTop: '8px',
+  '@media (min-width: 400px)': {
+    theory: {
+      minHeight: '60vh',
+    },
+  },
+  theory: {
+    padding: '8px',
   },
   tooltip: {
     fontFamily: 'roboto',
@@ -78,7 +87,11 @@ const MyBlockly = (props) => {
     currentCode: '',
     toolboxCategories: null,
     runnableCode: '',
-    stepsEnabled: true,
+    currentLevel: {
+      title: null,
+      objective: null,
+    },
+    stepsEnabled: false, // Change when prod ready, it's annoying for development
     initialStep: 0,
     steps: [
       {
@@ -104,6 +117,10 @@ const MyBlockly = (props) => {
     ],
   });
 
+  const [open, setOpen] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({ severity: '', message: '' });
+
   useEffect(() => {
     if (!values.toolboxCategories) {
       fetch('/api/blockly/initial')
@@ -114,15 +131,47 @@ const MyBlockly = (props) => {
     }
   });
 
+  useEffect(() => {
+    if (!values.currentLevel.title || !values.currentLevel.title) {
+      fetch('/api/levels/1')
+        .then(res => res.json())
+        .then((level) => {
+          setValues({
+            ...values,
+            currentLevel: {
+              title: level.name,
+              objective: level.objective.title,
+            },
+          });
+        });
+    }
+  });
+
   const handleSave = () => {
+    const session = JSON.parse(localStorage.getItem('session'));
     fetch('/api/code', {
       method: 'POST',
       body: JSON.stringify({
         code: values.runnableCode,
         workspace: btoa(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace))),
-        userId: JSON.parse(localStorage.getItem('session')).userId,
+        userId: session.user_id,
+        levelId: 1, // TODO: Get from route
       }),
-    });
+      headers: {
+        Authentication: session.token,
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      if (!res.ok) throw new Error();
+      res.json();
+    })
+      .then((res) => {
+        setSnackbar({ severity: 'success', message: 'Code saved!' });
+        setOpen(true);
+      }).catch((err) => {
+        setSnackbar({ severity: 'error', message: 'An error ocurred while saving the code' });
+        setOpen(true);
+      });
   };
 
   const regenCode = (language, workspace) => ({
@@ -155,6 +204,8 @@ const MyBlockly = (props) => {
       // eslint-disable-next-line no-eval
       eval(values.runnableCode);
     } catch (e) {
+      setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
+      setOpen(true);
       alert(e);
     }
   };
@@ -163,81 +214,108 @@ const MyBlockly = (props) => {
     setValues({ ...values, stepsEnabled: false });
   };
 
+  const Alert = alertProps => <MuiAlert elevation={6} variant="filled" {...alertProps} />;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
-    <Grid container spacing={2} className={classes.root}>
-      <Steps
-        enabled={values.stepsEnabled}
-        steps={values.steps}
-        initialStep={values.initialStep}
-        onExit={onExit}
-      />
-      <Grid xs item id="blockly" className={classes.blockly}>
-        {values.toolboxCategories && (
-          <ReactBlocklyComponent.BlocklyEditor
-            toolboxCategories={values.toolboxCategories}
-            workspaceConfiguration={{
-              grid: {
-                spacing: 20,
-                length: 3,
-                colour: '#ccc',
-                snap: true,
-              },
-            }}
-            initialXml={
-                          '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'
-                      }
-            wrapperDivClassName="fill-height"
-            workspaceDidChange={workspaceDidChange}
-            className="step-one"
-          />
-        )}
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={6} sm={6} md={6} lg={3} xl={3}>
-          <TextField
-            fullWidth
-            label="Select Language"
-            margin="dense"
-            name="language"
-            onChange={handleLanguageChange}
-            select
-            SelectProps={{ native: true }}
-            value={values.language}
-            variant="outlined"
-            className="step-three"
-          >
-            {languages.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </TextField>
+    <Container className={classes.root} maxWidth={false}>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+      <Grid container direction="column" spacing={2}>
+        <Steps
+          enabled={values.stepsEnabled}
+          steps={values.steps}
+          initialStep={values.initialStep}
+          onExit={onExit}
+        />
+        <Grid item id="levelNumber" sm={9} xs={12} className={classes.level}>
+          <Typography variant="h1">{values.currentLevel.title}</Typography>
+        </Grid>
+        <Grid item id="objective" sm={9} xs={12}>
+          <Typography variant="subtitle1">{values.currentLevel.objective}</Typography>
         </Grid>
         <Grid
           container
+          item
           spacing={2}
-          justify="flex-end"
-          alignItems="center"
-          className="step-four"
         >
-          <Grid item>
-            <Button variant="contained" onClick={runCode}>
-                          Run!
-            </Button>
+          <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
+            {values.toolboxCategories && (
+            <ReactBlocklyComponent.BlocklyEditor
+              toolboxCategories={values.toolboxCategories}
+              workspaceConfiguration={{
+                grid: {
+                  spacing: 20,
+                  length: 3,
+                  colour: '#ccc',
+                  snap: true,
+                },
+              }}
+              initialXml={
+                          '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>'
+                      }
+              wrapperDivClassName="fill-height"
+              workspaceDidChange={workspaceDidChange}
+              className="step-one"
+            />
+            )}
           </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              onClick={handleSave}
-              startIcon={<SaveIcon />}
-            >
-                          Save
-            </Button>
+          <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
+            <Paper className={classes.theory}>
+              <Typography variant="body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+            </Paper>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid container spacing={2} className={classes.outputCode}>
-        <Grid item xs>
+        <Grid container item spacing={2} alignItems="center">
+          <Grid item sm={3}>
+            <TextField
+              fullWidth
+              label="Select Language"
+              margin="dense"
+              name="language"
+              onChange={handleLanguageChange}
+              select
+              SelectProps={{ native: true }}
+              value={values.language}
+              variant="outlined"
+              className="step-three"
+            >
+              {languages.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item container spacing={2} sm={9} className="step-four">
+            <Grid item>
+              <Button variant="contained" onClick={runCode}>
+            Run!
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={handleSave}
+                startIcon={<SaveIcon />}
+              >
+            Save
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <SyntaxHighlighter
             language={values.language.toLowerCase()}
             style={darcula}
@@ -249,7 +327,7 @@ const MyBlockly = (props) => {
           </SyntaxHighlighter>
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 

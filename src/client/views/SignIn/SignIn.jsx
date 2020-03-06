@@ -173,6 +173,9 @@ const SignIn = (props) => {
     fetch('/api/users/signin', {
       method: 'POST',
       body: JSON.stringify(formState.values),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
