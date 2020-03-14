@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
-  AppBar, Toolbar, Badge, Hidden, IconButton,
+  AppBar, Toolbar, Badge, Hidden, IconButton, Typography as MuiTypography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme => ({
   },
   signOutButton: {
     marginLeft: theme.spacing(1),
+  },
+  title: {
+    marginLeft: theme.spacing(1),
+    color: theme.palette.primary.contrastText,
   },
 }));
 
@@ -41,6 +45,7 @@ const Topbar = (props) => {
             src="/public/images/logos/logo-arpb2.svg"
           />
         </RouterLink>
+        <MuiTypography variant="h2" className={classes.title}>ARPB2</MuiTypography>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
           <IconButton color="inherit">
