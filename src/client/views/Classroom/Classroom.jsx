@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
-import { Students } from './components';
+import { Students, Professor } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,19 +20,17 @@ const Classroom = () => {
       >
         <Grid
           item
-          md={6}
+          md={9}
           xs={12}
         >
           <Students />
         </Grid>
         <Grid
           item
-          lg={8}
-          md={6}
-          xl={8}
+          md={3}
           xs={12}
         >
-          {/* <AccountDetails /> */}
+          <Professor />
         </Grid>
       </Grid>
     </div>
