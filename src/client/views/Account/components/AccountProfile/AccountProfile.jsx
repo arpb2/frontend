@@ -11,30 +11,30 @@ import {
   Typography,
   Divider,
   Button,
-  LinearProgress
+  LinearProgress,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {},
   details: {
-    display: 'flex'
+    display: 'flex',
   },
   avatar: {
     marginLeft: 'auto',
     height: 110,
     width: 100,
     flexShrink: 0,
-    flexGrow: 0
+    flexGrow: 0,
   },
   progress: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   uploadButton: {
-    marginRight: theme.spacing(2)
-  }
+    marginRight: theme.spacing(2),
+  },
 }));
 
-const AccountProfile = props => {
+const AccountProfile = (props) => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -44,7 +44,7 @@ const AccountProfile = props => {
     city: 'Los Angeles',
     country: 'USA',
     timezone: 'GTM-7',
-    avatar: '/public/images/avatars/avatar_11.png'
+    avatar: '/public/images/avatars/avatar_11.png',
   };
 
   return (
@@ -66,14 +66,20 @@ const AccountProfile = props => {
               color="textSecondary"
               variant="body1"
             >
-              {user.city}, {user.country}
+              {user.city}
+              ,
+              {user.country}
             </Typography>
             <Typography
               className={classes.dateText}
               color="textSecondary"
               variant="body1"
             >
-              {moment().format('hh:mm A')} ({user.timezone})
+              {moment().format('hh:mm A')}
+              {' '}
+              (
+              {user.timezone}
+              )
             </Typography>
           </div>
           <Avatar
@@ -105,7 +111,7 @@ const AccountProfile = props => {
 };
 
 AccountProfile.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default AccountProfile;
