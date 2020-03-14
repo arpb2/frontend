@@ -14,7 +14,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import mockData from './data';
 
 const useStyles = makeStyles(() => ({
-  root: {},
+  root: {
+  },
   details: {
     display: 'flex',
   },
@@ -48,7 +49,7 @@ const Professor = (props) => {
           <div>
             <Typography
               gutterBottom
-              variant="h2"
+              variant="h3"
             >
               {`${professor.name} ${professor.surname}`}
             </Typography>

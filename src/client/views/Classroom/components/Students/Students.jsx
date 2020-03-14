@@ -71,12 +71,6 @@ const Students = (props) => {
                 primary={product.name}
                 secondary={`Updated ${product.updatedAt.fromNow()}`}
               />
-              <IconButton
-                edge="end"
-                size="small"
-              >
-                <MoreVertIcon />
-              </IconButton>
             </ListItem>
           ))}
         </List>
