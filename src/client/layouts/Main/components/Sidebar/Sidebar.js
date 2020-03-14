@@ -12,6 +12,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import MenuBook from '@material-ui/icons/MenuBook';
 
 import { Profile, SidebarNav } from './components';
 
@@ -55,6 +56,11 @@ const Sidebar = (props) => {
       title: 'Blockly',
       href: '/blockly',
       icon: <MemoryIcon />,
+    },
+    {
+      title: 'Classroom',
+      href: '/classroom',
+      icon: <MenuBook />,
     },
     {
       title: 'Users',

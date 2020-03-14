@@ -89,7 +89,7 @@ const Routes = () => (
     <RouteWithLayout
       component={ClassroomView}
       exact
-      layout={MinimalLayout}
+      layout={MainLayout}
       path="/classroom"
     />
     <RouteWithLayout
