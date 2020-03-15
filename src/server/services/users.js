@@ -13,13 +13,6 @@ export default class UserService {
           'Content-Type': 'application/json',
         },
       })
-        // .then((res) => {
-        //   // TODO: Delete this then when back is up and uncomment the following lines
-        //   resolve({
-        //     user_id: 12345,
-        //     token: 'token',
-        //   });
-        // })
         .then((res) => {
           if (!res.ok) reject(res);
           return res.json();
@@ -45,12 +38,6 @@ export default class UserService {
           'Content-Type': 'application/json',
         },
       })
-        // .then((res) => {
-        //   // TODO: Delete this then when back is up and uncomment the following lines
-        //   resolve({
-        //     firstName, lastName, password, email,
-        //   });
-        // })
         .then((response) => {
           if (!response.ok) reject(response);
           return response.json();

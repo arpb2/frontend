@@ -20,6 +20,8 @@ app.use((err, req, res, next) => {
   if (res.headersSent) {
     next(err);
   }
+  // eslint-disable-next-line no-console
+  console.error(err);
   res.status(err.statusCode ? err.statusCode : 500).json({ error: err.message });
 });
 
