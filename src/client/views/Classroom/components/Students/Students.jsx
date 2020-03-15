@@ -6,17 +6,12 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
-  Button,
   Divider,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  IconButton,
 } from '@material-ui/core';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import mockData from './data';
 
@@ -30,9 +25,10 @@ const useStyles = makeStyles(() => ({
   image: {
     height: 48,
     width: 48,
+    borderRadius: '50%',
   },
-  actions: {
-    justifyContent: 'flex-end',
+  points: {
+    textAlign: 'end',
   },
 }));
 
@@ -41,7 +37,7 @@ const Students = (props) => {
 
   const classes = useStyles();
 
-  const [products] = useState(mockData);
+  const [students] = useState(mockData);
 
   return (
     <Card
@@ -49,28 +45,29 @@ const Students = (props) => {
       className={clsx(classes.root, className)}
     >
       <CardHeader
-        subtitle={`${products.length} in total`}
+        subtitle={`${students.length} in total`}
         title="Students"
       />
       <Divider />
       <CardContent className={classes.content}>
         <List>
-          {products.map((product, i) => (
+          {students.map((student, i) => (
             <ListItem
-              divider={i < products.length - 1}
-              key={product.id}
+              divider={i < students.length - 1}
+              key={student.id}
             >
               <ListItemAvatar>
                 <img
                   alt="Product"
                   className={classes.image}
-                  src={product.imageUrl}
+                  src={student.imageUrl}
                 />
               </ListItemAvatar>
               <ListItemText
-                primary={product.name}
-                secondary={`Updated ${product.updatedAt.fromNow()}`}
+                primary={`${student.name} ${student.surname}`}
+                secondary={`Level ${student.lastLevel}`}
               />
+              <ListItemText primary={`Points ${student.points}`} className={classes.points} />
             </ListItem>
           ))}
         </List>

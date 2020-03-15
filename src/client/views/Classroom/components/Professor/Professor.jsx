@@ -28,7 +28,6 @@ const useStyles = makeStyles(() => ({
   },
   mail: {
     verticalAlign: 'super',
-
   },
 }));
 
