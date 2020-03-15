@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import { RouteWithLayout, MyBlockly } from './components';
+import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
@@ -15,6 +15,8 @@ import {
   SignUp as SignUpView,
   SignIn as SignInView,
   NotFound as NotFoundView,
+  Blockly as BlocklyView,
+  Classroom as ClassroomView,
 } from './views';
 
 const Routes = () => (
@@ -79,10 +81,16 @@ const Routes = () => (
       path="/sign-in"
     />
     <RouteWithLayout
-      component={MyBlockly}
+      component={BlocklyView}
       exact
       layout={MinimalLayout}
       path="/blockly"
+    />
+    <RouteWithLayout
+      component={ClassroomView}
+      exact
+      layout={MainLayout}
+      path="/classroom"
     />
     <RouteWithLayout
       component={NotFoundView}

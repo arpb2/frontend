@@ -6,11 +6,11 @@ import { Typography, Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(4)
-  }
+    padding: theme.spacing(4),
+  },
 }));
 
-const Footer = props => {
+const Footer = (props) => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -21,26 +21,29 @@ const Footer = props => {
       className={clsx(classes.root, className)}
     >
       <Typography variant="body1">
-        &copy;{' '}
-        <Link
-          component="a"
-          href="https://devias.io/"
-          target="_blank"
-        >
-          Devias IO
-        </Link>
-        . 2019
+        &copy;
+        {' '}
+        ARPB2
+        2020
       </Typography>
       <Typography variant="caption">
-        Created with love for the environment. By designers and developers who
-        love to work together in offices!
+        For academic use only in
+        {' '}
+        <Link
+          component="a"
+          href="http://www.fi.uba.ar/"
+          target="_blank"
+        >
+          FIUBA
+
+        </Link>
       </Typography>
     </div>
   );
 };
 
 Footer.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Footer;

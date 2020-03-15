@@ -300,7 +300,7 @@ const MyBlockly = (props) => {
           <Grid item container spacing={2} sm={9} className="step-four">
             <Grid item>
               <Button variant="contained" onClick={runCode}>
-            Run!
+                Run!
               </Button>
             </Grid>
 
@@ -310,7 +310,7 @@ const MyBlockly = (props) => {
                 onClick={handleSave}
                 startIcon={<SaveIcon />}
               >
-            Save
+                Save
               </Button>
             </Grid>
           </Grid>
