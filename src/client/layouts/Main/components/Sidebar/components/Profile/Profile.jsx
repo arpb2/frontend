@@ -29,10 +29,10 @@ const Profile = (props) => {
   const defaultAvatar = '/public/images/avatars/vader.png';
 
   const [user, setUser] = useState({
-    name: 'Anonymous',
+    name: '',
     surname: '',
     avatar: defaultAvatar,
-    level: 1,
+    level: null,
     loaded: false,
   });
 
@@ -74,7 +74,7 @@ const Profile = (props) => {
       >
         {`${user.name} ${user.surname}`}
       </Typography>
-      <Typography variant="body2">{`Level ${user.level}`}</Typography>
+      <Typography variant="body2">{user.level ? `Level ${user.level}` : ''}</Typography>
     </div>
   );
 };
