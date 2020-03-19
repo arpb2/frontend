@@ -56,7 +56,7 @@ const Routes = () => (
       layout={MainLayout}
       path="/icons"
     />
-    <RouteWithLayout
+    <ProtectedRouteWithLayout
       component={AccountView}
       exact
       layout={MainLayout}
@@ -86,7 +86,7 @@ const Routes = () => (
       layout={MainLayout}
       path="/blockly"
     />
-    <RouteWithLayout
+    <ProtectedRouteWithLayout
       component={ClassroomView}
       exact
       layout={MainLayout}
