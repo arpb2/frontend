@@ -83,7 +83,7 @@ const Routes = () => (
     <RouteWithLayout
       component={BlocklyView}
       exact
-      layout={MinimalLayout}
+      layout={MainLayout}
       path="/blockly"
     />
     <RouteWithLayout
