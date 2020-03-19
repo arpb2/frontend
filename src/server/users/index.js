@@ -15,4 +15,10 @@ router.post('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.get('/:id', (req, res, next) => {
+  UserService.get(req.params.id, req.headers.authorization)
+    .then(payload => res.json(payload))
+    .catch(err => next(err));
+});
+
 export default router;
