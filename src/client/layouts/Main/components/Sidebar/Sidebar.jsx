@@ -54,7 +54,7 @@ const Sidebar = (props) => {
     },
     {
       title: 'Blockly',
-      href: '/blockly',
+      href: '/blockly/1',
       icon: <MemoryIcon />,
     },
     {

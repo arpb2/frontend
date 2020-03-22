@@ -16,6 +16,7 @@ import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
 import { Steps } from 'intro.js-react';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useParams } from 'react-router-dom';
 import parseWorkspaceXml from './BlocklyHelper';
 
 
@@ -54,8 +55,10 @@ const useStyles = makeStyles(theme => ({
 
 const MyBlockly = (props) => {
   const {
-    className, onChange, style, ...rest
+    className, onChange, style, history, ...rest
   } = props;
+
+  const { id } = useParams();
 
   const classes = useStyles();
 
@@ -133,8 +136,13 @@ const MyBlockly = (props) => {
 
   useEffect(() => {
     if (!values.currentLevel.title || !values.currentLevel.title) {
-      fetch('/api/levels/1')
-        .then(res => res.json())
+      fetch(`/api/levels/${id}`)
+        .then((res) => {
+          if (res.status !== 200) {
+            history.push('/not-found');
+          }
+          return res.json();
+        })
         .then((level) => {
           setValues({
             ...values,

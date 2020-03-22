@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Students = (props) => {
-  const { className, ...rest } = props;
+  const { className, classroomId, ...rest } = props;
 
   const classes = useStyles();
 
@@ -79,6 +79,7 @@ const Students = (props) => {
 
 Students.propTypes = {
   className: PropTypes.string,
+  classroomId: PropTypes.string,
 };
 
 export default Students;

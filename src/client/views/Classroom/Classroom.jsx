@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
 import { Students, Professor, CurrentLevel } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 const Classroom = () => {
   const classes = useStyles();
+  const { id } = useParams();
 
   return (
     <div className={classes.root}>
@@ -29,7 +31,7 @@ const Classroom = () => {
           md={9}
           xs={12}
         >
-          <Students />
+          <Students classroomId={id} />
         </Grid>
         <Grid
           container
@@ -42,7 +44,7 @@ const Classroom = () => {
             item
             className={classes.professor}
           >
-            <Professor />
+            <Professor classroomId={id} />
           </Grid>
           <Grid
             item
