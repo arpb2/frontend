@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
-  AppBar, Toolbar, Badge, Hidden, IconButton, Typography as MuiTypography,
+  AppBar, Toolbar, Hidden, IconButton, Typography as MuiTypography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
+// import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 
 const useStyles = makeStyles(theme => ({
@@ -27,11 +27,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Topbar = (props) => {
-  const { className, onSidebarOpen, ...rest } = props;
+  const {
+    className, onSidebarOpen, ...rest
+  } = props;
 
   const classes = useStyles();
 
-  const [notifications] = useState([]);
+  // const [notifications] = useState([]);
+
+  const signOut = () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      localStorage.removeItem('session');
+      window.location.href = '/';
+    }
+  };
 
   return (
     <AppBar
@@ -48,7 +58,7 @@ const Topbar = (props) => {
         <MuiTypography variant="h2" className={classes.title}>ARPB2</MuiTypography>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -56,10 +66,11 @@ const Topbar = (props) => {
             >
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
           <IconButton
             className={classes.signOutButton}
             color="inherit"
+            onClick={signOut}
           >
             <InputIcon />
           </IconButton>
