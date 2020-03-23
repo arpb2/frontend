@@ -11,7 +11,11 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  IconButton,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import mockData from './data';
 
@@ -27,9 +31,6 @@ const useStyles = makeStyles(() => ({
     width: 48,
     borderRadius: '50%',
   },
-  points: {
-    textAlign: 'end',
-  },
 }));
 
 const Students = (props) => {
@@ -38,6 +39,16 @@ const Students = (props) => {
   const classes = useStyles();
 
   const [students] = useState(mockData);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Card
@@ -67,7 +78,24 @@ const Students = (props) => {
                 primary={`${student.name} ${student.surname}`}
                 secondary={`Level ${student.lastLevel}`}
               />
-              <ListItemText primary={`Points ${student.points}`} className={classes.points} />
+              <IconButton
+                edge="end"
+                size="small"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
             </ListItem>
           ))}
         </List>
