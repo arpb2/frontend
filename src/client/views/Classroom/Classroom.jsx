@@ -16,7 +16,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Classroom = () => {
+const Classroom = (props) => {
+  const {
+    className, history, ...rest
+  } = props;
   const classes = useStyles();
   const { id } = useParams();
 
@@ -31,7 +34,7 @@ const Classroom = () => {
           md={9}
           xs={12}
         >
-          <Students classroomId={id} />
+          <Students classroomId={id} history={history} />
         </Grid>
         <Grid
           container

@@ -34,7 +34,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Students = (props) => {
-  const { className, classroomId, ...rest } = props;
+  const {
+    className, classroomId, history, ...rest
+  } = props;
 
   const classes = useStyles();
 
@@ -48,6 +50,10 @@ const Students = (props) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleViewCodeClick = student => (event) => {
+    history.push(`/users/${student.id}/code`); // TODO: This URL?
   };
 
   return (
@@ -82,19 +88,19 @@ const Students = (props) => {
                 edge="end"
                 size="small"
                 onClick={handleClick}
+                aria-controls="student-actions-menu"
+                aria-haspopup="true"
               >
                 <MoreVertIcon />
               </IconButton>
               <Menu
-                id="simple-menu"
+                id="student-actions-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
               </Menu>
             </ListItem>
           ))}
@@ -108,6 +114,7 @@ const Students = (props) => {
 Students.propTypes = {
   className: PropTypes.string,
   classroomId: PropTypes.string,
+  history: PropTypes.object,
 };
 
 export default Students;
