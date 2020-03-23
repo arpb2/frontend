@@ -82,15 +82,13 @@ const Routes = () => (
     />
     <ProtectedRouteWithLayout
       component={BlocklyView}
-      exact
       layout={MainLayout}
-      path="/blockly"
+      path="/blockly/:id"
     />
     <ProtectedRouteWithLayout
       component={ClassroomView}
-      exact
       layout={MainLayout}
-      path="/classroom"
+      path="/classroom/:id"
     />
     <RouteWithLayout
       component={NotFoundView}
