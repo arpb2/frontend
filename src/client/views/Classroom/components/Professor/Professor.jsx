@@ -84,7 +84,7 @@ const Professor = (props) => {
 
 Professor.propTypes = {
   className: PropTypes.string,
-  classroomId: PropTypes.string,
+  classroomId: PropTypes.number,
 };
 
 export default Professor;

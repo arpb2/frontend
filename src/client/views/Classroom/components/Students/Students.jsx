@@ -119,7 +119,7 @@ const Students = (props) => {
 
 Students.propTypes = {
   className: PropTypes.string,
-  classroomId: PropTypes.string,
+  classroomId: PropTypes.number,
   history: PropTypes.object,
 };
 

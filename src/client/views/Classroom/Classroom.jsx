@@ -37,6 +37,8 @@ const Classroom = (props) => {
 
   return (
     <div className={classes.root}>
+      {classroom
+      && (
       <Grid
         container
         spacing={4}
@@ -46,7 +48,7 @@ const Classroom = (props) => {
           md={9}
           xs={12}
         >
-          {classroom && <Students classroomId={classroom.id} history={history} />}
+          <Students classroomId={classroom.id} history={history} />
         </Grid>
         <Grid
           container
@@ -59,15 +61,16 @@ const Classroom = (props) => {
             item
             className={classes.professor}
           >
-            {classroom && <Professor classroomId={classroom.id} />}
+            <Professor classroomId={classroom.id} />
           </Grid>
           <Grid
             item
           >
-            {classroom && <CurrentLevel classroom={classroom} />}
+            <CurrentLevel classroom={classroom} />
           </Grid>
         </Grid>
       </Grid>
+      )}
     </div>
   );
 };
