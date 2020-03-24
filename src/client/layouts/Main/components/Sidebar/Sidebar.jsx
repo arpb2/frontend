@@ -59,7 +59,7 @@ const Sidebar = (props) => {
     },
     {
       title: 'Classroom',
-      href: '/classroom',
+      href: '/classroom/1',
       icon: <MenuBook />,
     },
     {

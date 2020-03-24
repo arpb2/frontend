@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Card, CardContent, Grid, Typography, Avatar,
+  Card, CardContent, Grid, Typography, Tooltip, IconButton,
 } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,7 +55,7 @@ const CurrentLevel = (props) => {
       <CardContent>
         <Grid
           container
-          justify="space-between"
+          justify="start"
         >
           <Grid item>
             <Typography
@@ -67,6 +67,16 @@ const CurrentLevel = (props) => {
               Current level
             </Typography>
             <Typography variant="h1">7</Typography>
+            <Tooltip title="Increase level">
+              <IconButton aria-label="increase">
+                <AddIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Decrease level">
+              <IconButton aria-label="decrease">
+                <RemoveIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
       </CardContent>
