@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
@@ -23,6 +23,18 @@ const Classroom = (props) => {
   const classes = useStyles();
   const { id } = useParams();
 
+  const [classroom, setClassroom] = useState(null);
+
+  useEffect(() => {
+    if (!classroom) {
+      fetch(`/api/classrooms/${id}`)
+        .then(res => res.json())
+        .then((json) => {
+          setClassroom(json);
+        });
+    }
+  });
+
   return (
     <div className={classes.root}>
       <Grid
@@ -34,7 +46,7 @@ const Classroom = (props) => {
           md={9}
           xs={12}
         >
-          <Students classroomId={id} history={history} />
+          {classroom && <Students classroomId={classroom.id} history={history} />}
         </Grid>
         <Grid
           container
@@ -47,12 +59,12 @@ const Classroom = (props) => {
             item
             className={classes.professor}
           >
-            <Professor classroomId={id} />
+            {classroom && <Professor classroomId={classroom.id} />}
           </Grid>
           <Grid
             item
           >
-            <CurrentLevel />
+            {classroom && <CurrentLevel classroom={classroom} />}
           </Grid>
         </Grid>
       </Grid>

@@ -16,7 +16,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { isTeacher, isStudent } from '../../../../common/auth';
+import { isTeacher } from '../../../../common/auth';
 
 import mockData from './data';
 
