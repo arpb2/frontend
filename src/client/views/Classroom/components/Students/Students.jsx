@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -16,6 +16,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { isTeacher, isStudent } from '../../../../common/auth';
 
 import mockData from './data';
 
@@ -84,24 +85,29 @@ const Students = (props) => {
                 primary={`${student.name} ${student.surname}`}
                 secondary={`Level ${student.lastLevel}`}
               />
-              <IconButton
-                edge="end"
-                size="small"
-                onClick={handleClick}
-                aria-controls="student-actions-menu"
-                aria-haspopup="true"
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="student-actions-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
-              </Menu>
+              {isTeacher() && (
+              <Fragment>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  onClick={handleClick}
+                  aria-controls="student-actions-menu"
+                  aria-haspopup="true"
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="student-actions-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
+                </Menu>
+              </Fragment>
+              )}
+
             </ListItem>
           ))}
         </List>

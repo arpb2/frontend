@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { isTeacher } from '../../../../common/auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,7 +56,6 @@ const CurrentLevel = (props) => {
       <CardContent>
         <Grid
           container
-          justify="start"
         >
           <Grid item>
             <Typography
@@ -67,16 +67,23 @@ const CurrentLevel = (props) => {
               Current level
             </Typography>
             <Typography variant="h1">7</Typography>
-            <Tooltip title="Increase level">
-              <IconButton aria-label="increase">
-                <AddIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Decrease level">
-              <IconButton aria-label="decrease">
-                <RemoveIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
+            {isTeacher()
+            && (
+            <Fragment>
+              <Tooltip title="Increase level">
+                <IconButton aria-label="increase">
+                  <AddIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Decrease level">
+                <IconButton aria-label="decrease">
+                  <RemoveIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </Fragment>
+            )
+            }
+
           </Grid>
         </Grid>
       </CardContent>
