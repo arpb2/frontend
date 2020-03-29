@@ -62,31 +62,11 @@ const Sidebar = (props) => {
       href: '/classroom/1',
       icon: <MenuBook />,
     },
-    {
-      title: 'Users',
-      href: '/users',
-      icon: <PeopleIcon />,
-    },
-    {
-      title: 'Products',
-      href: '/products',
-      icon: <ShoppingBasketIcon />,
-    },
-    {
-      title: 'Authentication',
-      href: '/sign-in',
-      icon: <LockOpenIcon />,
-    },
-    {
-      title: 'Typography',
-      href: '/typography',
-      icon: <TextFieldsIcon />,
-    },
-    {
-      title: 'Icons',
-      href: '/icons',
-      icon: <ImageIcon />,
-    },
+    // {
+    //   title: 'Authentication',
+    //   href: '/sign-in',
+    //   icon: <LockOpenIcon />,
+    // },
     {
       title: 'Account',
       href: '/account',

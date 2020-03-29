@@ -32,19 +32,19 @@ const Routes = () => (
       layout={MainLayout}
       path="/dashboard"
     />
-    <RouteWithLayout
+    {/* <RouteWithLayout
       component={UserListView}
       exact
       layout={MainLayout}
       path="/users"
-    />
-    <RouteWithLayout
+    /> */}
+    {/* <RouteWithLayout
       component={ProductListView}
       exact
       layout={MainLayout}
       path="/products"
-    />
-    <RouteWithLayout
+    /> */}
+    {/* <RouteWithLayout
       component={TypographyView}
       exact
       layout={MainLayout}
@@ -55,14 +55,14 @@ const Routes = () => (
       exact
       layout={MainLayout}
       path="/icons"
-    />
+    /> */}
     <ProtectedRouteWithLayout
       component={AccountView}
       exact
       layout={MainLayout}
       path="/account"
     />
-    <RouteWithLayout
+    <ProtectedRouteWithLayout
       component={SettingsView}
       exact
       layout={MainLayout}

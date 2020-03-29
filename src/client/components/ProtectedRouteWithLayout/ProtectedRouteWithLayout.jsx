@@ -11,7 +11,7 @@ const ProtectedRouteWithLayout = (props) => {
     <Route
       {...rest}
       render={matchProps => (
-        isLoggedIn
+        isLoggedIn()
           ? (
             <Layout>
               <Component {...matchProps} />
