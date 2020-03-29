@@ -54,7 +54,7 @@ const Students = (props) => {
   };
 
   const handleViewCodeClick = student => (event) => {
-    history.push(`/users/${student.id}/code`); // TODO: This URL?
+    history.push(`/users/${student.id}/code`);
   };
 
   return (
