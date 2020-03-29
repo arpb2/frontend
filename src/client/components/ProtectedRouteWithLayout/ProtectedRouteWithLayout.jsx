@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { isLoggedIn } from '../../common/auth';
 
 
 const ProtectedRouteWithLayout = (props) => {
@@ -10,7 +11,7 @@ const ProtectedRouteWithLayout = (props) => {
     <Route
       {...rest}
       render={matchProps => (
-        localStorage.getItem('session')
+        isLoggedIn
           ? (
             <Layout>
               <Component {...matchProps} />

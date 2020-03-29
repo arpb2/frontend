@@ -10,8 +10,11 @@ import {
   TextField,
   Link,
   Typography,
+  Select,
+  FormHelperText,
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { logout } from '../../common/auth';
 
 const schema = {
   firstName: {
@@ -25,6 +28,9 @@ const schema = {
     length: {
       maximum: 32,
     },
+  },
+  userType: {
+    presence: { allowEmpty: false, message: 'is required' },
   },
   email: {
     presence: { allowEmpty: false, message: 'is required' },
@@ -193,6 +199,7 @@ const SignUp = (props) => {
         return response.json();
       })
       .then((data) => {
+        logout();
         history.push('/');
       });
   };
@@ -262,6 +269,22 @@ const SignUp = (props) => {
                   value={formState.values.lastName || ''}
                   variant="outlined"
                 />
+                <Select
+                  native
+                  value={formState.values.userType || ''}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'userType',
+                    id: 'user-type-select',
+                  }}
+                  fullWidth
+                  className={classes.textField}
+                  variant="outlined"
+                >
+                  <option value="student">Student</option>
+                  <option value="teacher">Teacher</option>
+                </Select>
+                <FormHelperText>User type</FormHelperText>
                 <TextField
                   className={classes.textField}
                   error={hasError('email')}

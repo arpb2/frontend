@@ -13,6 +13,7 @@ app.use(express.static('dist'));
 app.use('/api/users', require('./users').default);
 app.use('/api/code', require('./code').default);
 app.use('/api/levels', require('./levels').default);
+app.use('/api/classrooms', require('./classrooms').default);
 
 app.get('/api/blockly/initial', (req, res) => res.send(fs.readFileSync(`${__dirname}/assets/initial_toolbox.xml`)));
 
