@@ -24,7 +24,7 @@ export default class UserService {
     });
   }
 
-  static create(firstName, lastName, password, email) {
+  static create(firstName, lastName, password, email, userType) {
     return new Promise((resolve, reject) => {
       fetch(`${process.env.BACKEND_HOST}/users`, {
         method: 'POST',
@@ -33,6 +33,7 @@ export default class UserService {
           surname: lastName,
           email,
           password,
+          type: userType,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +43,9 @@ export default class UserService {
           if (!response.ok) reject(response);
           return response.json();
         })
-        .then(data => resolve({ ...data, firstName: data.name, lastName: data.surname }))
+        .then((data) => {
+          resolve({ ...data, firstName: data.name, lastName: data.surname });
+        })
         .catch(error => reject(error));
     });
   }

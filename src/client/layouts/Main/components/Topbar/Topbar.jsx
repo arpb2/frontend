@@ -9,6 +9,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 // import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
+import { logout, isLoggedIn } from '../../../../common/auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,9 +37,8 @@ const Topbar = (props) => {
   // const [notifications] = useState([]);
 
   const signOut = () => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      localStorage.removeItem('session');
+    if (isLoggedIn()) {
+      logout();
       window.location.href = '/';
     }
   };
