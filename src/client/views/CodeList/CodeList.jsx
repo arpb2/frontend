@@ -28,8 +28,10 @@ const useStyles = makeStyles(theme => ({
 
 const CodeList = (props) => {
   const {
-    className, history, ...rest
+    className, history, match, ...rest
   } = props;
+
+  const userId = match.params.id;
 
   const classes = useStyles();
   const [open, setOpen] = useState({});
@@ -41,23 +43,22 @@ const CodeList = (props) => {
     });
   };
 
-  const [codes, setCodes] = useState([
-    {
-      level_id: 0,
-      user_id: 0,
-      code: "const test = () => { 'I am a test' }",
-    },
-    {
-      level_id: 1,
-      user_id: 0,
-      code: "const test = () => { 'I am a test' }",
-    },
-    {
-      level_id: 2,
-      user_id: 0,
-      code: "const test = () => { 'I am a test' }",
-    },
-  ]);
+  const [codes, setCodes] = useState([]);
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!loaded) {
+      fetch(`/api/users/${userId}/code`)
+        .then(res => res.json())
+        .then((code) => {
+          setCodes({
+            code,
+          });
+        });
+    }
+    setLoaded(true);
+  });
 
   return (
     <Container className={classes.root}>
@@ -75,6 +76,7 @@ const CodeList = (props) => {
       )}
           className={classes.list}
         >
+          {codes.length === 0 && <ListItem><ListItemText primary="No code yet" /></ListItem>}
           {codes.map((code, i) => (
             <Fragment>
               <ListItem button onClick={handleClick(i)}>
@@ -83,7 +85,7 @@ const CodeList = (props) => {
               </ListItem>
               <Collapse in={open[i]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <ListItem className={classes.nested}>
+                  <ListItem button className={classes.nested}>
                     <SyntaxHighlighter
                       language="javascript"
                       style={darcula}
@@ -106,6 +108,7 @@ const CodeList = (props) => {
 CodeList.propTypes = {
   className: PropTypes.string,
   history: PropTypes.object,
+  match: PropTypes.object,
 };
 
 export default CodeList;
