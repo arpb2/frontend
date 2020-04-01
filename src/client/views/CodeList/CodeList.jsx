@@ -43,7 +43,7 @@ const CodeList = (props) => {
     });
   };
 
-  const [codes, setCodes] = useState([]);
+  const [codeList, setCodeList] = useState([]);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -52,13 +52,38 @@ const CodeList = (props) => {
       fetch(`/api/users/${userId}/code`)
         .then(res => res.json())
         .then((code) => {
-          setCodes({
+          setCodeList(
             code,
-          });
+          );
         });
     }
     setLoaded(true);
-  });
+  }, [loaded, userId]);
+
+  const noCodePlaceholder = () => <ListItem><ListItemText primary="No code yet" /></ListItem>;
+
+  const getCodeList = () => codeList.map((code, i) => (
+    <Fragment>
+      <ListItem button onClick={handleClick(i)}>
+        <ListItemText primary={`Level ${code.level_id}`} />
+        {open[i] ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open[i]} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <SyntaxHighlighter
+              language="javascript"
+              style={darcula}
+              showLineNumbers
+              id="code"
+            >
+              {code.code}
+            </SyntaxHighlighter>
+          </ListItem>
+        </List>
+      </Collapse>
+    </Fragment>
+  ));
 
   return (
     <Container className={classes.root}>
@@ -76,29 +101,7 @@ const CodeList = (props) => {
       )}
           className={classes.list}
         >
-          {codes.length === 0 && <ListItem><ListItemText primary="No code yet" /></ListItem>}
-          {codes.map((code, i) => (
-            <Fragment>
-              <ListItem button onClick={handleClick(i)}>
-                <ListItemText primary={`Level ${code.level_id}`} />
-                {open[i] ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={open[i]} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <ListItem button className={classes.nested}>
-                    <SyntaxHighlighter
-                      language="javascript"
-                      style={darcula}
-                      showLineNumbers
-                      id="code"
-                    >
-                      {code.code}
-                    </SyntaxHighlighter>
-                  </ListItem>
-                </List>
-              </Collapse>
-            </Fragment>
-          ))}
+          {codeList.length === 0 ? noCodePlaceholder() : getCodeList()}
         </List>
       </Card>
     </Container>
