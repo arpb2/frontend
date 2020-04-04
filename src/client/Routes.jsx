@@ -6,10 +6,6 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
   Dashboard as DashboardView,
-  ProductList as ProductListView,
-  UserList as UserListView,
-  Typography as TypographyView,
-  Icons as IconsView,
   Account as AccountView,
   Settings as SettingsView,
   SignUp as SignUpView,
@@ -17,6 +13,7 @@ import {
   NotFound as NotFoundView,
   Blockly as BlocklyView,
   Classroom as ClassroomView,
+  CodeList as CodeListView,
 } from './views';
 
 const Routes = () => (
@@ -32,30 +29,6 @@ const Routes = () => (
       layout={MainLayout}
       path="/dashboard"
     />
-    {/* <RouteWithLayout
-      component={UserListView}
-      exact
-      layout={MainLayout}
-      path="/users"
-    /> */}
-    {/* <RouteWithLayout
-      component={ProductListView}
-      exact
-      layout={MainLayout}
-      path="/products"
-    /> */}
-    {/* <RouteWithLayout
-      component={TypographyView}
-      exact
-      layout={MainLayout}
-      path="/typography"
-    />
-    <RouteWithLayout
-      component={IconsView}
-      exact
-      layout={MainLayout}
-      path="/icons"
-    /> */}
     <ProtectedRouteWithLayout
       component={AccountView}
       exact
@@ -89,6 +62,11 @@ const Routes = () => (
       component={ClassroomView}
       layout={MainLayout}
       path="/classroom/:id"
+    />
+    <ProtectedRouteWithLayout
+      component={CodeListView}
+      layout={MainLayout}
+      path="/users/:id/code"
     />
     <RouteWithLayout
       component={NotFoundView}

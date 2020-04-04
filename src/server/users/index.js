@@ -10,7 +10,14 @@ router.post('/signin', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  UserService.create(req.body.firstName, req.body.lastName, req.body.password, req.body.email, req.body.userType)
+  UserService.create(req.body.firstName, req.body.lastName,
+    req.body.password, req.body.email, req.body.userType)
+    .then(payload => res.json(payload))
+    .catch(err => next(err));
+});
+
+router.get('/:id/code', (req, res, next) => {
+  UserService.getCodes(req.params.id, req.headers.authorization)
     .then(payload => res.json(payload))
     .catch(err => next(err));
 });
