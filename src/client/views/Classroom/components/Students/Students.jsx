@@ -22,7 +22,9 @@ import {
   DialogActions,
   Button,
   TextField,
+  Snackbar,
 } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { isTeacher } from '../../../../common/auth';
 
@@ -66,9 +68,13 @@ const Students = (props) => {
 
   const classes = useStyles();
 
-  const [students] = useState(mockData);
+  const [students] = useState(mockData); // TODO: Load students from backend
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({ severity: '', message: '' });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -104,11 +110,16 @@ const Students = (props) => {
       },
     })
       .then((response) => {
-        if (!response.ok) throw Error(response.statusText); // TODO: Show snackbar
+        if (response.ok) {
+          setSnackbar({ severity: 'error', message: 'An error ocurred trying to add the student. Please try again later' });
+          setSnackbarOpen(true);
+          throw new Error(response.statusText);
+        }
         return response.json();
       })
-      .then((data) => {
-        // TODO: Show snackbar
+      .then(() => {
+        setSnackbar({ severity: 'success', message: 'Student succesfully added' });
+        setSnackbarOpen(true);
       });
   };
 
@@ -148,37 +159,53 @@ const Students = (props) => {
     }));
   };
 
+  const Alert = alertProps => <MuiAlert elevation={6} variant="filled" {...alertProps} />;
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <CardHeader
-        subtitle={`${students.length} in total`}
-        title="Students"
-      />
-      {hasStudents() ? (
-        <Fragment>
-          <Divider />
-          <CardContent className={classes.content}>
-            <List>
-              {students.map((student, i) => (
-                <ListItem
-                  divider={i < students.length - 1}
-                  key={student.id}
-                >
-                  <ListItemAvatar>
-                    <img
-                      alt="Product"
-                      className={classes.image}
-                      src={student.imageUrl}
+    <Fragment>
+      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+      <Card
+        {...rest}
+        className={clsx(classes.root, className)}
+      >
+        <CardHeader
+          subtitle={`${students.length} in total`}
+          title="Students"
+        />
+        {hasStudents() ? (
+          <Fragment>
+            <Divider />
+            <CardContent className={classes.content}>
+              <List>
+                {students.map((student, i) => (
+                  <ListItem
+                    divider={i < students.length - 1}
+                    key={student.id}
+                  >
+                    <ListItemAvatar>
+                      <img
+                        alt="Product"
+                        className={classes.image}
+                        src={student.imageUrl}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`${student.name} ${student.surname}`}
+                      secondary={`Level ${student.lastLevel}`}
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={`${student.name} ${student.surname}`}
-                    secondary={`Level ${student.lastLevel}`}
-                  />
-                  {isTeacher() && (
+                    {isTeacher() && (
                     <Fragment>
                       <IconButton
                         edge="end"
@@ -199,52 +226,53 @@ const Students = (props) => {
                         <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
                       </Menu>
                     </Fragment>
-                  )}
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-          <Divider />
-        </Fragment>
-      )
-        : (
-          <Fragment>
-            <CardContent className={classes.contentNoStudents}>
-              <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
-                Add students
-              </Button>
-              <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
-                  <DialogContent>
-                    <DialogContentText>
-                      Type the email of the student you want to add to the classroom
-                    </DialogContentText>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="emailForm"
-                      label="Email Address"
-                      type="email"
-                      name="email"
-                      onChange={handleChange}
-                      fullWidth
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleDialogClose} color="primary">
-                      Cancel
-                    </Button>
-                    <Button type="submit" color="primary">
-                      Add
-                    </Button>
-                  </DialogActions>
-                </form>
-              </Dialog>
+                    )}
+                  </ListItem>
+                ))}
+              </List>
             </CardContent>
+            <Divider />
           </Fragment>
-        ) }
-    </Card>
+        )
+          : (
+            <Fragment>
+              <CardContent className={classes.contentNoStudents}>
+                <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
+                  Add students
+                </Button>
+                <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                  <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                  <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
+                    <DialogContent>
+                      <DialogContentText>
+                        Type the email of the student you want to add to the classroom
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="emailForm"
+                        label="Email Address"
+                        type="email"
+                        name="email"
+                        onChange={handleChange}
+                        fullWidth
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleDialogClose} color="primary">
+                        Cancel
+                      </Button>
+                      <Button type="submit" color="primary">
+                        Add
+                      </Button>
+                    </DialogActions>
+                  </form>
+                </Dialog>
+              </CardContent>
+            </Fragment>
+          ) }
+      </Card>
+    </Fragment>
   );
 };
 
