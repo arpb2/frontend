@@ -30,7 +30,7 @@ import { isTeacher } from '../../../../common/auth';
 
 import mockData from './data';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
   },
@@ -47,7 +47,8 @@ const useStyles = makeStyles(() => ({
     borderRadius: '50%',
   },
   addBtn: {
-    marginTop: '8%',
+    margin: theme.spacing(2),
+    marginLeft: 0,
   },
 }));
 
@@ -88,9 +89,7 @@ const Students = (props) => {
     history.push(`/users/${student.id}/code`);
   };
 
-  const hasStudents = () => students.length > 0;
-
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogClickOpen = () => {
     setDialogOpen(true);
@@ -184,94 +183,83 @@ const Students = (props) => {
           subtitle={`${students.length} in total`}
           title="Students"
         />
-        {hasStudents() ? (
-          <Fragment>
-            <Divider />
-            <CardContent className={classes.content}>
-              <List>
-                {students.map((student, i) => (
-                  <ListItem
-                    divider={i < students.length - 1}
-                    key={student.id}
+        <Divider />
+        <CardContent className={classes.content}>
+          <List>
+            {students.map((student, i) => (
+              <ListItem
+                divider={i < students.length - 1}
+                key={student.id}
+              >
+                <ListItemAvatar>
+                  <img
+                    alt="Product"
+                    className={classes.image}
+                    src={student.imageUrl}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${student.name} ${student.surname}`}
+                  secondary={`Level ${student.lastLevel}`}
+                />
+                {isTeacher() && (
+                <Fragment>
+                  <IconButton
+                    edge="end"
+                    size="small"
+                    onClick={handleClick}
+                    aria-controls="student-actions-menu"
+                    aria-haspopup="true"
                   >
-                    <ListItemAvatar>
-                      <img
-                        alt="Product"
-                        className={classes.image}
-                        src={student.imageUrl}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={`${student.name} ${student.surname}`}
-                      secondary={`Level ${student.lastLevel}`}
-                    />
-                    {isTeacher() && (
-                    <Fragment>
-                      <IconButton
-                        edge="end"
-                        size="small"
-                        onClick={handleClick}
-                        aria-controls="student-actions-menu"
-                        aria-haspopup="true"
-                      >
-                        <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="student-actions-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
-                      </Menu>
-                    </Fragment>
-                    )}
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-            <Divider />
-          </Fragment>
-        )
-          : (
-            <Fragment>
-              <CardContent className={classes.contentNoStudents}>
-                <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
-                  Add students
-                </Button>
-                <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                  <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                  <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
-                    <DialogContent>
-                      <DialogContentText>
-                        Type the email of the student you want to add to the classroom
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="emailForm"
-                        label="Email Address"
-                        type="email"
-                        name="email"
-                        onChange={handleChange}
-                        fullWidth
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleDialogClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button type="submit" color="primary">
-                        Add
-                      </Button>
-                    </DialogActions>
-                  </form>
-                </Dialog>
-              </CardContent>
-            </Fragment>
-          ) }
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    id="student-actions-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
+                  </Menu>
+                </Fragment>
+                )}
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
       </Card>
+      <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
+        Add students
+      </Button>
+      <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
+          <DialogContent>
+            <DialogContentText>
+              Type the email of the student you want to add to the classroom
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="emailForm"
+              label="Email Address"
+              type="email"
+              name="email"
+              onChange={handleChange}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose} color="primary">
+              Cancel
+            </Button>
+            <Button type="submit" color="primary">
+              Add
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
     </Fragment>
   );
 };
