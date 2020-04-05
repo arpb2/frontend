@@ -32,7 +32,6 @@ import mockData from './data';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100%',
   },
   content: {
     padding: 0,
