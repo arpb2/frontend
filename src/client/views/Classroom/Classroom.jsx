@@ -48,7 +48,7 @@ const Classroom = (props) => {
           md={9}
           xs={12}
         >
-          <Students classroomId={classroom.id} history={history} />
+          <Students classroomId={classroom.id} history={history} students={classroom.students} />
         </Grid>
         <Grid
           container

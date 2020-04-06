@@ -28,8 +28,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { isTeacher } from '../../../../common/auth';
 
-import mockData from './data';
-
 const useStyles = makeStyles(theme => ({
   root: {
   },
@@ -63,12 +61,10 @@ const schema = {
 
 const Students = (props) => {
   const {
-    className, classroomId, history, ...rest
+    className, classroomId, history, students, ...rest
   } = props;
 
   const classes = useStyles();
-
-  const [students] = useState(mockData); // TODO: Load students from backend
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -267,6 +263,11 @@ Students.propTypes = {
   className: PropTypes.string,
   classroomId: PropTypes.number,
   history: PropTypes.object,
+  students: PropTypes.shape([]),
+};
+
+Students.defaultProps = {
+  students: [],
 };
 
 export default Students;

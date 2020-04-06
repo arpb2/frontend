@@ -125,35 +125,31 @@ const MyBlockly = (props) => {
   const [snackbar, setSnackbar] = useState({ severity: '', message: '' });
 
   useEffect(() => {
-    if (!values.toolboxCategories) {
-      fetch('/api/blockly/initial')
-        .then(res => res.text())
-        .then((xml) => {
-          setValues({ ...values, toolboxCategories: parseWorkspaceXml(xml) });
-        });
-    }
-  });
+    fetch('/api/blockly/initial')
+      .then(res => res.text())
+      .then((xml) => {
+        setValues(v => ({ ...v, toolboxCategories: parseWorkspaceXml(xml) }));
+      });
+  }, [values.toolboxCategories]);
 
   useEffect(() => {
-    if (!values.currentLevel.title || !values.currentLevel.title) {
-      fetch(`/api/levels/${id}`)
-        .then((res) => {
-          if (res.status !== 200) {
-            history.push('/not-found');
-          }
-          return res.json();
-        })
-        .then((level) => {
-          setValues({
-            ...values,
-            currentLevel: {
-              title: level.name,
-              objective: level.objective.title,
-            },
-          });
-        });
-    }
-  });
+    fetch(`/api/levels/${id}`)
+      .then((res) => {
+        if (res.status !== 200) {
+          history.push('/not-found');
+        }
+        return res.json();
+      })
+      .then((level) => {
+        setValues(v => ({
+          ...v,
+          currentLevel: {
+            title: level.name,
+            objective: level.objective.title,
+          },
+        }));
+      });
+  }, [values.currentLevel.title, history, id]);
 
   const handleSave = () => {
     const session = JSON.parse(localStorage.getItem('session'));
