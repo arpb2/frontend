@@ -104,7 +104,7 @@ const Students = (props) => {
       },
     })
       .then((response) => {
-        if (response.ok) {
+        if (!response.ok) {
           setSnackbar({ severity: 'error', message: 'An error ocurred trying to add the student. Please try again later' });
           setSnackbarOpen(true);
           throw new Error(response.statusText);
