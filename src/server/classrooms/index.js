@@ -9,4 +9,10 @@ router.get('/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.post('/:id/students', (req, res, next) => {
+  ClassroomService.addStudentByEmail(req.body.email, req.header('Authorization'))
+    .then(payload => res.json(payload))
+    .catch(err => next(err));
+});
+
 export default router;
