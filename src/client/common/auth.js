@@ -13,3 +13,7 @@ export const logout = () => {
 };
 
 export const isLoggedIn = () => !!localStorage.getItem('session');
+
+export const getUserId = () => JSON.parse(localStorage.getItem('session')).user_id;
+
+export const getUserToken = () => JSON.parse(localStorage.getItem('session')).token;

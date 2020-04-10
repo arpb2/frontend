@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
+import { getUserId, getUserToken } from '../../common/auth';
 
 import { AccountProfile, AccountDetails } from './components';
 
@@ -12,6 +13,26 @@ const useStyles = makeStyles(theme => ({
 
 const Account = () => {
   const classes = useStyles();
+
+  const [user, setUser] = useState({
+    name: 'Shen',
+    surname: 'Zhi',
+    email: 'shen@gmail.com',
+    avatar: '/public/images/avatars/vader.png',
+  });
+
+  useEffect(() => {
+    fetch(`/api/users/${getUserId()}`, {
+      method: 'GET',
+      headers: {
+        Authorization: getUserToken(),
+      },
+    })
+      .then(res => res.json())
+      .then((userData) => {
+        setUser({ ...userData, avatar: userData.avatar ? userData.avatar : '/public/images/avatars/vader.png' });
+      });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -26,7 +47,7 @@ const Account = () => {
           xl={4}
           xs={12}
         >
-          <AccountProfile />
+          <AccountProfile user={user} />
         </Grid>
         <Grid
           item
@@ -35,7 +56,7 @@ const Account = () => {
           xl={8}
           xs={12}
         >
-          <AccountDetails />
+          <AccountDetails user={user} getToken={getUserToken} setUser={setUser} />
         </Grid>
       </Grid>
     </div>

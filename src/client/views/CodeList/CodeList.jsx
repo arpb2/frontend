@@ -48,15 +48,13 @@ const CodeList = (props) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    if (!loaded) {
-      fetch(`/api/users/${userId}/code`)
-        .then(res => res.json())
-        .then((code) => {
-          setCodeList(
-            code,
-          );
-        });
-    }
+    fetch(`/api/users/${userId}/code`)
+      .then(res => res.json())
+      .then((code) => {
+        setCodeList(
+          code,
+        );
+      });
     setLoaded(true);
   }, [loaded, userId]);
 

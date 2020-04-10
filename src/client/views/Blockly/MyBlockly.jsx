@@ -130,7 +130,7 @@ const MyBlockly = (props) => {
       .then((xml) => {
         setValues(v => ({ ...v, toolboxCategories: parseWorkspaceXml(xml) }));
       });
-  }, [values.toolboxCategories]);
+  }, []);
 
   useEffect(() => {
     fetch(`/api/levels/${id}`)

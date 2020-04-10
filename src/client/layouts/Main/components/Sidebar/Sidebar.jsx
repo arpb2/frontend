@@ -72,11 +72,6 @@ const Sidebar = (props) => {
       href: '/account',
       icon: <AccountBoxIcon />,
     },
-    {
-      title: 'Settings',
-      href: '/settings',
-      icon: <SettingsIcon />,
-    },
   ];
 
   return (

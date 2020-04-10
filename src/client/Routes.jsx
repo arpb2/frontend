@@ -7,7 +7,6 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 import {
   Dashboard as DashboardView,
   Account as AccountView,
-  Settings as SettingsView,
   SignUp as SignUpView,
   SignIn as SignInView,
   NotFound as NotFoundView,
@@ -34,12 +33,6 @@ const Routes = () => (
       exact
       layout={MainLayout}
       path="/account"
-    />
-    <ProtectedRouteWithLayout
-      component={SettingsView}
-      exact
-      layout={MainLayout}
-      path="/settings"
     />
     <RouteWithLayout
       component={SignUpView}

@@ -105,4 +105,27 @@ export default class UserService {
       ]);
     });
   }
+
+  static update(id, token, body) {
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.BACKEND_HOST}/users/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...body }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) reject(response);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+
+          resolve({ ...data });
+        })
+        .catch(error => reject(error));
+    });
+  }
 }
