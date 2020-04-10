@@ -9,27 +9,27 @@ import {
   CardActions,
   Divider,
   Button,
-  TextField
+  TextField,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
 }));
 
-const Password = props => {
+const Password = (props) => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   const [values, setValues] = useState({
     password: '',
-    confirm: ''
+    confirm: '',
   });
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -80,7 +80,7 @@ const Password = props => {
 };
 
 Password.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Password;

@@ -28,4 +28,10 @@ router.get('/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.put('/:id', (req, res, next) => {
+  UserService.update(req.params.id, req.headers.authorization, req.body)
+    .then(payload => res.json(payload))
+    .catch(err => next(err));
+});
+
 export default router;
