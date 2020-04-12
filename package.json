@@ -32,7 +32,7 @@
     "shell": "NODE_ENV=firebase firebase functions:shell",
     "start": "NODE_ENV=firebase yarn run shell",
     
-    "predeploy:funcs": "yarn env && yarn build-funcs",
+    "predeploy:funcs": "yarn build-funcs && yarn env",
     "deploy:funcs": "firebase deploy --only functions",
 
     "predeploy:hosting": "yarn build",

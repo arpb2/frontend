@@ -4,7 +4,7 @@ import config from '../config';
 export default class LevelsService {
   static getAll() {
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/levels`, {
+      fetch(`${config.BACKEND_HOST}/levels`, {
         method: 'GET',
       })
         .then((res) => {
@@ -32,7 +32,7 @@ export default class LevelsService {
 
   static get(id) {
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/levels/${id}`, {
+      fetch(`${config.BACKEND_HOST}/levels/${id}`, {
         method: 'GET',
       })
         .then((res) => {

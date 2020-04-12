@@ -4,7 +4,7 @@ import config from '../config';
 export default class UserService {
   static signIn(email, password) {
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/session`, {
+      fetch(`${config.BACKEND_HOST}/session`, {
         method: 'POST',
         body: JSON.stringify({
           email,
@@ -27,7 +27,7 @@ export default class UserService {
 
   static create(firstName, lastName, password, email, userType) {
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/users`, {
+      fetch(`${config.BACKEND_HOST}/users`, {
         method: 'POST',
         body: JSON.stringify({
           name: firstName,
@@ -53,7 +53,7 @@ export default class UserService {
 
   static get(id, token) {
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/users/${id}`, {
+      fetch(`${config.BACKEND_HOST}/users/${id}`, {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -72,7 +72,7 @@ export default class UserService {
 
   static getCodes(id, token) {
     return new Promise((resolve, reject) => {
-      //   fetch(`${config.env.BACKEND_HOST}/users/${id}/code`, { // TODO: ???
+      //   fetch(`${config.BACKEND_HOST}/users/${id}/code`, { // TODO: ???
     //     method: 'GET',
     //     headers: {
     //       Authorization: token,
@@ -109,7 +109,7 @@ export default class UserService {
 
   static update(id, token, body) {
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/users/${id}`, {
+      fetch(`${config.BACKEND_HOST}/users/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ ...body }),
         headers: {

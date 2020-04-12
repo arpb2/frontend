@@ -49,7 +49,7 @@ export default class ClassroomService {
           },
         ],
       });
-    //   fetch(`${config.env.BACKEND_HOST}/classrooms/${id}`, {
+    //   fetch(`${config.BACKEND_HOST}/classrooms/${id}`, {
     //     method: 'GET',
     //     headers: {
     //       Authorization: 'DEBUG', // token,
@@ -72,7 +72,7 @@ export default class ClassroomService {
       resolve({
         ok: true,
       });
-    //   fetch(`${config.env.BACKEND_HOST}/classrooms/${id}`, {
+    //   fetch(`${config.BACKEND_HOST}/classrooms/${id}`, {
     //     method: 'GET',
     //     headers: {
     //       Authorization: 'DEBUG', // token,

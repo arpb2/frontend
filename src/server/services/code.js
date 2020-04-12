@@ -10,7 +10,7 @@ export default class CodeService {
       user_id: userId,
     });
     return new Promise((resolve, reject) => {
-      fetch(`${config.env.BACKEND_HOST}/users/${userId}/levels/${levelId}`, {
+      fetch(`${config.BACKEND_HOST}/users/${userId}/levels/${levelId}`, {
         method: 'PUT',
         body,
         headers: {
