@@ -16,17 +16,29 @@
     "server": "NODE_ENV=development nodemon --exec babel-node src/server/index.js",
     "debug": "nodemon --inspect --exec babel-node src/server/index.js",
     "start-dev": "concurrently \"yarn server\" \"yarn client\"",
+    "clean": "rm -rf dist/",
     
-    "prebuild-funcs": "cp package.json ./functions",
+    "prebuild-funcs": "mkdir functions && cp package.json ./functions",
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
 
-    "serve": "NODE_ENV=firebase firebase emulators:start --only functions",
+    "preserve": "yarn build && yarn build-funcs",
+    "serve": "NODE_ENV=firebase firebase serve",
+    "postserve": "yarn clean",
+
     "shell": "NODE_ENV=firebase firebase functions:shell",
     "start": "NODE_ENV=firebase yarn run shell",
     
-    "predeploy-funcs": "yarn build-funcs",
-    "deploy-funcs": "firebase deploy --only functions",
+    "predeploy:funcs": "yarn build-funcs",
+    "deploy:funcs": "firebase deploy --only functions",
+
+    "predeploy:hosting": "yarn build",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "postdeploy:hosting": "yarn postdeploy",
+
+    "predeploy": "yarn build && yarn build-funcs",
+    "deploy": "firebase deploy",
+    "postdeploy": "yarn clean",
     
     "logs": "firebase functions:log"
   },
@@ -94,5 +106,10 @@
   },
   "engines": {
     "node": "10"
+  },
+  "proxy": {
+    "/__": {
+      "target": "http://localhost:8080"
+    }
   }
 }
