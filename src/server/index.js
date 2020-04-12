@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
 });
 
 
-if (process.env.NODE_ENV !== 'firebase') {
+if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line no-console
   app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
 }
