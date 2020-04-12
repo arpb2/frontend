@@ -8,8 +8,9 @@
     "url": "git@github.com:arpb2/frontend.git"
   },
   "scripts": {
-    "prebuild": "webpack --mode production",
-    "build": "babel -d ./dist ./src/server",
+    "build:front": "webpack --mode production",
+    "build:node": "babel -d ./dist ./src/server",
+    "build": "yarn build:front && build:node",
     "prestart:heroku": "yarn build",
     "start:heroku": "NODE_ENV=production node ./dist/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
@@ -18,11 +19,11 @@
     "start-dev": "concurrently \"yarn server\" \"yarn client\"",
     "clean": "rm -rf dist/",
     
-    "prebuild-funcs": "mkdir functions && cp package.json ./functions",
+    "prebuild-funcs": "cp -R package.json ./functions",
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
 
-    "preserve": "yarn build && yarn build-funcs",
+    "preserve": "yarn build:front && yarn build-funcs",
     "serve": "NODE_ENV=firebase firebase serve",
     "postserve": "yarn clean",
 
