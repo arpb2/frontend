@@ -8,10 +8,6 @@ if (process.env.NODE_ENV === 'firebase' || process.env.NODE_ENV !== 'production'
     const loadedconfig = require('./.env.json');
 
     config = { env: loadedconfig };
-
-    console.log('in');
-
-    console.log(config);
   }
 }
 

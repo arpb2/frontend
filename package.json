@@ -21,7 +21,7 @@
 
     "env": "cd ./src/server && test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\" || echo \"Please add the file .env.json before deploy.\"",
     
-    "prebuild-funcs": "cp -R package.json ./src/server/.env.json ./functions",
+    "prebuild-funcs": "cp -R package.json ./src/server/.env.json ./src/server/assets ./functions",
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
 
