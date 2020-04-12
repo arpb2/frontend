@@ -2,7 +2,7 @@
   "name": "@arpb2/frontend",
   "version": "1.0.0",
   "description": "Frontend for ARPB2 project",
-  "main": "src/server/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:arpb2/frontend.git"
@@ -21,10 +21,13 @@
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
 
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "yarn run shell",
-    "deploy": "firebase deploy --only functions",
+    "serve": "NODE_ENV=firebase firebase emulators:start --only functions",
+    "shell": "NODE_ENV=firebase firebase functions:shell",
+    "start": "NODE_ENV=firebase yarn run shell",
+    
+    "predeploy-funcs": "yarn build-funcs",
+    "deploy-funcs": "firebase deploy --only functions",
+    
     "logs": "firebase functions:log"
   },
   "author": "ARPB2",
@@ -90,6 +93,6 @@
     "webpack-dev-server": "^3.1.3"
   },
   "engines": {
-    "node": ">=12"
+    "node": "10"
   }
 }
