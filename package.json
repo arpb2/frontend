@@ -18,8 +18,10 @@
     "debug": "nodemon --inspect --exec babel-node src/server/index.js",
     "start-dev": "concurrently \"yarn server\" \"yarn client\"",
     "clean": "rm -rf dist/",
+
+    "env": "cd ./src/server && test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\" || echo \"Please add the file .env.json before deploy.\"",
     
-    "prebuild-funcs": "cp -R package.json ./functions",
+    "prebuild-funcs": "cp -R package.json ./src/server/.env.json ./functions",
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
 
@@ -30,7 +32,7 @@
     "shell": "NODE_ENV=firebase firebase functions:shell",
     "start": "NODE_ENV=firebase yarn run shell",
     
-    "predeploy:funcs": "yarn build-funcs",
+    "predeploy:funcs": "yarn env && yarn build-funcs",
     "deploy:funcs": "firebase deploy --only functions",
 
     "predeploy:hosting": "yarn build",

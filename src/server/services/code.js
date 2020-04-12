@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import config from '../config';
 
 export default class CodeService {
   static save(code, workspace, userId, levelId, token) {
@@ -9,7 +10,7 @@ export default class CodeService {
       user_id: userId,
     });
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.BACKEND_HOST}/users/${userId}/levels/${levelId}`, {
+      fetch(`${config.env.BACKEND_HOST}/users/${userId}/levels/${levelId}`, {
         method: 'PUT',
         body,
         headers: {

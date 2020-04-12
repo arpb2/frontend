@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
+import config from '../config';
 
 export default class LevelsService {
   static getAll() {
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.BACKEND_HOST}/levels`, {
+      fetch(`${config.env.BACKEND_HOST}/levels`, {
         method: 'GET',
       })
         .then((res) => {
@@ -31,7 +32,7 @@ export default class LevelsService {
 
   static get(id) {
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.BACKEND_HOST}/levels/${id}`, {
+      fetch(`${config.env.BACKEND_HOST}/levels/${id}`, {
         method: 'GET',
       })
         .then((res) => {
