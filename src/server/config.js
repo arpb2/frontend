@@ -11,8 +11,4 @@ if (process.env.NODE_ENV === 'firebase' || process.env.NODE_ENV === 'development
   }
 }
 
-console.log('config');
-console.log(config);
-
-
 export default config;
