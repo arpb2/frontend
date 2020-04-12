@@ -2,18 +2,48 @@
   "name": "@arpb2/frontend",
   "version": "1.0.0",
   "description": "Frontend for ARPB2 project",
-  "main": "src/server/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:arpb2/frontend.git"
   },
   "scripts": {
-    "build": "webpack --mode production && babel -d ./dist ./src/server",
-    "start": "yarn build && NODE_ENV=production node ./dist/index.js",
+    "build:front": "webpack --mode production",
+    "build:node": "babel -d ./dist ./src/server",
+    "build": "yarn build:front && yarn build:node",
+    "prestart:heroku": "yarn build",
+    "start:heroku": "NODE_ENV=production node ./dist/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "nodemon --exec babel-node src/server/index.js",
+    "server": "NODE_ENV=development nodemon --exec babel-node src/server/index.js",
     "debug": "nodemon --inspect --exec babel-node src/server/index.js",
-    "start-dev": "concurrently \"yarn server\" \"yarn client\""
+    "start-dev": "concurrently \"yarn server\" \"yarn client\"",
+    "clean": "rm -rf dist/",
+
+    "env": "cd ./src/server && test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\" || echo \"Please add the file .env.json before deploy.\"",
+    
+    "prebuild-funcs": "cp -R package.json ./src/server/.env.json ./src/server/assets ./functions",
+    "build-funcs": "babel -d ./functions ./src/server",
+    "postbuild-funcs": "cd functions && yarn",
+
+    "preserve": "yarn build:front && yarn build-funcs",
+    "serve": "NODE_ENV=firebase firebase serve",
+    "postserve": "yarn clean",
+
+    "shell": "NODE_ENV=firebase firebase functions:shell",
+    "start": "NODE_ENV=firebase yarn run shell",
+    
+    "predeploy:funcs": "yarn build-funcs && yarn env",
+    "deploy:funcs": "firebase deploy --only functions",
+
+    "predeploy:hosting": "yarn build",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "postdeploy:hosting": "yarn postdeploy",
+
+    "predeploy": "yarn build && yarn build-funcs",
+    "deploy": "firebase deploy",
+    "postdeploy": "yarn clean",
+    
+    "logs": "firebase functions:log"
   },
   "author": "ARPB2",
   "license": "GPL-3.0",
@@ -28,6 +58,8 @@
     "clsx": "^1.0.4",
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
+    "firebase-admin": "^8.10.0",
+    "firebase-functions": "^3.6.0",
     "intro.js": "^2.9.3",
     "intro.js-react": "^0.2.0",
     "moment": "^2.24.0",
@@ -65,6 +97,7 @@
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "file-loader": "^5.0.2",
+    "firebase-functions-test": "^0.2.0",
     "html-webpack-plugin": "^3.2.0",
     "nodemon": "^1.17.3",
     "sass-loader": "^8.0.0",
@@ -75,6 +108,11 @@
     "webpack-dev-server": "^3.1.3"
   },
   "engines": {
-    "node": ">=12"
+    "node": "10"
+  },
+  "proxy": {
+    "/__": {
+      "target": "http://localhost:8080"
+    }
   }
 }
