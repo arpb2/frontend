@@ -10,7 +10,7 @@
   "scripts": {
     "build:front": "webpack --mode production",
     "build:node": "babel -d ./dist ./src/server",
-    "build": "yarn build:front && build:node",
+    "build": "yarn build:front && yarn build:node",
     "prestart:heroku": "yarn build",
     "start:heroku": "NODE_ENV=production node ./dist/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
