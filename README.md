@@ -7,7 +7,7 @@
 
 Uses Node 10 + Express + React. [Blockly](https://github.com/google/blockly) for block programming
 
-Current live version can be found [here](https://arpb2-frontend.herokuapp.com/)
+Current live version can be found [here](https://arpb2-72eab.web.app)
 
 ### Run locally
 
