@@ -29,8 +29,6 @@
     <script src="/__/firebase/7.14.1/firebase-analytics.js"></script>
 
     <!-- Add Firebase products that you want to use -->
-    <script src="/__/firebase/7.14.1/firebase-auth.js"></script>
-    <script src="/__/firebase/7.14.1/firebase-firestore.js"></script>
     <script src="/__/firebase/7.14.1/firebase-messaging.js"></script>
 
     <!-- Initialize Firebase -->
@@ -47,7 +45,6 @@
         // [END set_public_vapid_key]
       
         // IDs of divs that display Instance ID token UI or request permission UI.
-        const tokenDivId = 'token_div';
         const permissionDivId = 'permission_div';
 
         // Get Instance ID token. Initially this makes a network call, once retrieved
@@ -133,8 +130,7 @@
       
         function showToken(currentToken) {
           // Show token in console and UI.
-          const tokenElement = document.querySelector('#token');
-          tokenElement.textContent = currentToken;
+          console.log('Token: ' + currentToken);
         }
       
         // Send the Instance ID token your application server, so that it can:
@@ -231,37 +227,26 @@
         }
       
         function updateUIForPushEnabled(currentToken) {
-          showHideDiv(tokenDivId, true);
           showHideDiv(permissionDivId, false);
           showToken(currentToken);
         }
       
         function updateUIForPushPermissionRequired() {
-          showHideDiv(tokenDivId, false);
           showHideDiv(permissionDivId, true);
         }
       
         // resetUI();
-      </script>
+    </script>
 
-                <!-- div to display the generated Instance ID token -->
-                <div id="token_div" style="display: none;">
-                    <h4>Instance ID Token</h4>
-                    <p id="token" style="word-break: break-all;"></p>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                            onclick="deleteToken()">Delete Token</button>
-                  </div>
-                  <!-- div to display the UI to allow the request for permission to
-                       notify the user. This is shown if the app has not yet been
-                       granted permission to notify. -->
-                  <div id="permission_div" style="display: none;">
-                    <h4>Needs Permission</h4>
-                    <p id="token"></p>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                            onclick="requestPermission()">Request Permission</button>
-                  </div>
-                  <!-- div to display messages received by this app. -->
-                  <div id="messages"></div>
+    <!-- div to display the UI to allow the request for permission to
+          notify the user. This is shown if the app has not yet been
+          granted permission to notify. -->
+    <div id="permission_div" style="display: none;">
+      <h4>Needs Permission</h4>
+      <p id="token"></p>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+              onclick="requestPermission()">Request Permission</button>
+    </div>
         
     <div id="root"></div>
 </body>
