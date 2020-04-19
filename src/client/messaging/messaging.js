@@ -9,9 +9,6 @@ const messaging = firebase.messaging();
 messaging.usePublicVapidKey('BDSB0TBDwWZsBBVPnslxVPEwpXY-AISjYd2WEVA6J0_93uEVMZxBPiqsrLOD9c47wY-any9Q1ctKf58IcU2OgQs');
 // [END set_public_vapid_key]
 
-// IDs of divs that display Instance ID token UI or request permission UI.
-// const permissionDivId = 'permission_div';
-
 const isTokenSentToServer = () => window.localStorage.getItem('sentToServer') === '1';
 
 const setTokenSentToServer = (sent) => {
@@ -94,41 +91,6 @@ messaging.onMessage((payload) => {
 });
 // [END receive_message]
 
-// function resetUI() {
-//   clearMessages();
-//   showToken('loading...');
-//   // [START get_token]
-//   // Get Instance ID token. Initially this makes a network call, once retrieved
-//   // subsequent calls to getToken will return from cache.
-//   messaging.getToken().then((currentToken) => {
-//     if (currentToken) {
-//       sendTokenToServer(currentToken);
-//       updateUIForPushEnabled(currentToken);
-//     } else {
-//       // Show permission request.
-//       console.log('No Instance ID token available. Request permission to generate one.');
-//       // Show permission UI.
-//       updateUIForPushPermissionRequired();
-//       setTokenSentToServer(false);
-//     }
-//   }).catch((err) => {
-//     console.log('An error occurred while retrieving token. ', err);
-//     showToken('Error retrieving Instance ID token. ', err);
-//     setTokenSentToServer(false);
-//   });
-//   // [END get_token]
-// }
-
-
-// const showHideDiv = (divId, show) => {
-//   const div = document.querySelector(`#${divId}`);
-//   if (show) {
-//     div.style = 'display: visible';
-//   } else {
-//     div.style = 'display: none';
-//   }
-// };
-
 const requestPermission = () => {
   console.log('Requesting permission...');
   // [START request_permission]
@@ -188,17 +150,6 @@ const deleteToken = () => {
 //     messagesElement.removeChild(messagesElement.lastChild);
 //   }
 // }
-
-// const updateUIForPushEnabled = (currentToken) => {
-//   showHideDiv(permissionDivId, false);
-//   showToken(currentToken);
-// };
-
-// const updateUIForPushPermissionRequired = () => {
-//   showHideDiv(permissionDivId, true);
-// };
-
-// resetUI();
 
 export default {
   messaging,
