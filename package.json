@@ -18,31 +18,23 @@
     "debug": "nodemon --inspect --exec babel-node src/server/index.js",
     "start-dev": "concurrently \"yarn server\" \"yarn client\"",
     "clean": "rm -rf dist/",
-
     "env": "cd ./src/server && test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\" || echo \"Please add the file .env.json before deploy.\"",
-    
     "prebuild-funcs": "cp -R package.json ./src/server/.env.json ./src/server/assets ./functions",
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
-
     "preserve": "yarn build:front && yarn build-funcs",
     "serve": "NODE_ENV=firebase firebase serve",
     "postserve": "yarn clean",
-
     "shell": "NODE_ENV=firebase firebase functions:shell",
     "start": "NODE_ENV=firebase yarn run shell",
-    
     "predeploy:funcs": "yarn build-funcs && yarn env",
     "deploy:funcs": "firebase deploy --only functions",
-
     "predeploy:hosting": "yarn build",
     "deploy:hosting": "firebase deploy --only hosting",
     "postdeploy:hosting": "yarn postdeploy",
-
     "predeploy": "yarn build && yarn build-funcs",
     "deploy": "firebase deploy",
     "postdeploy": "yarn clean",
-    
     "logs": "firebase functions:log"
   },
   "author": "ARPB2",
