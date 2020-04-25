@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'firebase' || process.env.NODE_ENV === 'development
     const loadedconfig = require('./.env.json');
 
     config = loadedconfig;
+  } else {
+    console.error('.env.json file missing');
   }
 }
 

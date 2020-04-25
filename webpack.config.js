@@ -52,8 +52,10 @@ module.exports = {
       favicon: './public/favicon.ico',
     }),
     new CopyPlugin([
-      { from: 'public', to: 'public' },
+      { from: 'public/images', to: 'public/images' },
+      { from: 'public/_redirects', to: 'public/' },
       { from: 'src/server/assets', to: 'assets' },
+      { from: 'public/firebase-messaging-sw.js', to: '.' },
     ]),
   ],
 };
