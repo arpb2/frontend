@@ -19,7 +19,7 @@
     "start-dev": "concurrently \"yarn server\" \"yarn client\"",
     "clean": "rm -rf dist/",
     "env": "cd ./src/server && test -f .env.json && firebase functions:config:unset env && firebase functions:config:set env=\"$(cat .env.json)\" || echo \"Please add the file .env.json before deploy.\"",
-    "prebuild-funcs": "cp -R package.json ./src/server/.env.json ./src/server/assets ./functions",
+    "prebuild-funcs": "cp -R package.json .env.json ./src/server/assets ./functions",
     "build-funcs": "babel -d ./functions ./src/server",
     "postbuild-funcs": "cd functions && yarn",
     "preserve": "yarn build:front && yarn build-funcs",
