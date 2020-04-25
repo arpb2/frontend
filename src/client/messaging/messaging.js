@@ -2,11 +2,11 @@ const { firebase } = window;
 
 // [START get_messaging_object]
 // Retrieve Firebase Messaging object.
-const messaging = firebase.messaging();
+const messaging = firebase ? firebase.messaging() : {};
 // [END get_messaging_object]
 // [START set_public_vapid_key]
 // Add the public key generated from the console here.
-messaging.usePublicVapidKey('BDSB0TBDwWZsBBVPnslxVPEwpXY-AISjYd2WEVA6J0_93uEVMZxBPiqsrLOD9c47wY-any9Q1ctKf58IcU2OgQs');
+if (firebase) messaging.usePublicVapidKey('BDSB0TBDwWZsBBVPnslxVPEwpXY-AISjYd2WEVA6J0_93uEVMZxBPiqsrLOD9c47wY-any9Q1ctKf58IcU2OgQs');
 // [END set_public_vapid_key]
 
 const isTokenSentToServer = () => window.localStorage.getItem('sentToServer') === '1';
@@ -38,43 +38,47 @@ const sendTokenToServer = (currentToken) => {
 
 // Get Instance ID token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
-messaging.getToken().then((currentToken) => {
-  if (currentToken) {
-    sendTokenToServer(currentToken);
+if (firebase) {
+  messaging.getToken().then((currentToken) => {
+    if (currentToken) {
+      sendTokenToServer(currentToken);
     // updateUIForPushEnabled(currentToken);
-  } else {
+    } else {
     // Show permission request.
-    console.log('No Instance ID token available. Request permission to generate one.');
-    // Show permission UI.
-    // updateUIForPushPermissionRequired();
+      console.log('No Instance ID token available. Request permission to generate one.');
+      // Show permission UI.
+      // updateUIForPushPermissionRequired();
+      setTokenSentToServer(false);
+    }
+  }).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+    showToken('Error retrieving Instance ID token. ', err);
     setTokenSentToServer(false);
-  }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  showToken('Error retrieving Instance ID token. ', err);
-  setTokenSentToServer(false);
-});
+  });
+}
 
 // [START refresh_token]
 // Callback fired if Instance ID token is updated.
-messaging.onTokenRefresh(() => {
-  messaging.getToken().then((refreshedToken) => {
-    console.log('Token refreshed.');
-    console.log(refreshedToken);
-    // Indicate that the new Instance ID token has not yet been sent to the
-    // app server.
-    setTokenSentToServer(false);
-    // Send Instance ID token to app server.
-    sendTokenToServer(refreshedToken);
+if (firebase) {
+  messaging.onTokenRefresh(() => {
+    messaging.getToken().then((refreshedToken) => {
+      console.log('Token refreshed.');
+      console.log(refreshedToken);
+      // Indicate that the new Instance ID token has not yet been sent to the
+      // app server.
+      setTokenSentToServer(false);
+      // Send Instance ID token to app server.
+      sendTokenToServer(refreshedToken);
     // [START_EXCLUDE]
     // Display new Instance ID token and clear UI of all previous messages.
     // resetUI();
     // [END_EXCLUDE]
-  }).catch((err) => {
-    console.log('Unable to retrieve refreshed token ', err);
-    showToken('Unable to retrieve refreshed token ', err);
+    }).catch((err) => {
+      console.log('Unable to retrieve refreshed token ', err);
+      showToken('Unable to retrieve refreshed token ', err);
+    });
   });
-});
+}
 // [END refresh_token]
 
 // [START receive_message]
@@ -82,13 +86,15 @@ messaging.onTokenRefresh(() => {
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
 //   `messaging.setBackgroundMessageHandler` handler.
-messaging.onMessage((payload) => {
-  console.log('Message received. ', payload);
+if (firebase) {
+  messaging.onMessage((payload) => {
+    console.log('Message received. ', payload);
   // [START_EXCLUDE]
   // Update the UI to include the received message.
   // appendMessage(payload);
   // [END_EXCLUDE]
-});
+  });
+}
 // [END receive_message]
 
 const requestPermission = () => {

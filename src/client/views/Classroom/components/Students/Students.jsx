@@ -224,9 +224,11 @@ const Students = (props) => {
           </List>
         </CardContent>
       </Card>
+      {isTeacher() && (
       <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
         Add students
       </Button>
+      )}
       <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
