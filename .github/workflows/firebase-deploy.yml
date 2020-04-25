@@ -15,12 +15,6 @@ jobs:
         node-version: [10.x]
 
     steps:
-      - name: Create File
-        uses: finnp/create-file-action@1.0.0
-        env:
-          FILE_NAME: ".env.json"
-          FILE_DATA: "{\n\"BACKEND_HOST_MOCKS\": \"http://localhost:3000\",\n\"BACKEND_HOST\": \"${{ secrets.BACKEND_HOST }}\",\n\"PUBLIC_URL\": \"/public\"\n}"
-
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -32,6 +26,12 @@ jobs:
 
       - name: Download dependencies
         run: yarn --frozen-lockfile
+
+      - name: Create File
+        uses: finnp/create-file-action@1.0.0
+        env:
+          FILE_NAME: ".env.json"
+          FILE_DATA: "{\n\"BACKEND_HOST_MOCKS\": \"http://localhost:3000\",\n\"BACKEND_HOST\": \"${{ secrets.BACKEND_HOST }}\",\n\"PUBLIC_URL\": \"/public\"\n}"
 
       - name: Deploy to Firebase
         run: yarn deploy
