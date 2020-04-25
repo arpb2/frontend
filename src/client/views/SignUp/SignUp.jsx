@@ -281,6 +281,7 @@ const SignUp = (props) => {
                   className={classes.textField}
                   variant="outlined"
                 >
+                  <option value="" />
                   <option value="student">Student</option>
                   <option value="teacher">Teacher</option>
                 </Select>
