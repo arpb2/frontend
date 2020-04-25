@@ -1,4 +1,4 @@
-name: deploy_to_firebase
+name: Deploy to Firebase
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  deploy_to_firebase:
+  deploy:
 
     runs-on: ubuntu-latest
 
@@ -22,6 +22,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install yarn
       run: npm install -g yarn
+    - name: Download dependencies
+      run: yarn --frozen-lockfile
     - name: Deploy to Firebase
       run: yarn deploy
       env:
