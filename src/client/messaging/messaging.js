@@ -1,4 +1,4 @@
-import { getUserId } from '../common/auth';
+import { getUserId, getDeviceToken } from '../common/auth';
 
 const { firebase } = window;
 
@@ -146,8 +146,34 @@ const deleteToken = () => {
 //   }
 // }
 
+const sendCodeToApp = (code) => {
+  fetch('https://fcm.googleapis.com/fcm/send', {
+    method: 'POST',
+    body: JSON.stringify({
+      notification: {
+        title: 'ARPB2',
+        body: { code },
+      },
+      // to: getDeviceToken(),
+      to: 'eg71HY5UvBtF8FZ_i0oqOf:APA91bHmFx4O9hoyK56HOI9K67dEMrZH-LrJrfkvrvYgDA_8KxbDPosguv5XsOGOKEkGQ0ckc43TgWvvqRiogIp5ilGOh8y-Uxp_XQTzdHGGwhVb4JkD0xD7DZf3OCFrDDRbIs22q9f9',
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      console.log(response);
+
+      if (!response.ok) throw Error(response.statusText);
+      return response.status;
+    })
+    .then(status => status);
+};
+
+
 export default {
   messaging,
   requestPermission,
   deleteToken,
+  sendCodeToApp,
 };

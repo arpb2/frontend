@@ -18,6 +18,7 @@ import { Steps } from 'intro.js-react';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useParams } from 'react-router-dom';
 import parseWorkspaceXml from './BlocklyHelper';
+import messaging from '../../messaging';
 
 
 import 'blockly/python';
@@ -206,7 +207,8 @@ const MyBlockly = (props) => {
   const runCode = () => {
     try {
       // eslint-disable-next-line no-eval
-      eval(values.runnableCode);
+      messaging.sendCodeToApp(values.runnableCode);
+      // eval(values.runnableCode);
     } catch (e) {
       setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
       setOpen(true);
