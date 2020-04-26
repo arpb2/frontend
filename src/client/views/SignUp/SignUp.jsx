@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { Link as RouterLink, withRouter, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
 import { makeStyles } from '@material-ui/styles';
@@ -140,8 +140,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 const SignUp = (props) => {
   const { history } = props;
+
+  const query = useQuery();
 
   const classes = useStyles();
 
@@ -186,10 +190,11 @@ const SignUp = (props) => {
   };
 
   const handleSignUp = (event) => {
+    const body = { ...formState.values, deviceToken: query.get('deviceToken'), webToken: localStorage.getItem('webToken') };
     event.preventDefault();
     fetch('/api/users', {
       method: 'POST',
-      body: JSON.stringify(formState.values),
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
       },

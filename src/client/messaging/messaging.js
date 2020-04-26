@@ -1,13 +1,11 @@
+import { getUserId } from '../common/auth';
+
 const { firebase } = window;
 
-// [START get_messaging_object]
 // Retrieve Firebase Messaging object.
 const messaging = firebase ? firebase.messaging() : {};
-// [END get_messaging_object]
-// [START set_public_vapid_key]
 // Add the public key generated from the console here.
 if (firebase) messaging.usePublicVapidKey('BDSB0TBDwWZsBBVPnslxVPEwpXY-AISjYd2WEVA6J0_93uEVMZxBPiqsrLOD9c47wY-any9Q1ctKf58IcU2OgQs');
-// [END set_public_vapid_key]
 
 const isTokenSentToServer = () => window.localStorage.getItem('sentToServer') === '1';
 
@@ -26,9 +24,22 @@ const showToken = (currentToken) => {
 const sendTokenToServer = (currentToken) => {
   showToken(currentToken);
   if (!isTokenSentToServer()) {
-    console.log('Sending token to server...');
-    // TODO(developer): Send the current token to your server.
-    setTokenSentToServer(true);
+    const userId = getUserId();
+    fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ tokens: { web: currentToken } }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem('webToken', currentToken);
+        setTokenSentToServer(true);
+      });
   } else {
     console.log('Token already sent to server so won\'t send it again '
                 + 'unless it changes');
@@ -42,12 +53,8 @@ if (firebase) {
   messaging.getToken().then((currentToken) => {
     if (currentToken) {
       sendTokenToServer(currentToken);
-    // updateUIForPushEnabled(currentToken);
     } else {
-    // Show permission request.
       console.log('No Instance ID token available. Request permission to generate one.');
-      // Show permission UI.
-      // updateUIForPushPermissionRequired();
       setTokenSentToServer(false);
     }
   }).catch((err) => {
@@ -57,7 +64,6 @@ if (firebase) {
   });
 }
 
-// [START refresh_token]
 // Callback fired if Instance ID token is updated.
 if (firebase) {
   messaging.onTokenRefresh(() => {
@@ -69,19 +75,13 @@ if (firebase) {
       setTokenSentToServer(false);
       // Send Instance ID token to app server.
       sendTokenToServer(refreshedToken);
-    // [START_EXCLUDE]
-    // Display new Instance ID token and clear UI of all previous messages.
-    // resetUI();
-    // [END_EXCLUDE]
     }).catch((err) => {
       console.log('Unable to retrieve refreshed token ', err);
       showToken('Unable to retrieve refreshed token ', err);
     });
   });
 }
-// [END refresh_token]
 
-// [START receive_message]
 // Handle incoming messages. Called when:
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
@@ -89,48 +89,37 @@ if (firebase) {
 if (firebase) {
   messaging.onMessage((payload) => {
     console.log('Message received. ', payload);
-  // [START_EXCLUDE]
-  // Update the UI to include the received message.
-  // appendMessage(payload);
-  // [END_EXCLUDE]
+    // Update the UI to include the received message.
+    // appendMessage(payload);
   });
 }
-// [END receive_message]
 
 const requestPermission = () => {
   console.log('Requesting permission...');
-  // [START request_permission]
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       console.log('Notification permission granted.');
       // TODO(developer): Retrieve an Instance ID token for use with FCM.
-      // [START_EXCLUDE]
       // In many cases once an app has been granted notification permission,
       // it should update its UI reflecting this.
       // resetUI();
-      // [END_EXCLUDE]
     } else {
       console.log('Unable to get permission to notify.');
     }
   });
-  // [END request_permission]
 };
 
 const deleteToken = () => {
   // Delete Instance ID token.
-  // [START delete_token]
   messaging.getToken().then((currentToken) => {
     messaging.deleteToken(currentToken).then(() => {
       console.log('Token deleted.');
       setTokenSentToServer(false);
-      // [START_EXCLUDE]
       // Once token is deleted update UI.
       // resetUI();
-      // [END_EXCLUDE]
     }).catch((err) => {
       console.log('Unable to delete token. ', err);
     });
-    // [END delete_token]
   }).catch((err) => {
     console.log('Error retrieving Instance ID token. ', err);
     showToken('Error retrieving Instance ID token. ', err);
