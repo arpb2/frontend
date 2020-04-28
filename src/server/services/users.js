@@ -25,7 +25,7 @@ export default class UserService {
     });
   }
 
-  static create(firstName, lastName, password, email, userType) {
+  static create(firstName, lastName, password, email, userType, webToken, deviceToken) {
     return new Promise((resolve, reject) => {
       fetch(`${config.BACKEND_HOST}/users`, {
         method: 'POST',
@@ -35,6 +35,10 @@ export default class UserService {
           email,
           password,
           type: userType,
+          tokens: {
+            web: webToken,
+            device: deviceToken,
+          },
         }),
         headers: {
           'Content-Type': 'application/json',

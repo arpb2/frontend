@@ -11,7 +11,7 @@ router.post('/signin', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   UserService.create(req.body.firstName, req.body.lastName,
-    req.body.password, req.body.email, req.body.userType)
+    req.body.password, req.body.email, req.body.userType, req.body.webToken, req.body.deviceToken)
     .then(payload => res.json(payload))
     .catch(err => next(err));
 });
