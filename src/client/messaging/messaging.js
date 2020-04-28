@@ -147,15 +147,11 @@ const deleteToken = () => {
 // }
 
 const sendCodeToApp = (code) => {
-  fetch('https://fcm.googleapis.com/fcm/send', {
+  fetch('/api/messaging', {
     method: 'POST',
     body: JSON.stringify({
-      notification: {
-        title: 'ARPB2',
-        body: { code },
-      },
-      // to: getDeviceToken(),
-      to: 'eg71HY5UvBtF8FZ_i0oqOf:APA91bHmFx4O9hoyK56HOI9K67dEMrZH-LrJrfkvrvYgDA_8KxbDPosguv5XsOGOKEkGQ0ckc43TgWvvqRiogIp5ilGOh8y-Uxp_XQTzdHGGwhVb4JkD0xD7DZf3OCFrDDRbIs22q9f9',
+      message: { code },
+      to: getDeviceToken(),
     }),
     headers: {
       'Content-Type': 'application/json',

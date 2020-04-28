@@ -23,9 +23,11 @@ app.use('/api/users', require('./users').default);
 app.use('/api/code', require('./code').default);
 app.use('/api/levels', require('./levels').default);
 app.use('/api/classrooms', require('./classrooms').default);
+app.use('/api/messaging', require('./messaging').default);
 
 app.get('/api/blockly/initial', (req, res) => res.send(fs.readFileSync(`${__dirname}/assets/initial_toolbox.xml`)));
 app.get('/api/ping', (req, res) => res.json({ ok: true }));
+
 
 app.use((err, req, res, next) => {
   if (res.headersSent) {
