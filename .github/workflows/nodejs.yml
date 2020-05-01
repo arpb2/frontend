@@ -23,6 +23,6 @@ jobs:
       run: |
         yarn --frozen-lockfile
         yarn build
-        # yarn test
+        yarn test
       env:
         CI: true
