@@ -3,16 +3,23 @@
   "extends": ["airbnb"],
   "env": {
       "browser": true,
-      "node": true
+      "node": true,
+      "jest/globals": true
   },
   "plugins": [
-      "react-hooks"
+      "react-hooks",
+      "jest"
   ],
   "rules": {
       "no-console": "warn",
       "comma-dangle": "error",
       "react/jsx-filename-extension": "warn",
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
+      "react-hooks/exhaustive-deps": "warn",
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error"
   }
 }
