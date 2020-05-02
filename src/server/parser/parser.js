@@ -19,18 +19,24 @@ const options = {
   tagValueProcessor: (val, tagName) => he.decode(val), // default is a=>a
 };
 
-const parseXML = (xmlData) => {
-  const xml = parser.parse(xmlData, options);
-  const parsed = remove(xml, ['@_id', '@_x', '@_y']);
-  return parsed;
-};
-
 const remove = (data, keys) => {
   const parsed = data;
   Object.keys(data).forEach((key) => {
     if (keys.includes(key)) delete parsed[key];
     else if (typeof data[key] === 'object') remove(parsed[key], keys);
   });
+  return parsed;
+};
+
+const renameProp = (oldProp, newProp, { [oldProp]: old, ...others }) => ({
+  [newProp]: old,
+  ...others,
+});
+
+const parseXML = (xmlData) => {
+  const xml = parser.parse(xmlData, options);
+  let parsed = remove(xml, ['@_id', '@_x', '@_y']);
+  parsed = renameProp('xml', 'code', parsed);
   return parsed;
 };
 

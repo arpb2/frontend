@@ -153,12 +153,15 @@ const MyBlockly = (props) => {
   }, [values.currentLevel.title, history, id]);
 
   const handleSave = () => {
+    const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
+    console.log(workspace);
+
     const session = JSON.parse(localStorage.getItem('session'));
     fetch('/api/code', {
       method: 'POST',
       body: JSON.stringify({
         code: values.runnableCode,
-        workspace: btoa(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace))),
+        workspace: btoa(workspace),
         userId: session.user_id,
         levelId: 1, // TODO: Get from route
       }),
