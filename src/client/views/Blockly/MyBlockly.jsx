@@ -154,8 +154,6 @@ const MyBlockly = (props) => {
 
   const handleSave = () => {
     const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
-    console.log(workspace);
-
     const session = JSON.parse(localStorage.getItem('session'));
     fetch('/api/code', {
       method: 'POST',
@@ -209,13 +207,11 @@ const MyBlockly = (props) => {
 
   const runCode = () => {
     try {
-      // eslint-disable-next-line no-eval
-      messaging.sendCodeToApp(values.runnableCode);
-      // eval(values.runnableCode);
+      const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
+      messaging.sendCodeToApp(btoa(workspace));
     } catch (e) {
       setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
       setOpen(true);
-      alert(e);
     }
   };
 

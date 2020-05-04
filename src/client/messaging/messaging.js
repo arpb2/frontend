@@ -147,6 +147,9 @@ const deleteToken = () => {
 // }
 
 const sendCodeToApp = (code) => {
+  if (!getDeviceToken()) {
+    throw Error('Missing device token');
+  }
   fetch('/api/messaging', {
     method: 'POST',
     body: JSON.stringify({
