@@ -1,11 +1,13 @@
-import { getUserId, getDeviceToken } from '../common/auth';
+import { getUserId, getDeviceToken, isLoggedIn } from '../common/auth';
 
 const { firebase } = window;
 
 // Retrieve Firebase Messaging object.
-const messaging = firebase ? firebase.messaging() : {};
+// const messaging = firebase ? firebase.messaging() : {};
+const messaging = (firebase && firebase.messaging.isSupported()) ? firebase.messaging() : null;
+
 // Add the public key generated from the console here.
-if (firebase) messaging.usePublicVapidKey('BDSB0TBDwWZsBBVPnslxVPEwpXY-AISjYd2WEVA6J0_93uEVMZxBPiqsrLOD9c47wY-any9Q1ctKf58IcU2OgQs');
+if (messaging) messaging.usePublicVapidKey('BDSB0TBDwWZsBBVPnslxVPEwpXY-AISjYd2WEVA6J0_93uEVMZxBPiqsrLOD9c47wY-any9Q1ctKf58IcU2OgQs');
 
 const isTokenSentToServer = () => window.localStorage.getItem('sentToServer') === '1';
 
@@ -24,6 +26,10 @@ const showToken = (currentToken) => {
 const sendTokenToServer = (currentToken) => {
   showToken(currentToken);
   if (!isTokenSentToServer()) {
+    if (!isLoggedIn()) {
+      console.log('user not logged in, skipping token setting');
+      return;
+    }
     const userId = getUserId();
     fetch(`/api/users/${userId}`, {
       method: 'PUT',
@@ -49,7 +55,7 @@ const sendTokenToServer = (currentToken) => {
 
 // Get Instance ID token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
-if (firebase) {
+if (messaging) {
   messaging.getToken().then((currentToken) => {
     if (currentToken) {
       sendTokenToServer(currentToken);
@@ -65,7 +71,7 @@ if (firebase) {
 }
 
 // Callback fired if Instance ID token is updated.
-if (firebase) {
+if (messaging) {
   messaging.onTokenRefresh(() => {
     messaging.getToken().then((refreshedToken) => {
       console.log('Token refreshed.');
@@ -86,7 +92,7 @@ if (firebase) {
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
 //   `messaging.setBackgroundMessageHandler` handler.
-if (firebase) {
+if (messaging) {
   messaging.onMessage((payload) => {
     console.log('Message received. ', payload);
     // Update the UI to include the received message.
@@ -96,55 +102,39 @@ if (firebase) {
 
 const requestPermission = () => {
   console.log('Requesting permission...');
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
-      // TODO(developer): Retrieve an Instance ID token for use with FCM.
-      // In many cases once an app has been granted notification permission,
-      // it should update its UI reflecting this.
-      // resetUI();
-    } else {
-      console.log('Unable to get permission to notify.');
-    }
-  });
+  if (messaging) {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+        // TODO(developer): Retrieve an Instance ID token for use with FCM.
+        // In many cases once an app has been granted notification permission,
+        // it should update its UI reflecting this.
+        // resetUI();
+      } else {
+        console.log('Unable to get permission to notify.');
+      }
+    });
+  }
 };
 
 const deleteToken = () => {
+  if (messaging) {
   // Delete Instance ID token.
-  messaging.getToken().then((currentToken) => {
-    messaging.deleteToken(currentToken).then(() => {
-      console.log('Token deleted.');
-      setTokenSentToServer(false);
+    messaging.getToken().then((currentToken) => {
+      messaging.deleteToken(currentToken).then(() => {
+        console.log('Token deleted.');
+        setTokenSentToServer(false);
       // Once token is deleted update UI.
       // resetUI();
+      }).catch((err) => {
+        console.log('Unable to delete token. ', err);
+      });
     }).catch((err) => {
-      console.log('Unable to delete token. ', err);
+      console.log('Error retrieving Instance ID token. ', err);
+      showToken('Error retrieving Instance ID token. ', err);
     });
-  }).catch((err) => {
-    console.log('Error retrieving Instance ID token. ', err);
-    showToken('Error retrieving Instance ID token. ', err);
-  });
+  }
 };
-
-// Add a message to the messages element.
-// function appendMessage(payload) {
-//   const messagesElement = document.querySelector('#messages');
-//   const dataHeaderELement = document.createElement('h5');
-//   const dataElement = document.createElement('pre');
-//   dataElement.style = 'overflow-x:hidden;';
-//   dataHeaderELement.textContent = 'Received message:';
-//   dataElement.textContent = JSON.stringify(payload, null, 2);
-//   messagesElement.appendChild(dataHeaderELement);
-//   messagesElement.appendChild(dataElement);
-// }
-
-// Clear the messages element of all children.
-// function clearMessages() {
-//   const messagesElement = document.querySelector('#messages');
-//   while (messagesElement.hasChildNodes()) {
-//     messagesElement.removeChild(messagesElement.lastChild);
-//   }
-// }
 
 const sendCodeToApp = (code) => {
   fetch('/api/messaging', {

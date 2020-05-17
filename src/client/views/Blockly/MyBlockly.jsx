@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
   TextField, Button, Grid, Typography, Paper, Container, Snackbar,
 } from '@material-ui/core';
-import ReactBlocklyComponent from 'react-blockly';
+import ReactBlockly from 'react-blockly';
 import Blockly from 'blockly';
 import { makeStyles } from '@material-ui/styles';
 import SaveIcon from '@material-ui/icons/Save';
@@ -257,7 +257,7 @@ const MyBlockly = (props) => {
         >
           <Grid xs={12} sm={9} item id="blockly" className={classes.blockly}>
             {values.toolboxCategories && (
-            <ReactBlocklyComponent.BlocklyEditor
+            <ReactBlockly.BlocklyEditor
               toolboxCategories={values.toolboxCategories}
               workspaceConfiguration={{
                 grid: {
