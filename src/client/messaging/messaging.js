@@ -15,7 +15,7 @@ const setTokenSentToServer = (sent) => {
 
 const showToken = (currentToken) => {
   // Show token in console and UI.
-  console.log(`Token: ${currentToken}`);
+  console.debug(`Token: ${currentToken}`);
 };
 
 // Send the Instance ID token your application server, so that it can:
@@ -25,7 +25,7 @@ const sendTokenToServer = (currentToken) => {
   showToken(currentToken);
   if (!isTokenSentToServer()) {
     if (!isLoggedIn()) {
-      console.log('user not logged in, skipping token setting');
+      console.debug('user not logged in, skipping token setting');
       return;
     }
     const userId = getUserId();
@@ -45,7 +45,7 @@ const sendTokenToServer = (currentToken) => {
         setTokenSentToServer(true);
       });
   } else {
-    console.log('Token already sent to server so won\'t send it again '
+    console.debug('Token already sent to server so won\'t send it again '
                 + 'unless it changes');
   }
 };
@@ -58,11 +58,11 @@ if (firebase) {
     if (currentToken) {
       sendTokenToServer(currentToken);
     } else {
-      console.log('No Instance ID token available. Request permission to generate one.');
+      console.debug('No Instance ID token available. Request permission to generate one.');
       setTokenSentToServer(false);
     }
   }).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
+    console.debug('An error occurred while retrieving token. ', err);
     showToken('Error retrieving Instance ID token. ', err);
     setTokenSentToServer(false);
   });
@@ -72,15 +72,15 @@ if (firebase) {
 if (firebase) {
   messaging.onTokenRefresh(() => {
     messaging.getToken().then((refreshedToken) => {
-      console.log('Token refreshed.');
-      console.log(refreshedToken);
+      console.debug('Token refreshed.');
+      console.debug(refreshedToken);
       // Indicate that the new Instance ID token has not yet been sent to the
       // app server.
       setTokenSentToServer(false);
       // Send Instance ID token to app server.
       sendTokenToServer(refreshedToken);
     }).catch((err) => {
-      console.log('Unable to retrieve refreshed token ', err);
+      console.debug('Unable to retrieve refreshed token ', err);
       showToken('Unable to retrieve refreshed token ', err);
     });
   });
@@ -92,23 +92,23 @@ if (firebase) {
 //   `messaging.setBackgroundMessageHandler` handler.
 if (firebase) {
   messaging.onMessage((payload) => {
-    console.log('Message received. ', payload);
+    console.debug('Message received. ', payload);
     // Update the UI to include the received message.
     // appendMessage(payload);
   });
 }
 
 const requestPermission = () => {
-  console.log('Requesting permission...');
+  console.debug('Requesting permission...');
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
-      console.log('Notification permission granted.');
+      console.debug('Notification permission granted.');
       // TODO(developer): Retrieve an Instance ID token for use with FCM.
       // In many cases once an app has been granted notification permission,
       // it should update its UI reflecting this.
       // resetUI();
     } else {
-      console.log('Unable to get permission to notify.');
+      console.debug('Unable to get permission to notify.');
     }
   });
 };
@@ -117,15 +117,15 @@ const deleteToken = () => {
   // Delete Instance ID token.
   messaging.getToken().then((currentToken) => {
     messaging.deleteToken(currentToken).then(() => {
-      console.log('Token deleted.');
+      console.debug('Token deleted.');
       setTokenSentToServer(false);
       // Once token is deleted update UI.
       // resetUI();
     }).catch((err) => {
-      console.log('Unable to delete token. ', err);
+      console.debug('Unable to delete token. ', err);
     });
   }).catch((err) => {
-    console.log('Error retrieving Instance ID token. ', err);
+    console.debug('Error retrieving Instance ID token. ', err);
     showToken('Error retrieving Instance ID token. ', err);
   });
 };
@@ -162,7 +162,7 @@ const sendCodeToApp = (code) => {
     },
   })
     .then((response) => {
-      console.log(response);
+      console.debug(response);
 
       if (!response.ok) throw Error(response.statusText);
       return response.status;
