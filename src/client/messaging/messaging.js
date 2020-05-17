@@ -1,4 +1,4 @@
-import { getUserId, getDeviceToken } from '../common/auth';
+import { getUserId, getDeviceToken, isLoggedIn } from '../common/auth';
 
 const { firebase } = window;
 
@@ -24,6 +24,10 @@ const showToken = (currentToken) => {
 const sendTokenToServer = (currentToken) => {
   showToken(currentToken);
   if (!isTokenSentToServer()) {
+    if (!isLoggedIn()) {
+      console.log('user not logged in, skipping token setting');
+      return;
+    }
     const userId = getUserId();
     fetch(`/api/users/${userId}`, {
       method: 'PUT',
