@@ -1,7 +1,8 @@
-import { v1 as uuidv1 } from 'uuid';
+import { v1 as uuid } from 'uuid';
+
 
 export default {
-  id: uuidv1(),
+  id: uuid(),
   name: 'Charly',
   surname: 'Fonti',
   mail: 'charly@fonti.com',
