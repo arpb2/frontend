@@ -100,17 +100,19 @@ if (firebase) {
 
 const requestPermission = () => {
   console.debug('Requesting permission...');
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.debug('Notification permission granted.');
-      // TODO(developer): Retrieve an Instance ID token for use with FCM.
-      // In many cases once an app has been granted notification permission,
-      // it should update its UI reflecting this.
-      // resetUI();
-    } else {
-      console.debug('Unable to get permission to notify.');
-    }
-  });
+  if (firebase) {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.debug('Notification permission granted.');
+        // TODO(developer): Retrieve an Instance ID token for use with FCM.
+        // In many cases once an app has been granted notification permission,
+        // it should update its UI reflecting this.
+        // resetUI();
+      } else {
+        console.debug('Unable to get permission to notify.');
+      }
+    });
+  }
 };
 
 const deleteToken = () => {
