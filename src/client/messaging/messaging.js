@@ -55,50 +55,50 @@ const sendTokenToServer = (currentToken) => {
 
 // Get Instance ID token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
-// if (messaging) {
-//   messaging.getToken().then((currentToken) => {
-//     if (currentToken) {
-//       // sendTokenToServer(currentToken);
-//     } else {
-//       console.debug('No Instance ID token available. Request permission to generate one.');
-//       setTokenSentToServer(false);
-//     }
-//   }).catch((err) => {
-//     console.debug('An error occurred while retrieving token. ', err);
-//     showToken('Error retrieving Instance ID token. ', err);
-//     setTokenSentToServer(false);
-//   });
-// }
+if (messaging) {
+  messaging.getToken().then((currentToken) => {
+    if (currentToken) {
+      // sendTokenToServer(currentToken);
+    } else {
+      console.debug('No Instance ID token available. Request permission to generate one.');
+      setTokenSentToServer(false);
+    }
+  }).catch((err) => {
+    console.debug('An error occurred while retrieving token. ', err);
+    showToken('Error retrieving Instance ID token. ', err);
+    setTokenSentToServer(false);
+  });
+}
 
 // Callback fired if Instance ID token is updated.
-// if (messaging) {
-//   messaging.onTokenRefresh(() => {
-//     messaging.getToken().then((refreshedToken) => {
-//       console.debug('Token refreshed.');
-//       console.debug(refreshedToken);
-//       // Indicate that the new Instance ID token has not yet been sent to the
-//       // app server.
-//       setTokenSentToServer(false);
-//       // Send Instance ID token to app server.
-//       // sendTokenToServer(refreshedToken);
-//     }).catch((err) => {
-//       console.debug('Unable to retrieve refreshed token ', err);
-//       showToken('Unable to retrieve refreshed token ', err);
-//     });
-//   });
-// }
+if (messaging) {
+  messaging.onTokenRefresh(() => {
+    messaging.getToken().then((refreshedToken) => {
+      console.debug('Token refreshed.');
+      console.debug(refreshedToken);
+      // Indicate that the new Instance ID token has not yet been sent to the
+      // app server.
+      setTokenSentToServer(false);
+      // Send Instance ID token to app server.
+      // sendTokenToServer(refreshedToken);
+    }).catch((err) => {
+      console.debug('Unable to retrieve refreshed token ', err);
+      showToken('Unable to retrieve refreshed token ', err);
+    });
+  });
+}
 
 // Handle incoming messages. Called when:
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
 //   `messaging.setBackgroundMessageHandler` handler.
-// if (messaging) {
-//   messaging.onMessage((payload) => {
-//     console.debug('Message received. ', payload);
-//     // Update the UI to include the received message.
-//     // appendMessage(payload);
-//   });
-// }
+if (messaging) {
+  messaging.onMessage((payload) => {
+    console.debug('Message received. ', payload);
+    // Update the UI to include the received message.
+    // appendMessage(payload);
+  });
+}
 
 const requestPermission = () => {
   console.debug('Requesting permission...');
@@ -135,26 +135,6 @@ const deleteToken = () => {
     });
   }
 };
-
-// Add a message to the messages element.
-// function appendMessage(payload) {
-//   const messagesElement = document.querySelector('#messages');
-//   const dataHeaderELement = document.createElement('h5');
-//   const dataElement = document.createElement('pre');
-//   dataElement.style = 'overflow-x:hidden;';
-//   dataHeaderELement.textContent = 'Received message:';
-//   dataElement.textContent = JSON.stringify(payload, null, 2);
-//   messagesElement.appendChild(dataHeaderELement);
-//   messagesElement.appendChild(dataElement);
-// }
-
-// Clear the messages element of all children.
-// function clearMessages() {
-//   const messagesElement = document.querySelector('#messages');
-//   while (messagesElement.hasChildNodes()) {
-//     messagesElement.removeChild(messagesElement.lastChild);
-//   }
-// }
 
 const sendCodeToApp = (code) => {
   fetch('/api/messaging', {
