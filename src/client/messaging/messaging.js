@@ -56,7 +56,7 @@ const sendTokenToServer = (currentToken) => {
 if (firebase) {
   messaging.getToken().then((currentToken) => {
     if (currentToken) {
-      sendTokenToServer(currentToken);
+      // sendTokenToServer(currentToken);
     } else {
       console.debug('No Instance ID token available. Request permission to generate one.');
       setTokenSentToServer(false);
@@ -78,7 +78,7 @@ if (firebase) {
       // app server.
       setTokenSentToServer(false);
       // Send Instance ID token to app server.
-      sendTokenToServer(refreshedToken);
+      // sendTokenToServer(refreshedToken);
     }).catch((err) => {
       console.debug('Unable to retrieve refreshed token ', err);
       showToken('Unable to retrieve refreshed token ', err);
