@@ -17,7 +17,7 @@ const setTokenSentToServer = (sent) => {
 
 const showToken = (currentToken) => {
   // Show token in console and UI.
-  console.debug(`Token: ${currentToken}`);
+  console.info(`Token: ${currentToken}`);
 };
 
 // Send the Instance ID token your application server, so that it can:
@@ -27,7 +27,7 @@ const sendTokenToServer = (currentToken) => {
   showToken(currentToken);
   if (!isTokenSentToServer()) {
     if (!isLoggedIn()) {
-      console.debug('user not logged in, skipping token setting');
+      console.info('user not logged in, skipping token setting');
       return;
     }
     const userId = getUserId();
@@ -47,7 +47,7 @@ const sendTokenToServer = (currentToken) => {
         setTokenSentToServer(true);
       });
   } else {
-    console.debug('Token already sent to server so won\'t send it again '
+    console.info('Token already sent to server so won\'t send it again '
                 + 'unless it changes');
   }
 };
@@ -58,13 +58,13 @@ const sendTokenToServer = (currentToken) => {
 if (messaging) {
   messaging.getToken().then((currentToken) => {
     if (currentToken) {
-      // sendTokenToServer(currentToken);
+      sendTokenToServer(currentToken);
     } else {
-      console.debug('No Instance ID token available. Request permission to generate one.');
+      console.info('No Instance ID token available. Request permission to generate one.');
       setTokenSentToServer(false);
     }
   }).catch((err) => {
-    console.debug('An error occurred while retrieving token. ', err);
+    console.info('An error occurred while retrieving token. ', err);
     showToken('Error retrieving Instance ID token. ', err);
     setTokenSentToServer(false);
   });
@@ -74,15 +74,15 @@ if (messaging) {
 if (messaging) {
   messaging.onTokenRefresh(() => {
     messaging.getToken().then((refreshedToken) => {
-      console.debug('Token refreshed.');
-      console.debug(refreshedToken);
+      console.info('Token refreshed.');
+      console.info(refreshedToken);
       // Indicate that the new Instance ID token has not yet been sent to the
       // app server.
       setTokenSentToServer(false);
       // Send Instance ID token to app server.
-      // sendTokenToServer(refreshedToken);
+      sendTokenToServer(refreshedToken);
     }).catch((err) => {
-      console.debug('Unable to retrieve refreshed token ', err);
+      console.info('Unable to retrieve refreshed token ', err);
       showToken('Unable to retrieve refreshed token ', err);
     });
   });
@@ -94,24 +94,24 @@ if (messaging) {
 //   `messaging.setBackgroundMessageHandler` handler.
 if (messaging) {
   messaging.onMessage((payload) => {
-    console.debug('Message received. ', payload);
+    console.info('Message received. ', payload);
     // Update the UI to include the received message.
     // appendMessage(payload);
   });
 }
 
 const requestPermission = () => {
-  console.debug('Requesting permission...');
+  console.info('Requesting permission...');
   if (messaging) {
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
-        console.debug('Notification permission granted.');
+        console.info('Notification permission granted.');
         // TODO(developer): Retrieve an Instance ID token for use with FCM.
         // In many cases once an app has been granted notification permission,
         // it should update its UI reflecting this.
         // resetUI();
       } else {
-        console.debug('Unable to get permission to notify.');
+        console.info('Unable to get permission to notify.');
       }
     });
   }
@@ -122,15 +122,15 @@ const deleteToken = () => {
   // Delete Instance ID token.
     messaging.getToken().then((currentToken) => {
       messaging.deleteToken(currentToken).then(() => {
-        console.debug('Token deleted.');
+        console.info('Token deleted.');
         setTokenSentToServer(false);
       // Once token is deleted update UI.
       // resetUI();
       }).catch((err) => {
-        console.debug('Unable to delete token. ', err);
+        console.info('Unable to delete token. ', err);
       });
     }).catch((err) => {
-      console.debug('Error retrieving Instance ID token. ', err);
+      console.info('Error retrieving Instance ID token. ', err);
       showToken('Error retrieving Instance ID token. ', err);
     });
   }
@@ -148,7 +148,7 @@ const sendCodeToApp = (code) => {
     },
   })
     .then((response) => {
-      console.debug(response);
+      console.info(response);
 
       if (!response.ok) throw Error(response.statusText);
       return response.status;
