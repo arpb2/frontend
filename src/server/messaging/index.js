@@ -1,5 +1,6 @@
 import express from 'express';
 import * as admin from 'firebase-admin';
+import parseXML from '../parser/parser';
 
 const router = express.Router();
 
@@ -8,13 +9,15 @@ admin.initializeApp({
 });
 
 router.post('/', (req, res, next) => {
+  const parsedCode = parseXML(atob(req.body.message));
+
   const message = {
     token: req.body.to,
     notification: {
       title: 'ARPB2',
       body: 'You have new messages!',
     },
-    data: req.body.message,
+    data: parsedCode,
   };
   admin.messaging().send(message)
     .then(response => console.log('Message sent'))
