@@ -11,3 +11,4 @@ export { default as UserList } from './UserList';
 export { default as Blockly } from './Blockly';
 export { default as Classroom } from './Classroom';
 export { default as CodeList } from './CodeList';
+export { default as SignOut } from './SignOut';

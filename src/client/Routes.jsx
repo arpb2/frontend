@@ -13,6 +13,7 @@ import {
   Blockly as BlocklyView,
   Classroom as ClassroomView,
   CodeList as CodeListView,
+  SignOut as SignOutView,
 } from './views';
 
 const Routes = () => (
@@ -66,6 +67,12 @@ const Routes = () => (
       exact
       layout={MinimalLayout}
       path="/not-found"
+    />
+    <RouteWithLayout
+      component={SignOutView}
+      exact
+      layout={MinimalLayout}
+      path="/sign-out"
     />
     <Redirect to="/not-found" />
   </Switch>
