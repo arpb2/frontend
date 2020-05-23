@@ -16,7 +16,7 @@ import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
 import { Steps } from 'intro.js-react';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import parseWorkspaceXml from './BlocklyHelper';
 import messaging from '../../messaging';
 
@@ -229,6 +229,12 @@ const MyBlockly = (props) => {
     setOpen(false);
   };
 
+  const sendMockedActionToUniwebviewAndClose = () => {
+    const popup = window.open('uniwebview://arpb2?action=move_forward&action=rotate_left&action=move_forward');
+    popup.close();
+    window.focus();
+  };
+
   return (
     <Container className={classes.root} maxWidth={false}>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
@@ -316,6 +322,21 @@ const MyBlockly = (props) => {
                 startIcon={<SaveIcon />}
               >
                 Save
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={sendMockedActionToUniwebviewAndClose}
+              >
+                Mock
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+              >
+                <a href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward">Mock</a>
               </Button>
             </Grid>
           </Grid>
