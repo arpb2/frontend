@@ -206,13 +206,16 @@ const MyBlockly = (props) => {
   };
 
   const runCode = () => {
+    const url = new URL('uniwebview://arpb2');
     try {
-      const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
-      messaging.sendCodeToApp(btoa(workspace));
+      // const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
+      // messaging.sendCodeToApp(btoa(workspace));
+      eval(values.runnableCode);
     } catch (e) {
       setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
       setOpen(true);
     }
+    console.log(url.toString());
   };
 
   const onExit = () => {

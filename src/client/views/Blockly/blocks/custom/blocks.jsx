@@ -91,7 +91,7 @@ Blockly.JavaScript.rotate_arpb2 = (block) => {
 };
 
 Blockly.JavaScript.move_forward_arpb2 = (block) => {
-  const code = '() => { return ACTION_MOVE_FORWARD; }';
+  const code = "url.searchParams.append('action', 'move_forward')\n";
   return code;
 };
 
