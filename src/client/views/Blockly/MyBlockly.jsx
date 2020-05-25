@@ -211,7 +211,7 @@ const MyBlockly = (props) => {
   const buildCode = () => {
     window.LoopTrap = 1000;
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    const url = new URL('uniwebview://arpb2?');
+    const url = new URL('uniwebview://arpb2');
     try {
       // const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
       // messaging.sendCodeToApp(btoa(workspace));
@@ -332,7 +332,7 @@ const MyBlockly = (props) => {
                 Run
               </Button>
               <Button
-                href="uniwebview://arpb2action=move_forward&amp;?action=rotate_left&amp;action=move_forward"
+                href="uniwebview://arpb2?action=move_forward&amp;?action=rotate_left&amp;action=move_forward"
               >
                 Mock
               </Button>
