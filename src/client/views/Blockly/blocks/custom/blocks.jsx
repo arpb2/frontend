@@ -230,36 +230,36 @@ Blockly.Lua.open_bag_arpb2 = (block) => {
 
 Blockly.Dart.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `dynamic rotate_arpb2() {\n  return ACTION_ROTATE_${dropdownDirection};\n}\n`;
+  const code = `uri = Uri.https(uri, '', {'action': ${dropdownDirection.toLowerCase()}});\n`;
   return code;
 };
 
 Blockly.Dart.move_forward_arpb2 = (block) => {
-  const code = 'dynamic move_forward_arpb2() {\n  return ACTION_MOVE_FORWARD;\n}\n';
+  const code = 'uri = Uri.https(uri, \'\', {\'action\': \'move_forward\'});\n';
   return code;
 };
 
 Blockly.Dart.jump_arpb2 = (block) => {
-  const code = 'dynamic jump_arpb2() {\n  return ACTION_JUMP;\n}\n';
+  const code = 'uri = Uri.https(uri, \'\', {\'action\': \'jump\'});\n';
   return code;
 };
 
 Blockly.Dart.pickup_arpb2 = (block) => {
-  const code = 'dynamic pickup_arpb2() {\n  return ACTION_PICKUP;\n}\n';
+  const code = 'uri = Uri.https(uri, \'\', {\'action\': \'pickup\'});\n';
   return code;
 };
 
 Blockly.Dart.save_in_bag_arpb2 = (block) => {
-  const code = 'dynamic save_in_bag_arpb2() {\n  return ACTION_SAVE_IN_BAG;\n}\n';
+  const code = 'uri = Uri.https(uri, \'\', {\'action\': \'save_in_bag\'});\n';
   return code;
 };
 
 Blockly.Dart.use_object_arpb2 = (block) => {
-  const code = 'dynamic use_object_arpb2() {\n  return ACTION_USE_OBJECT;\n}\n';
+  const code = 'uri = Uri.https(uri, \'\', {\'action\': \'use_object\'});\n';
   return code;
 };
 
 Blockly.Dart.open_bag_arpb2 = (block) => {
-  const code = 'dynamic open_bag_arpb2() {\n  return ACTION_OPEN_BAG;\n}\n';
+  const code = 'uri = Uri.https(uri, \'\', {\'action\': \'open_bag\'});\n';
   return code;
 };
