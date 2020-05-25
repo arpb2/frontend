@@ -86,7 +86,7 @@ Blockly.Blocks.open_bag_arpb2 = {
 
 Blockly.JavaScript.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `url.searchParams.append('action', 'rotate_${dropdownDirection.toLowerCase()}')\n`;
+  const code = `url.searchParams.append('action', '${dropdownDirection.toLowerCase()}')\n`;
   return code;
 };
 
