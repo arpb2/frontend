@@ -122,37 +122,37 @@ Blockly.JavaScript.open_bag_arpb2 = (block) => {
 
 Blockly.Python.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `def rotate_arpb2():\n  return ACTION_MOVE_${dropdownDirection}\n`;
+  const code = `req.prepare_url(url, {'action, '${dropdownDirection.toLowerCase()}'})\n`;
   return code;
 };
 
 Blockly.Python.move_forward_arpb2 = (block) => {
-  const code = 'def move_forward_arpb2():\n  return ACTION_MOVE_FORWARD\n';
+  const code = "req.prepare_url(url, {'action, 'move_forward'})\n";
   return code;
 };
 
 Blockly.Python.jump_arpb2 = (block) => {
-  const code = 'def jump_arpb2():\n  return ACTION_JUMP\n';
+  const code = "req.prepare_url(url, {'action, 'jump'})\n";
   return code;
 };
 
 Blockly.Python.pickup_arpb2 = (block) => {
-  const code = 'def pickup_arpb2():\n  return ACTION_PICKUP\n';
+  const code = "req.prepare_url(url, {'action, 'pickup'})\n";
   return code;
 };
 
 Blockly.Python.save_in_bag_arpb2 = (block) => {
-  const code = 'def save_in_bag_arpb2():\n  return ACTION_SAVE_IN_BAG\n';
+  const code = "req.prepare_url(url, {'action, 'save_in_bag'})\n";
   return code;
 };
 
 Blockly.Python.use_object_arpb2 = (block) => {
-  const code = 'def use_object_arpb2():\n  return ACTION_USE_OBJECT\n';
+  const code = "req.prepare_url(url, {'action, 'use_object'})\n";
   return code;
 };
 
 Blockly.Python.open_bag_arpb2 = (block) => {
-  const code = 'def open_bag_arpb2():\n  return ACTION_OPEN_BAG\n';
+  const code = "req.prepare_url(url, {'action, 'open_bag'})\n";
   return code;
 };
 
