@@ -122,37 +122,37 @@ Blockly.JavaScript.open_bag_arpb2 = (block) => {
 
 Blockly.Python.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `req.prepare_url(url, {'action, '${dropdownDirection.toLowerCase()}'})\n`;
+  const code = `req.prepare_url(url, {'action', '${dropdownDirection.toLowerCase()}'})\n`;
   return code;
 };
 
 Blockly.Python.move_forward_arpb2 = (block) => {
-  const code = "req.prepare_url(url, {'action, 'move_forward'})\n";
+  const code = "req.prepare_url(url, {'action', 'move_forward'})\n";
   return code;
 };
 
 Blockly.Python.jump_arpb2 = (block) => {
-  const code = "req.prepare_url(url, {'action, 'jump'})\n";
+  const code = "req.prepare_url(url, {'action', 'jump'})\n";
   return code;
 };
 
 Blockly.Python.pickup_arpb2 = (block) => {
-  const code = "req.prepare_url(url, {'action, 'pickup'})\n";
+  const code = "req.prepare_url(url, {'action', 'pickup'})\n";
   return code;
 };
 
 Blockly.Python.save_in_bag_arpb2 = (block) => {
-  const code = "req.prepare_url(url, {'action, 'save_in_bag'})\n";
+  const code = "req.prepare_url(url, {'action', 'save_in_bag'})\n";
   return code;
 };
 
 Blockly.Python.use_object_arpb2 = (block) => {
-  const code = "req.prepare_url(url, {'action, 'use_object'})\n";
+  const code = "req.prepare_url(url, {'action', 'use_object'})\n";
   return code;
 };
 
 Blockly.Python.open_bag_arpb2 = (block) => {
-  const code = "req.prepare_url(url, {'action, 'open_bag'})\n";
+  const code = "req.prepare_url(url, {'action', 'open_bag'})\n";
   return code;
 };
 
@@ -194,7 +194,7 @@ Blockly.PHP.open_bag_arpb2 = (block) => {
 
 Blockly.Lua.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `url:setQuery{ action = ${dropdownDirection.toLowerCase()} }\n`;
+  const code = `url:setQuery{ action = "${dropdownDirection.toLowerCase()}" }\n`;
   return code;
 };
 
@@ -230,7 +230,7 @@ Blockly.Lua.open_bag_arpb2 = (block) => {
 
 Blockly.Dart.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `uri = Uri.https(uri, '', {'action': ${dropdownDirection.toLowerCase()}});\n`;
+  const code = `uri = Uri.https(uri, '', {'action': '${dropdownDirection.toLowerCase()}'});\n`;
   return code;
 };
 
