@@ -209,6 +209,8 @@ const MyBlockly = (props) => {
   };
 
   const buildCode = () => {
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
     const url = new URL('uniwebview://arpb2');
     try {
       // const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
