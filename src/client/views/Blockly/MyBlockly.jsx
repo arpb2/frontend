@@ -96,7 +96,7 @@ const MyBlockly = (props) => {
       title: null,
       objective: null,
     },
-    stepsEnabled: false, // Change when prod ready, it's annoying for development
+    stepsEnabled: false, // TODO: Change when prod ready, it's annoying for development
     initialStep: 0,
     steps: [
       {
