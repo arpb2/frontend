@@ -158,73 +158,73 @@ Blockly.Python.open_bag_arpb2 = (block) => {
 
 Blockly.PHP.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `function rotate_arpb2() {\n  return ACTION_ROTATE_${dropdownDirection};\n}\n`;
+  const code = `$url .= http_build_query(array('action' => '${dropdownDirection.toLowerCase()}'))\n`;
   return code;
 };
 
 Blockly.PHP.move_forward_arpb2 = (block) => {
-  const code = 'function move_forward_arpb2() {\n  return ACTION_ROTATE_MOVE_FORWARD;\n}\n';
+  const code = '$url .= http_build_query(array(\'action\' => \'move_forward\'))\n';
   return code;
 };
 
 Blockly.PHP.jump_arpb2 = (block) => {
-  const code = 'function jump_arpb2() {\n  return ACTION_JUMP;\n}\n';
+  const code = '$url .= http_build_query(array(\'action\' => \'jump\'))\n';
   return code;
 };
 
 Blockly.PHP.pickup_arpb2 = (block) => {
-  const code = 'function pickup_arpb2() {\n  return ACTION_PICKUP;\n}\n';
+  const code = '$url .= http_build_query(array(\'action\' => \'pickup\'))\n';
   return code;
 };
 
 Blockly.PHP.save_in_bag_arpb2 = (block) => {
-  const code = 'function save_in_bag_arpb2() {\n  return ACTION_SAVE_IN_BAG;\n}\n';
+  const code = '$url .= http_build_query(array(\'action\' => \'save_in_bag\'))\n';
   return code;
 };
 
 Blockly.PHP.use_object_arpb2 = (block) => {
-  const code = 'function use_object_arpb2() {\n  return ACTION_USE_OBJECT;\n}\n';
+  const code = '$url .= http_build_query(array(\'action\' => \'use_object\'))';
   return code;
 };
 
 Blockly.PHP.open_bag_arpb2 = (block) => {
-  const code = 'function open_bag_arpb2() {\n  return ACTION_OPEN_BAG;\n}\n';
+  const code = '$url .= http_build_query(array(\'action\' => \'open_bag\'))';
   return code;
 };
 
 Blockly.Lua.rotate_arpb2 = (block) => {
   const dropdownDirection = block.getFieldValue('direction');
-  const code = `function rotate_arpb2()\n  return ACTION_ROTATE_${dropdownDirection}\nend\n`;
+  const code = `url:setQuery{ action = ${dropdownDirection.toLowerCase()} }\n`;
   return code;
 };
 
 Blockly.Lua.move_forward_arpb2 = (block) => {
-  const code = 'function move_forward_arpb2()\n  return ACTION_ROTATE_MOVE_FORWARD\nend\n';
+  const code = 'url:setQuery{ action = "move_forward" }\n';
   return code;
 };
 
 Blockly.Lua.jump_arpb2 = (block) => {
-  const code = 'function jump_arpb2()\n  return ACTION_JUMP\nend\n';
+  const code = 'url:setQuery{ action = "jump" }\n';
   return code;
 };
 
 Blockly.Lua.pickup_arpb2 = (block) => {
-  const code = 'function pickup_arpb2()\n  return ACTION_PICKUP\nend\n';
+  const code = 'url:setQuery{ action = "pickup" }\n';
   return code;
 };
 
 Blockly.Lua.save_in_bag_arpb2 = (block) => {
-  const code = 'function save_in_bag_arpb2()\n  return ACTION_SAVE_IN_BAG\nend\n';
+  const code = 'url:setQuery{ action = "save_in_bag" }\n';
   return code;
 };
 
 Blockly.Lua.use_object_arpb2 = (block) => {
-  const code = 'function use_object_arpb2()\n  return ACTION_USE_OBJECT\nend\n';
+  const code = 'url:setQuery{ action = "use_object" }\n';
   return code;
 };
 
 Blockly.Lua.open_bag_arpb2 = (block) => {
-  const code = 'function open_bag_arpb2()\n  return ACTION_OPEN_BAG\nend\n';
+  const code = 'url:setQuery{ action = "open_bag" }\n';
   return code;
 };
 
