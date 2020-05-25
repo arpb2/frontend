@@ -3,6 +3,7 @@
 ## Frontend for APRB2 project
 
 ![node version](https://badgen.net/badge/node/10/green)
+[![Built on Blockly](https://tinyurl.com/built-on-blockly)](https://github.com/google/blockly)
 
 Uses Node 10 + Express + React. [Blockly](https://github.com/google/blockly) for block programming
 
