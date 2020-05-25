@@ -1,12 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import {
-  TextField, Button, Grid, Typography, Paper, Container, Snackbar,
+  TextField, Button, ButtonGroup, Grid, Typography, Paper, Container, Snackbar,
 } from '@material-ui/core';
 import ReactBlockly from 'react-blockly';
 import Blockly from 'blockly';
 import { makeStyles } from '@material-ui/styles';
 import SaveIcon from '@material-ui/icons/Save';
+import BuildIcon from '@material-ui/icons/Build';
+import SendIcon from '@material-ui/icons/Send';
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
@@ -16,9 +18,8 @@ import dart from 'react-syntax-highlighter/dist/esm/languages/hljs/dart';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/hljs/darcula';
 import { Steps } from 'intro.js-react';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import parseWorkspaceXml from './BlocklyHelper';
-import messaging from '../../messaging';
 
 
 import 'blockly/python';
@@ -95,7 +96,7 @@ const MyBlockly = (props) => {
       title: null,
       objective: null,
     },
-    stepsEnabled: false, // Change when prod ready, it's annoying for development
+    stepsEnabled: false, // TODO: Change when prod ready, it's annoying for development
     initialStep: 0,
     steps: [
       {
@@ -152,6 +153,10 @@ const MyBlockly = (props) => {
       });
   }, [values.currentLevel.title, history, id]);
 
+  const [runLink, setRunLink] = useState('');
+  const [codeWasBuilt, setCodeWasBuilt] = useState(false);
+
+
   const handleSave = () => {
     const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
     const session = JSON.parse(localStorage.getItem('session'));
@@ -196,23 +201,29 @@ const MyBlockly = (props) => {
   };
 
   const workspaceDidChange = (workspace) => {
-    workspace.registerButtonCallback('myFirstButtonPressed', () => {
-      alert('button is pressed');
-    });
+    setCodeWasBuilt(false);
     const newCode = regenCode(values.language, workspace);
     setValues({
       ...values, workspace, currentCode: newCode.compiled, runnableCode: newCode.runnable,
     });
   };
 
-  const runCode = () => {
+  const buildCode = () => {
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    const url = new URL('uniwebview://arpb2');
     try {
-      const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
-      messaging.sendCodeToApp(btoa(workspace));
+      // const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
+      // messaging.sendCodeToApp(btoa(workspace));
+      eval(values.runnableCode);
     } catch (e) {
       setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
       setOpen(true);
     }
+    const result = url.toString();
+    console.log(result);
+    setRunLink(result);
+    setCodeWasBuilt(true);
   };
 
   const onExit = () => {
@@ -227,12 +238,6 @@ const MyBlockly = (props) => {
     }
 
     setOpen(false);
-  };
-
-  const sendMockedActionToUniwebviewAndClose = () => {
-    const popup = window.open('uniwebview://arpb2?action=move_forward&action=rotate_left&action=move_forward');
-    popup.close();
-    window.focus();
   };
 
   return (
@@ -309,36 +314,29 @@ const MyBlockly = (props) => {
             </TextField>
           </Grid>
           <Grid item container spacing={2} sm={9} className="step-four">
-            <Grid item>
-              <Button variant="contained" onClick={runCode}>
-                Run!
-              </Button>
-            </Grid>
-
-            <Grid item>
+            <ButtonGroup variant="contained" aria-label="ARPB2 control btn group">
               <Button
-                variant="contained"
                 onClick={handleSave}
                 startIcon={<SaveIcon />}
               >
                 Save
               </Button>
-            </Grid>
-            <Grid item>
+              <Button onClick={buildCode} startIcon={<BuildIcon />}>
+                Build
+              </Button>
               <Button
-                variant="contained"
-                onClick={sendMockedActionToUniwebviewAndClose}
+                disabled={!codeWasBuilt}
+                href={runLink}
+                startIcon={<SendIcon />}
+              >
+                Run
+              </Button>
+              <Button
+                href="uniwebview://arpb2action=move_forward&amp;?action=rotate_left&amp;action=move_forward"
               >
                 Mock
               </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-              >
-                <a href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward">Mock</a>
-              </Button>
-            </Grid>
+            </ButtonGroup>
           </Grid>
         </Grid>
         <Grid item xs={12}>

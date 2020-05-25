@@ -7,6 +7,12 @@ import { Typography, Link } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  blocklyLogo: {
+    width: '20%',
+    float: 'right',
   },
 }));
 
@@ -20,24 +26,34 @@ const Footer = (props) => {
       {...rest}
       className={clsx(classes.root, className)}
     >
-      <Typography variant="body1">
-        &copy;
-        {' '}
-        ARPB2
-        2020
-      </Typography>
-      <Typography variant="caption">
-        For academic use only in
-        {' '}
-        <Link
-          component="a"
-          href="http://www.fi.uba.ar/"
-          target="_blank"
-        >
-          FIUBA
+      <div>
+        <Typography variant="body1">
+          &copy;
+          {' '}
+          ARPB2
+          2020
+        </Typography>
+        <Typography variant="caption">
+          For academic use only in
+          {' '}
+          <Link
+            component="a"
+            href="http://www.fi.uba.ar/"
+            target="_blank"
+          >
+            FIUBA
 
-        </Link>
-      </Typography>
+          </Link>
+        </Typography>
+      </div>
+
+      <Link href="https://developers.google.com/blockly" target="_blank">
+        <img
+          alt="Blockly Logo"
+          src="/public/images/logos/blockly_logo.svg"
+          className={classes.blocklyLogo}
+        />
+      </Link>
     </div>
   );
 };
