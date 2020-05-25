@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography, Card } from '@material-ui/core';
 
 import {
   Budget,
@@ -30,75 +30,39 @@ const Dashboard = () => {
       >
         <Grid
           item
-          lg={3}
-          sm={6}
-          xl={3}
           xs={12}
         >
-          <Budget />
+          <Card
+            className={classes.root}
+          >
+            <Typography variant="h1">
+              Title
+            </Typography>
+          </Card>
         </Grid>
         <Grid
           item
-          lg={3}
-          sm={6}
-          xl={3}
           xs={12}
         >
-          <TotalUsers />
+          <Card
+            className={classes.root}
+          >
+            <Typography variant="subtitle1">
+              Sub1
+            </Typography>
+          </Card>
         </Grid>
         <Grid
           item
-          lg={3}
-          sm={6}
-          xl={3}
           xs={12}
         >
-          <TasksProgress />
-        </Grid>
-        <Grid
-          item
-          lg={3}
-          sm={6}
-          xl={3}
-          xs={12}
-        >
-          <TotalProfit />
-        </Grid>
-        <Grid
-          item
-          lg={8}
-          md={12}
-          xl={9}
-          xs={12}
-        >
-          <LatestSales />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <UsersByDevice />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <LatestProducts />
-        </Grid>
-        <Grid
-          item
-          lg={8}
-          md={12}
-          xl={9}
-          xs={12}
-        >
-          <LatestOrders />
+          <Card
+            className={classes.root}
+          >
+            <Typography variant="body1">
+              Body
+            </Typography>
+          </Card>
         </Grid>
       </Grid>
     </div>
