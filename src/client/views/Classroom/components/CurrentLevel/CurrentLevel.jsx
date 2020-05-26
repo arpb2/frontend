@@ -64,7 +64,7 @@ const CurrentLevel = (props) => {
   };
 
   const updateSnackbar = (direction) => {
-    setSnackbar({ severity: 'success', message: `Level ${direction}d` });
+    setSnackbar({ severity: 'success', message: `Nivel ${direction}d` });
     setOpen(true);
   };
 
@@ -88,7 +88,7 @@ const CurrentLevel = (props) => {
       .then((res) => {
         updateSnackbar(direction);
       }).catch((err) => {
-        setSnackbar({ severity: 'error', message: 'An error ocurred while changing the level' });
+        setSnackbar({ severity: 'error', message: 'Ocurrió un error al cambiar de nivel' });
         setOpen(true);
       });
   };
@@ -114,18 +114,18 @@ const CurrentLevel = (props) => {
               gutterBottom
               variant="body1"
             >
-              Current level
+              Nivel actual
             </Typography>
             <Typography variant="h1">7</Typography>
             {isTeacher()
             && (
             <Fragment>
-              <Tooltip title="Increase level">
+              <Tooltip title="Subir nivel">
                 <IconButton aria-label="increase" onClick={handleLevelChange('increase')}>
                   <AddIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Decrease level">
+              <Tooltip title="Bajar nivel">
                 <IconButton aria-label="decrease" onClick={handleLevelChange('decrease')}>
                   <RemoveIcon fontSize="small" />
                 </IconButton>

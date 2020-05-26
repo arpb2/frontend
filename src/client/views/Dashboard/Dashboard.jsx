@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Grid, Typography, Card, Avatar,
+  Divider, Grid, Typography, Card, Avatar,
 } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -43,7 +43,7 @@ const Dashboard = () => {
               <Typography variant="h1" className={classes.titleText}>
                 ¡Bienvenido a ARPB2!
               </Typography>
-              {' '}
+              <Divider />
               <Typography variant="subtitle1" className={classes.titleText}>
                 Programación interactiva + realidad aumentada
               </Typography>

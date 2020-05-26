@@ -74,7 +74,7 @@ const Profile = (props) => {
       >
         {`${user.name} ${user.surname}`}
       </Typography>
-      <Typography variant="body2">{user.level ? `Level ${user.level}` : ''}</Typography>
+      <Typography variant="body2">{user.level ? `Nivel ${user.level}` : ''}</Typography>
     </div>
   );
 };

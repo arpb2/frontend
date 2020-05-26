@@ -178,10 +178,10 @@ const MyBlockly = (props) => {
       res.json();
     })
       .then((res) => {
-        setSnackbar({ severity: 'success', message: 'Code saved!' });
+        setSnackbar({ severity: 'success', message: 'Código guardado!' });
         setOpen(true);
       }).catch((err) => {
-        setSnackbar({ severity: 'error', message: 'An error ocurred while saving the code' });
+        setSnackbar({ severity: 'error', message: 'Ocurrió un error al guardar el código' });
         setOpen(true);
       });
   };
@@ -218,7 +218,7 @@ const MyBlockly = (props) => {
       // messaging.sendCodeToApp(btoa(workspace));
       eval(values.runnableCode);
     } catch (e) {
-      setSnackbar({ severity: 'error', message: 'An error ocurred while running the code' });
+      setSnackbar({ severity: 'error', message: 'Ocurrió un error a ejecutar el código. Verifique si no tiene errores o reintente más tarde' });
       setOpen(true);
     }
     const result = url.toString();
@@ -332,7 +332,7 @@ const MyBlockly = (props) => {
                 href={runLink}
                 startIcon={<SendIcon />}
               >
-                Correr
+                Ejecutar
               </Button>
               <Button
                 href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"

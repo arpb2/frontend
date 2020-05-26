@@ -105,14 +105,14 @@ const Students = (props) => {
     })
       .then((response) => {
         if (!response.ok) {
-          setSnackbar({ severity: 'error', message: 'An error ocurred trying to add the student. Please try again later' });
+          setSnackbar({ severity: 'error', message: 'Ocurrió un error al agregar al almuno. Por favor reintente más tarde.' });
           setSnackbarOpen(true);
           throw new Error(response.statusText);
         }
         return response.json();
       })
       .then(() => {
-        setSnackbar({ severity: 'success', message: 'Student succesfully added' });
+        setSnackbar({ severity: 'success', message: 'Alumno agregado con éxito' });
         setSnackbarOpen(true);
       });
   };
@@ -175,8 +175,8 @@ const Students = (props) => {
         className={clsx(classes.root, className)}
       >
         <CardHeader
-          subtitle={`${students.length} in total`}
-          title="Students"
+          subtitle={`${students.length} en total`}
+          title="Alumnos"
         />
         <Divider />
         <CardContent className={classes.content}>
@@ -188,14 +188,14 @@ const Students = (props) => {
               >
                 <ListItemAvatar>
                   <img
-                    alt="Product"
+                    alt="Alumno"
                     className={classes.image}
                     src={student.imageUrl}
                   />
                 </ListItemAvatar>
                 <ListItemText
                   primary={`${student.name} ${student.surname}`}
-                  secondary={`Level ${student.lastLevel}`}
+                  secondary={`Nivel ${student.lastLevel}`}
                 />
                 {isTeacher() && (
                 <Fragment>
