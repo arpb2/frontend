@@ -34,7 +34,7 @@ const Footer = (props) => {
           2020
         </Typography>
         <Typography variant="caption">
-          For academic use only in
+          Solo para uso académico en
           {' '}
           <Link
             component="a"

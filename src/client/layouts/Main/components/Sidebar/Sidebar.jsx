@@ -43,7 +43,7 @@ const Sidebar = (props) => {
 
   const pages = [
     {
-      title: 'Dashboard',
+      title: 'Inicio',
       href: '/dashboard',
       icon: <DashboardIcon />,
     },
@@ -53,12 +53,12 @@ const Sidebar = (props) => {
       icon: <MemoryIcon />,
     },
     {
-      title: 'Classroom',
+      title: 'Aula',
       href: '/classroom/1',
       icon: <MenuBook />,
     },
     {
-      title: 'Account',
+      title: 'Cuenta',
       href: '/account',
       icon: <AccountBoxIcon />,
     },
@@ -66,7 +66,7 @@ const Sidebar = (props) => {
 
   if (variant === 'temporary') {
     pages.push({
-      title: 'Sign Out',
+      title: 'Salir',
       href: '/sign-out',
       icon: <SignOutIcon />,
     });

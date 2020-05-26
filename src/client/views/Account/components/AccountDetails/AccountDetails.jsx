@@ -76,10 +76,10 @@ const AccountDetails = (props) => {
       .then(res => res.json())
       .then((userData) => {
         setUser(userData);
-        setSnackbar({ severity: 'success', message: 'Changes saved' });
+        setSnackbar({ severity: 'success', message: 'Cambios guardados' });
         setOpen(true);
       }).catch((err) => {
-        setSnackbar({ severity: 'error', message: 'An error ocurred while saving, please try again later' });
+        setSnackbar({ severity: 'error', message: 'Ocurrió un error al guardar, reintente luego' });
         setOpen(true);
       });
   };
@@ -100,7 +100,7 @@ const AccountDetails = (props) => {
           noValidate
         >
           <CardHeader
-            title="Profile"
+            title="Perfil"
           />
           <Divider />
           <CardContent>
@@ -115,8 +115,8 @@ const AccountDetails = (props) => {
               >
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
-                  label="First name"
+                  helperText="Por favor indique su nombre"
+                  label="Nombre"
                   margin="dense"
                   name="name"
                   onChange={handleChange}
@@ -132,7 +132,7 @@ const AccountDetails = (props) => {
               >
                 <TextField
                   fullWidth
-                  label="Last name"
+                  label="Apellido"
                   margin="dense"
                   name="surname"
                   onChange={handleChange}
@@ -148,7 +148,7 @@ const AccountDetails = (props) => {
               >
                 <TextField
                   fullWidth
-                  label="Email Address"
+                  label="Email"
                   margin="dense"
                   name="email"
                   onChange={handleChange}
@@ -170,7 +170,7 @@ const AccountDetails = (props) => {
                 >
                   <TextField
                     fullWidth
-                    label="Password"
+                    label="Contraseña"
                     name="password"
                     onChange={handleChange}
                     type="password"
@@ -186,7 +186,7 @@ const AccountDetails = (props) => {
                 >
                   <TextField
                     fullWidth
-                    label="Confirm password"
+                    label="Confirme su contraseña"
                     name="confirm"
                     onChange={handleChange}
                     type="password"
@@ -205,7 +205,7 @@ const AccountDetails = (props) => {
               variant="contained"
               onClick={handleSave()}
             >
-              Save
+              Guardar
             </Button>
           </CardActions>
         </form>
