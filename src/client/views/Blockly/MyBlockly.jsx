@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {
-  TextField, Button, ButtonGroup, Grid, Typography, Paper, Container, Snackbar,
+  TextField, Button, ButtonGroup, Grid, Typography, Paper, Container, Snackbar, Hidden,
 } from '@material-ui/core';
 import ReactBlockly from 'react-blockly';
 import Blockly from 'blockly';
@@ -56,6 +56,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const useViewport = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
+
+  return { width, height };
+};
+
 const MyBlockly = (props) => {
   const {
     className, onChange, style, history, ...rest
@@ -64,6 +81,9 @@ const MyBlockly = (props) => {
   const { id } = useParams();
 
   const classes = useStyles();
+
+  const { width } = useViewport();
+  const breakpoint = 620;
 
   const languages = [
     {
@@ -296,7 +316,7 @@ const MyBlockly = (props) => {
           </Grid>
         </Grid>
         <Grid container item spacing={2} alignItems="center">
-          <Grid item sm={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <TextField
               fullWidth
               label="Seleccione el lenguaje"
@@ -316,30 +336,66 @@ const MyBlockly = (props) => {
               ))}
             </TextField>
           </Grid>
-          <Grid item container spacing={2} sm={9} className="step-four">
-            <ButtonGroup variant="contained" aria-label="ARPB2 control btn group">
-              <Button
-                onClick={handleSave}
-                startIcon={<SaveIcon />}
-              >
-                Guardar
-              </Button>
-              <Button onClick={buildCode} startIcon={<BuildIcon />}>
-                Compilar
-              </Button>
-              <Button
-                disabled={!codeWasBuilt}
-                href={runLink}
-                startIcon={<SendIcon />}
-              >
-                Ejecutar
-              </Button>
-              <Button
-                href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"
-              >
-                Mock
-              </Button>
-            </ButtonGroup>
+          <Grid item container spacing={2} xs={12} sm={9} className="step-four" alignItems="center" alignContent="center">
+            {width < breakpoint ? (
+              <Fragment>
+                <Grid item xs={12}>
+                  <ButtonGroup variant="contained" aria-label="ARPB2 control btn group 1" fullWidth>
+                    <Button
+                      onClick={handleSave}
+                      startIcon={<SaveIcon />}
+                    >
+                      Guardar
+                    </Button>
+                    <Button
+                      href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"
+                    >
+                      Mock
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={12}>
+                  <ButtonGroup variant="contained" aria-label="ARPB2 control btn group 2" fullWidth>
+                    <Button onClick={buildCode} startIcon={<BuildIcon />}>
+                      Compilar
+                    </Button>
+                    <Button
+                      disabled={!codeWasBuilt}
+                      href={runLink}
+                      startIcon={<SendIcon />}
+                    >
+                      Ejecutar
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+              </Fragment>
+            )
+              : (
+                <ButtonGroup variant="contained" aria-label="ARPB2 control btn group" fullWidth>
+                  <Button
+                    onClick={handleSave}
+                    startIcon={<SaveIcon />}
+                  >
+                    Guardar
+                  </Button>
+                  <Button onClick={buildCode} startIcon={<BuildIcon />}>
+                    Compilar
+                  </Button>
+                  <Button
+                    disabled={!codeWasBuilt}
+                    href={runLink}
+                    startIcon={<SendIcon />}
+                  >
+                    Ejecutar
+                  </Button>
+                  <Button
+                    href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"
+                  >
+                    Mock
+                  </Button>
+                </ButtonGroup>
+              )
+              }
           </Grid>
         </Grid>
         <Grid item xs={12}>
