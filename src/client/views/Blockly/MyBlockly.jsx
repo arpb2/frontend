@@ -38,6 +38,7 @@ SyntaxHighlighter.registerLanguage('dart', dart);
 
 const useStyles = makeStyles(theme => ({
   root: {
+    padding: theme.spacing(4),
   },
   blockly: {
     minHeight: '60vh',
@@ -288,7 +289,9 @@ const MyBlockly = (props) => {
           </Grid>
           <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
             <Paper className={classes.theory}>
-              <Typography variant="body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, voluptates? Consequatur ut enim pariatur consequuntur fugit modi corporis ad, necessitatibus facere? Sint quis atque quam a corrupti laudantium necessitatibus eaque!
+              </Typography>
             </Paper>
           </Grid>
         </Grid>
@@ -296,7 +299,7 @@ const MyBlockly = (props) => {
           <Grid item sm={3}>
             <TextField
               fullWidth
-              label="Select Language"
+              label="Seleccione el lenguaje"
               margin="dense"
               name="language"
               onChange={handleLanguageChange}
@@ -319,17 +322,17 @@ const MyBlockly = (props) => {
                 onClick={handleSave}
                 startIcon={<SaveIcon />}
               >
-                Save
+                Guardar
               </Button>
               <Button onClick={buildCode} startIcon={<BuildIcon />}>
-                Build
+                Compilar
               </Button>
               <Button
                 disabled={!codeWasBuilt}
                 href={runLink}
                 startIcon={<SendIcon />}
               >
-                Run
+                Correr
               </Button>
               <Button
                 href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"
