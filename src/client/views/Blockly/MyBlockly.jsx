@@ -278,9 +278,6 @@ const MyBlockly = (props) => {
         <Grid item id="levelNumber" sm={9} xs={12} className={classes.level}>
           <Typography variant="h1">{values.currentLevel.title}</Typography>
         </Grid>
-        <Grid item id="objective" sm={9} xs={12}>
-          <Typography variant="subtitle1">{values.currentLevel.objective}</Typography>
-        </Grid>
         <Grid
           container
           item
@@ -310,7 +307,7 @@ const MyBlockly = (props) => {
           <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
             <Paper className={classes.theory}>
               <Typography variant="body1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, voluptates? Consequatur ut enim pariatur consequuntur fugit modi corporis ad, necessitatibus facere? Sint quis atque quam a corrupti laudantium necessitatibus eaque!
+                {values.currentLevel.objective}
               </Typography>
             </Paper>
           </Grid>
