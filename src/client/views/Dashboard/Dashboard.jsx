@@ -69,7 +69,7 @@ const Dashboard = () => {
               Todo esto lo vas a poder hacer utilizando Blockly, una herramienta diseñada por Google y utilizada por el MIT para
               enseñar programación a través de bloques visuales y vas a poder ver el resultado en varios lenguajes de programación reales utilizados hoy en día en la industria.
               En ARPB2, Blockly conoce la realidad aumentada, tu obejtivo es que tu robot llegue al objetivo.
-              No hay un único camino correcto, como en la programación, existen varias formas de obtener el mismo resultado. Exploralas todas!
+              No hay un único camino correcto, como en la programación, existen varias formas de obtener el mismo resultado. ¡Exploralas todas!
             </Typography>
           </Card>
         </Grid>
