@@ -64,10 +64,12 @@ const Dashboard = () => {
             className={classes.root}
           >
             <Typography variant="body1">
-              ARPB2 es un juego diseñado para Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium ipsa officiis debitis veniam animi libero vel! Natus totam maxime nisi consequatur quod accusantium facere, eos similique suscipit. Magnam, illum est.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id quod soluta sequi animi dolores nam nostrum voluptas exercitationem? Voluptate, odio laborum qui accusamus veritatis natus cum amet dolor. Eveniet, animi!
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse odit nostrum officiis soluta, doloremque quae expedita odio nemo rem dolor quisquam! Consectetur temporibus blanditiis maiores, consequatur perferendis repellendus earum. Est?
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum provident nulla modi tempore officiis aliquid eos, nam vel assumenda optio. Ipsa aliquam, nostrum odio molestiae ut recusandae laborum ducimus.
+              ARPB2 es un juego diseñado para introducirte al mundo de la programación.
+              Vas a aprender los conceptos básicos de lógica, operaciones, variables hasta operar con tus propias funciones definidas por vos mismo.
+              Todo esto lo vas a poder hacer utilizando Blockly, una herramienta diseñada por Google y utilizada por el MIT para
+              enseñar programación a través de bloques visuales y vas a poder ver el resultado en varios lenguajes de programación reales utilizados hoy en día en la industria.
+              En ARPB2, Blockly conoce la realidad aumentada, tu obejtivo es que tu robot llegue al objetivo.
+              No hay un único camino correcto, como en la programación, existen varias formas de obtener el mismo resultado. Exploralas todas!
             </Typography>
           </Card>
         </Grid>
