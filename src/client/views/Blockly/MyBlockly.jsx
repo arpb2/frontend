@@ -261,6 +261,12 @@ const MyBlockly = (props) => {
     setOpen(false);
   };
 
+  const formatObjective = () => values.currentLevel.objective.split('\n').map((item, i) => (
+    <Typography key={i} variant="body1" paragraph>
+      {item}
+    </Typography>
+  ));
+
   return (
     <Container className={classes.root} maxWidth={false}>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
@@ -306,9 +312,7 @@ const MyBlockly = (props) => {
           </Grid>
           <Grid item xs={12} sm={3} id="theory" className={classes.theory}>
             <Paper className={classes.theory}>
-              <Typography variant="body1">
-                {values.currentLevel.objective}
-              </Typography>
+              {values.currentLevel.objective && formatObjective()}
             </Paper>
           </Grid>
         </Grid>
