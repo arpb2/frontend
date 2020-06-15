@@ -122,22 +122,27 @@ const MyBlockly = (props) => {
     steps: [
       {
         element: '.step-one',
-        intro: 'Build your solution using blocks',
+        intro: 'Creá tu solución usando bloques de código',
         tooltipClass: classes.tooltip,
       },
       {
         element: '.step-two',
-        intro: 'See the output code here',
+        intro: 'Mirá el código resultante acá',
         tooltipClass: classes.tooltip,
       },
       {
         element: '.step-three',
-        intro: 'You can even change the language',
+        intro: '¡Podés incluso cambiar el lenguaje!',
         tooltipClass: classes.tooltip,
       },
       {
         element: '.step-four',
-        intro: 'Run or save for later',
+        intro: 'Ejecutá tu código para ver el resultado',
+        tooltipClass: classes.tooltip,
+      },
+      {
+        element: '.step-five',
+        intro: 'En cualquier momento podes pasar el siguiente nivel',
         tooltipClass: classes.tooltip,
       },
     ],
@@ -227,6 +232,10 @@ const MyBlockly = (props) => {
     setValues({
       ...values, workspace, currentCode: newCode.compiled, runnableCode: newCode.runnable,
     });
+  };
+
+  const handleNextLevel = f => (e) => {
+    window.location.href = window.location.href.replace(/blockly.*/, `blockly/${parseInt(id, 10) + 1}`);
   };
 
   const buildCode = () => {
@@ -341,6 +350,20 @@ const MyBlockly = (props) => {
             {width < breakpoint ? (
               <Fragment>
                 <Grid item xs={12}>
+                  <ButtonGroup variant="contained" aria-label="ARPB2 control btn group 2" fullWidth>
+                    <Button onClick={buildCode} startIcon={<BuildIcon />}>
+                      Compilar
+                    </Button>
+                    <Button
+                      disabled={!codeWasBuilt}
+                      href={runLink}
+                      startIcon={<SendIcon />}
+                    >
+                      Ejecutar
+                    </Button>
+                  </ButtonGroup>
+                </Grid>
+                <Grid item xs={12}>
                   <ButtonGroup variant="contained" aria-label="ARPB2 control btn group 1" fullWidth>
                     <Button
                       onClick={handleSave}
@@ -352,20 +375,6 @@ const MyBlockly = (props) => {
                       href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"
                     >
                       Mock
-                    </Button>
-                  </ButtonGroup>
-                </Grid>
-                <Grid item xs={12}>
-                  <ButtonGroup variant="contained" aria-label="ARPB2 control btn group 2" fullWidth>
-                    <Button onClick={buildCode} startIcon={<BuildIcon />}>
-                      Compilar
-                    </Button>
-                    <Button
-                      disabled={!codeWasBuilt}
-                      href={runLink}
-                      startIcon={<SendIcon />}
-                    >
-                      Ejecutar
                     </Button>
                   </ButtonGroup>
                 </Grid>
@@ -409,6 +418,16 @@ const MyBlockly = (props) => {
           >
             {values.currentCode}
           </SyntaxHighlighter>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            className="step-five"
+            href={`uniwebview://arpb2/level?next=${parseInt(id, 10) + 1}`}
+            onClick={handleNextLevel()}
+          >
+            Siguiente Nivel
+          </Button>
         </Grid>
       </Grid>
     </Container>
