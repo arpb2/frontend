@@ -423,6 +423,7 @@ const MyBlockly = (props) => {
           <Button
             variant="contained"
             className="step-five"
+            style={{ float: 'right' }}
             href={`uniwebview://arpb2/level?next=${parseInt(id, 10) + 1}`}
             onClick={handleNextLevel()}
           >
