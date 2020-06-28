@@ -236,11 +236,11 @@
     <field name="direction">rotate_left</field>
   </block>
   <block type="move_forward_arpb2"></block>
-  <block type="pickup_arpb2"></block>
+  <!-- <block type="pickup_arpb2"></block>
   <block type="jump_arpb2"></block>
   <block type="save_in_bag_arpb2"></block>
   <block type="use_object_arpb2"></block>
-  <block type="open_bag_arpb2"></block>
+  <block type="open_bag_arpb2"></block> -->
    </category>
    <sep />
    <category name="Variables" colour="#A65C81" custom="VARIABLE" />
