@@ -116,7 +116,7 @@ const CurrentLevel = (props) => {
             >
               Nivel actual
             </Typography>
-            <Typography variant="h1">7</Typography>
+            <Typography variant="h1">{classroom.level}</Typography>
             {isTeacher()
             && (
             <Fragment>

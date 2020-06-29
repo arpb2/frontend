@@ -186,13 +186,6 @@ const Students = (props) => {
                 divider={i < students.length - 1}
                 key={student.id}
               >
-                <ListItemAvatar>
-                  <img
-                    alt="Alumno"
-                    className={classes.image}
-                    src={student.imageUrl}
-                  />
-                </ListItemAvatar>
                 <ListItemText
                   primary={`${student.name} ${student.surname}`}
                   secondary={`Nivel ${student.lastLevel}`}
@@ -265,7 +258,7 @@ Students.propTypes = {
   className: PropTypes.string,
   classroomId: PropTypes.number,
   history: PropTypes.object,
-  students: PropTypes.shape([]),
+  students: PropTypes.array,
 };
 
 Students.defaultProps = {
