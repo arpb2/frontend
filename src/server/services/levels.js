@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import config from '../config';
 
+// Deprecated
 export default class LevelsService {
   static getAll() {
     return new Promise((resolve, reject) => {
