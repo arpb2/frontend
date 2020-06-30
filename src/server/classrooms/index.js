@@ -9,8 +9,14 @@ router.get('/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.put('/:id', (req, res, next) => {
+  ClassroomService.updateClassroom(req.params.id, req.body, req.header('Authorization'))
+    .then(payload => res.json(payload))
+    .catch(err => next(err));
+});
+
 router.post('/:id/students', (req, res, next) => {
-  ClassroomService.addStudentByEmail(req.body.email, req.header('Authorization'))
+  ClassroomService.addStudentByEmail(req.params.id, req.body.email, req.header('Authorization'))
     .then(payload => res.json(payload))
     .catch(err => next(err));
 });

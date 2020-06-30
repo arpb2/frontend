@@ -61,7 +61,7 @@ const Classroom = (props) => {
             item
             className={classes.professor}
           >
-            <Professor classroomId={classroom.id} />
+            <Professor professor={classroom.teacher} />
           </Grid>
           <Grid
             item
