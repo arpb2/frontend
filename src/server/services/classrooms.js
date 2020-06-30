@@ -47,7 +47,8 @@ export default class ClassroomService {
   static addStudentByEmail(id, email, token) {
     return new Promise((resolve, reject) => {
       fetch(`${config.BACKEND_HOST}/classrooms/${id}`, {
-        method: 'GET',
+        method: 'PUT',
+        body: JSON.stringify({ students: [{ email }] }),
         headers: {
           Authorization: 'DEBUG', // token,
           'Content-Type': 'application/json',
