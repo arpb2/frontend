@@ -54,7 +54,7 @@ const Sidebar = (props) => {
     },
     {
       title: 'Aula',
-      href: '/classroom/1',
+      href: `/classroom/${JSON.parse(localStorage.getItem('session')).classroom_id}`,
       icon: <MenuBook />,
     },
     {
