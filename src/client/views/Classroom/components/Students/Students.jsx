@@ -10,13 +10,11 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemText,
   IconButton,
   Menu,
   MenuItem,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
@@ -105,7 +103,7 @@ const Students = (props) => {
     })
       .then((response) => {
         if (!response.ok) {
-          setSnackbar({ severity: 'error', message: 'Ocurrió un error al agregar al almuno. Por favor reintente más tarde.' });
+          setSnackbar({ severity: 'error', message: 'Ocurrió un error al agregar al alumno. Por favor reintente más tarde.' });
           setSnackbarOpen(true);
           throw new Error(response.statusText);
         }
