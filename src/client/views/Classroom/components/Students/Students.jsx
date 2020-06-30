@@ -219,21 +219,20 @@ const Students = (props) => {
       </Card>
       {isTeacher() && (
       <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
-        Add students
+        Agregar alumno
       </Button>
       )}
       <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
           <DialogContent>
             <DialogContentText>
-              Type the email of the student you want to add to the classroom
+              Ingrese el email del alumno al que desea agregar
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="emailForm"
-              label="Email Address"
+              label="Email"
               type="email"
               name="email"
               onChange={handleChange}
@@ -242,10 +241,10 @@ const Students = (props) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleDialogClose} color="primary">
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" color="primary">
-              Add
+              Agregar
             </Button>
           </DialogActions>
         </form>
