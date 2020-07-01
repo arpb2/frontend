@@ -10,11 +10,13 @@ import {
   Divider,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemText,
   IconButton,
   Menu,
   MenuItem,
   Dialog,
+  DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
@@ -103,7 +105,7 @@ const Students = (props) => {
     })
       .then((response) => {
         if (!response.ok) {
-          setSnackbar({ severity: 'error', message: 'Ocurrió un error al agregar al alumno. Por favor reintente más tarde.' });
+          setSnackbar({ severity: 'error', message: 'Ocurrió un error al agregar al almuno. Por favor reintente más tarde.' });
           setSnackbarOpen(true);
           throw new Error(response.statusText);
         }
@@ -184,6 +186,13 @@ const Students = (props) => {
                 divider={i < students.length - 1}
                 key={student.id}
               >
+                <ListItemAvatar>
+                  <img
+                    alt="Alumno"
+                    className={classes.image}
+                    src={student.imageUrl}
+                  />
+                </ListItemAvatar>
                 <ListItemText
                   primary={`${student.name} ${student.surname}`}
                   secondary={`Nivel ${student.lastLevel}`}
@@ -217,20 +226,21 @@ const Students = (props) => {
       </Card>
       {isTeacher() && (
       <Button variant="contained" color="primary" onClick={handleDialogClickOpen} className={classes.addBtn}>
-        Agregar alumno
+        Add students
       </Button>
       )}
       <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <form className={classes.form} autoComplete="off" onSubmit={handleDialogMainAction}>
           <DialogContent>
             <DialogContentText>
-              Ingrese el email del alumno al que desea agregar
+              Type the email of the student you want to add to the classroom
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="emailForm"
-              label="Email"
+              label="Email Address"
               type="email"
               name="email"
               onChange={handleChange}
@@ -239,10 +249,10 @@ const Students = (props) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleDialogClose} color="primary">
-              Cancelar
+              Cancel
             </Button>
             <Button type="submit" color="primary">
-              Agregar
+              Add
             </Button>
           </DialogActions>
         </form>
@@ -255,7 +265,7 @@ Students.propTypes = {
   className: PropTypes.string,
   classroomId: PropTypes.number,
   history: PropTypes.object,
-  students: PropTypes.array,
+  students: PropTypes.shape([]),
 };
 
 Students.defaultProps = {

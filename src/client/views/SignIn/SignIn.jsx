@@ -182,22 +182,8 @@ const SignIn = (props) => {
         return response.json();
       })
       .then((data) => {
-        fetch(`/api/users/${data.user_id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: data.token,
-          },
-        })
-          .then((response) => {
-            if (!response.ok) throw Error(response.statusText);
-            return response.json();
-          })
-          .then((fullUser) => {
-            localStorage.setItem('session', JSON.stringify({ ...data, ...fullUser }));
-            history.push('/');
-          })
-          .catch(error => console.error(error));
+        localStorage.setItem('session', JSON.stringify(data));
+        history.push('/');
       })
       .catch(error => console.error(error));
   };

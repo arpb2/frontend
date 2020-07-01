@@ -10,8 +10,6 @@ import SignOutIcon from '@material-ui/icons/Input';
 import MenuBook from '@material-ui/icons/MenuBook';
 
 import { Profile, SidebarNav } from './components';
-import { isLoggedIn } from '../../../../common/auth';
-
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -43,8 +41,6 @@ const Sidebar = (props) => {
 
   const classes = useStyles();
 
-  const classroomId = isLoggedIn() ? JSON.parse(localStorage.getItem('session')).classroom_id : 0;
-
   const pages = [
     {
       title: 'Inicio',
@@ -58,7 +54,7 @@ const Sidebar = (props) => {
     },
     {
       title: 'Aula',
-      href: `/classroom/${classroomId}`,
+      href: '/classroom/1',
       icon: <MenuBook />,
     },
     {

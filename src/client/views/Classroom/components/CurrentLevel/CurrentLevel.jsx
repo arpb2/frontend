@@ -71,13 +71,11 @@ const CurrentLevel = (props) => {
   const handleLevelChange = direction => (event) => {
     const session = JSON.parse(localStorage.getItem('session'));
     const delta = direction === 'increase' ? 1 : -1;
-    const body = classroom;
-    delete body.students;
     fetch(`/api/classrooms/${classroom.id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        ...body,
-        level: body.level + delta,
+        ...classroom,
+        level: classroom.level + delta,
       }),
       headers: {
         Authentication: session.token,
@@ -89,9 +87,6 @@ const CurrentLevel = (props) => {
     })
       .then((res) => {
         updateSnackbar(direction);
-        setTimeout(() => {
-          window.location.reload(1);
-        }, 3000);
       }).catch((err) => {
         setSnackbar({ severity: 'error', message: 'Ocurrió un error al cambiar de nivel' });
         setOpen(true);
@@ -121,7 +116,7 @@ const CurrentLevel = (props) => {
             >
               Nivel actual
             </Typography>
-            <Typography variant="h1">{classroom.level}</Typography>
+            <Typography variant="h1">7</Typography>
             {isTeacher()
             && (
             <Fragment>
