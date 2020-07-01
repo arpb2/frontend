@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 
+import mockData from './data';
+
 const useStyles = makeStyles(() => ({
   root: {
   },
@@ -30,11 +32,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Professor = (props) => {
-  const { className, professor, ...rest } = props;
+  const { className, classroomId, ...rest } = props;
 
   const classes = useStyles();
 
-  // const [professor] = useState(professor);
+  const [professor] = useState(mockData);
 
   return (
     <Card
@@ -66,12 +68,12 @@ const Professor = (props) => {
               display="inline"
             >
               {' '}
-              {professor.email}
+              {professor.mail}
             </Typography>
           </div>
           <Avatar
             className={classes.avatar}
-            src={professor.avatar ? professor.avatar : '/public/images/avatars/professor-silhouette.png'}
+            src={professor.avatar}
           />
         </div>
       </CardContent>
@@ -82,11 +84,7 @@ const Professor = (props) => {
 
 Professor.propTypes = {
   className: PropTypes.string,
-  professor: PropTypes.shape({
-    name: PropTypes.string,
-    surname: PropTypes.string,
-    email: PropTypes.string,
-  }),
+  classroomId: PropTypes.number,
 };
 
 export default Professor;
