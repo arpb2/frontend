@@ -206,7 +206,7 @@ const Students = (props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>View code</MenuItem>
+                    <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>Ver código</MenuItem>
                   </Menu>
                 </Fragment>
                 )}

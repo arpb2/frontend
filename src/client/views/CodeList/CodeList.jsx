@@ -88,11 +88,6 @@ const CodeList = (props) => {
 
   const getCodeList = () => codeList.map((code, i) => (
     <Fragment>
-      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleSnackbarClose}>
-        <Alert onClose={handleSnackbarClose} severity={snackbar.severity}>
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
       <ListItem button onClick={handleClick(i)}>
         <ListItemText primary={`Level ${code.level_id}`} />
         {open[i] ? <ExpandLess /> : <ExpandMore />}
@@ -116,6 +111,11 @@ const CodeList = (props) => {
 
   return (
     <Container className={classes.root}>
+      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
       <Card
         {...rest}
         className=""
