@@ -192,7 +192,7 @@ const MyBlockly = (props) => {
         code: values.runnableCode,
         workspace: btoa(workspace),
         userId: session.user_id,
-        levelId: 1, // TODO: Get from route
+        levelId: id,
       }),
       headers: {
         Authentication: session.token,

@@ -63,11 +63,6 @@ const CurrentLevel = (props) => {
     setOpen(false);
   };
 
-  const updateSnackbar = (direction) => {
-    setSnackbar({ severity: 'success', message: `Nivel ${direction}d` });
-    setOpen(true);
-  };
-
   const handleLevelChange = direction => (event) => {
     const session = JSON.parse(localStorage.getItem('session'));
     const delta = direction === 'increase' ? 1 : -1;
@@ -88,7 +83,8 @@ const CurrentLevel = (props) => {
       res.json();
     })
       .then((res) => {
-        updateSnackbar(direction);
+        setSnackbar({ severity: 'success', message: 'Nivel actualizado' });
+        setOpen(true);
         setTimeout(() => {
           window.location.reload(1);
         }, 3000);
