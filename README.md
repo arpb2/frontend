@@ -24,6 +24,11 @@ yarn serve
 
 ### Deploy to firebase
 
+Only if you changed any env vars do
+```bash
+yarn env
+```
+
 ```bash
 yarn deploy
 ```
