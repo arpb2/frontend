@@ -243,16 +243,12 @@ const MyBlockly = (props) => {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
     const url = new URL('uniwebview://arpb2');
     try {
-      // const workspace = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(values.workspace));
-      // messaging.sendCodeToApp(btoa(workspace));
       eval(values.runnableCode);
     } catch (e) {
       setSnackbar({ severity: 'error', message: 'Ocurrió un error a ejecutar el código. Verifique si no tiene errores o reintente más tarde' });
       setOpen(true);
     }
-    const result = url.toString();
-    console.log(result);
-    setRunLink(result);
+    setRunLink(url.toString());
     setCodeWasBuilt(true);
   };
 
@@ -270,7 +266,7 @@ const MyBlockly = (props) => {
     setOpen(false);
   };
 
-  const formatObjective = () => values.currentLevel.objective.split('\n').map((item, i) => (
+  const formatObjective = () => values.currentLevel.objective.split('\\n').map((item, i) => (
     <Typography key={i} variant="body1" paragraph>
       {item}
     </Typography>
