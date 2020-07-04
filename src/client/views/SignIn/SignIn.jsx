@@ -10,8 +10,10 @@ import {
   TextField,
   Link,
   Typography,
+  Snackbar,
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const schema = {
   email: {
@@ -135,6 +137,10 @@ const SignIn = (props) => {
     errors: {},
   });
 
+  const [open, setOpen] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({ severity: '', message: '' });
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
@@ -197,15 +203,36 @@ const SignIn = (props) => {
             localStorage.setItem('session', JSON.stringify({ ...data, ...fullUser }));
             history.push('/');
           })
-          .catch(error => console.error(error));
+          .catch((error) => {
+            setSnackbar({ severity: 'error', message: 'Ocurrió un error al iniciar sesión. Verificá tus datos e intenta nuevamente.' });
+            setOpen(true);
+          });
       })
-      .catch(error => console.error(error));
+      .catch((error) => {
+        setSnackbar({ severity: 'error', message: 'Ocurrió un error al iniciar sesión. Verificá tus datos e intenta nuevamente.' });
+        setOpen(true);
+      });
   };
 
   const hasError = field => (!!(formState.touched[field] && formState.errors[field]));
 
+  const Alert = alertProps => <MuiAlert elevation={6} variant="filled" {...alertProps} />;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <div className={classes.root}>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
       <Grid
         className={classes.grid}
         container
@@ -231,7 +258,7 @@ const SignIn = (props) => {
                   className={classes.title}
                   variant="h2"
                 >
-                  Sign in
+                  Bienvenid@
                 </Typography>
                 <Typography
                   align="center"
@@ -239,7 +266,7 @@ const SignIn = (props) => {
                   color="textSecondary"
                   variant="body1"
                 >
-                  Login with email address
+                  Ingresá con tu email
                 </Typography>
                 <TextField
                   className={classes.textField}
@@ -278,20 +305,20 @@ const SignIn = (props) => {
                   type="submit"
                   variant="contained"
                 >
-                  Sign in now
+                  Ingresá ahora
                 </Button>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Don&apos;t have an account?
+                  ¿No tenes cuenta?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/sign-up"
                     variant="h6"
                   >
-                    Sign up
+                    Registrate
                   </Link>
                 </Typography>
               </form>

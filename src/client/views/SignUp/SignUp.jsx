@@ -12,8 +12,10 @@ import {
   Typography,
   Select,
   FormHelperText,
+  Snackbar,
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MuiAlert from '@material-ui/lab/Alert';
 import { logout } from '../../common/auth';
 
 const schema = {
@@ -156,6 +158,10 @@ const SignUp = (props) => {
     errors: {},
   });
 
+  const [open, setOpen] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({ severity: '', message: '' });
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
@@ -205,14 +211,36 @@ const SignUp = (props) => {
       })
       .then((data) => {
         logout();
-        history.push('/');
+        setSnackbar({ severity: 'success', message: 'Cuenta generada con éxito. A continuación podes loguearte con tus datos.' });
+        setOpen(true);
+        setTimeout(() => {
+          history.push('/sign-in');
+        }, 3000);
+      }).catch((err) => {
+        setSnackbar({ severity: 'error', message: 'Ocurrió un error al registrarse. Intente más tarde.' });
+        setOpen(true);
       });
   };
 
   const hasError = field => (!!(formState.touched[field] && formState.errors[field]));
 
+  const Alert = alertProps => <MuiAlert elevation={6} variant="filled" {...alertProps} />;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <div className={classes.root}>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
       <Grid
         className={classes.grid}
         container
@@ -238,13 +266,13 @@ const SignUp = (props) => {
                   className={classes.title}
                   variant="h2"
                 >
-                  Create new account
+                  Creá tu nueva cuenta
                 </Typography>
                 <Typography
                   color="textSecondary"
                   gutterBottom
                 >
-                  Use your email to create new account
+                  Utilizá tu email para crear tu cuenta
                 </Typography>
                 <TextField
                   className={classes.textField}
@@ -287,8 +315,8 @@ const SignUp = (props) => {
                   variant="outlined"
                 >
                   <option value="" />
-                  <option value="student">Student</option>
-                  <option value="teacher">Teacher</option>
+                  <option value="student">Alumno</option>
+                  <option value="teacher">Profesor</option>
                 </Select>
                 <FormHelperText>User type</FormHelperText>
                 <TextField
@@ -328,20 +356,20 @@ const SignUp = (props) => {
                   type="submit"
                   variant="contained"
                 >
-                  Sign up now
+                  Registrate ahora
                 </Button>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Have an account?
+                  ¿Ya tenes cuenta?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/sign-in"
                     variant="h6"
                   >
-                    Sign in
+                    Ingresá acá
                   </Link>
                 </Typography>
               </form>

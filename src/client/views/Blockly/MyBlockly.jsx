@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect, Fragment } from 'react';
 import {
-  TextField, Button, ButtonGroup, Grid, Typography, Paper, Container, Snackbar, Hidden,
+  TextField, Button, ButtonGroup, Grid, Typography, Paper, Container, Snackbar,
 } from '@material-ui/core';
 import ReactBlockly from 'react-blockly';
 import Blockly from 'blockly';
@@ -203,7 +203,7 @@ const MyBlockly = (props) => {
       res.json();
     })
       .then((res) => {
-        setSnackbar({ severity: 'success', message: 'Código guardado!' });
+        setSnackbar({ severity: 'success', message: '¡Código guardado!' });
         setOpen(true);
       }).catch((err) => {
         setSnackbar({ severity: 'error', message: 'Ocurrió un error al guardar el código' });
