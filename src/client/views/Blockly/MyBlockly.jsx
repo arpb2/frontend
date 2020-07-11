@@ -266,7 +266,7 @@ const MyBlockly = (props) => {
     setOpen(false);
   };
 
-  const formatObjective = () => values.currentLevel.objective.split('\\n').map((item, i) => (
+  const formatObjective = () => values.currentLevel.objective.split('\n').map((item, i) => (
     <Typography key={i} variant="body1" paragraph>
       {item}
     </Typography>

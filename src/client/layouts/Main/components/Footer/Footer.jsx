@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
   },
   blocklyLogo: {
-    width: '20%',
+    width: '50%',
     float: 'right',
   },
 }));
@@ -26,7 +26,7 @@ const Footer = (props) => {
       {...rest}
       className={clsx(classes.root, className)}
     >
-      <div>
+      <div style={{ width: '80%' }}>
         <Typography variant="body1">
           &copy;
           {' '}
@@ -46,8 +46,7 @@ const Footer = (props) => {
           </Link>
         </Typography>
       </div>
-
-      <Link href="https://developers.google.com/blockly" target="_blank">
+      <Link href="https://developers.google.com/blockly" target="_blank" style={{ width: '20%' }}>
         <img
           alt="Blockly Logo"
           src="/public/images/logos/blockly_logo.svg"
