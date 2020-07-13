@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
   },
   blocklyLogo: {
-    width: '50%',
+    width: '40%',
     float: 'right',
   },
 }));

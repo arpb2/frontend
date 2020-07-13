@@ -186,7 +186,7 @@ const Students = (props) => {
               >
                 <ListItemText
                   primary={`${student.name} ${student.surname}`}
-                  secondary={`Nivel ${student.lastLevel}`}
+                  // secondary={`Nivel ${student.lastLevel}`}
                 />
                 {isTeacher() && (
                 <Fragment>
