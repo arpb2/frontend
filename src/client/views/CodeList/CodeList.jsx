@@ -89,7 +89,7 @@ const CodeList = (props) => {
   const getCodeList = () => codeList.map((code, i) => (
     <Fragment>
       <ListItem button onClick={handleClick(i)}>
-        <ListItemText primary={`Level ${code.level_id}`} />
+        <ListItemText primary={`Nivel ${code.level_id}`} />
         {open[i] ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open[i]} timeout="auto" unmountOnExit>
