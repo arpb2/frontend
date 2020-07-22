@@ -26,14 +26,16 @@ const Classroom = (props) => {
   const [classroom, setClassroom] = useState(null);
 
   useEffect(() => {
-    if (!classroom) {
-      fetch(`/api/classrooms/${id}`)
-        .then(res => res.json())
-        .then((json) => {
-          setClassroom(json);
-        });
-    }
-  });
+    fetch(`/api/classrooms/${id}`)
+      .then(res => res.json())
+      .then((json) => {
+        const fetchedClassroom = json;
+        if (json.students === null) {
+          fetchedClassroom.students = [];
+        }
+        setClassroom(fetchedClassroom);
+      });
+  }, [id]);
 
   return (
     <div className={classes.root}>
