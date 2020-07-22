@@ -79,7 +79,7 @@ export default class UserService {
       fetch(`${config.BACKEND_HOST}/users/${id}/levels`, {
         method: 'GET',
         headers: {
-          Authorization: token,
+          Authorization: 'DEBUG',
         },
       })
         .then((res) => {
