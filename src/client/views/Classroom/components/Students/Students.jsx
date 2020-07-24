@@ -11,6 +11,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemSecondaryAction,
   IconButton,
   Menu,
   MenuItem,
@@ -78,8 +79,9 @@ const Students = (props) => {
     setAnchorEl(null);
   };
 
-  const handleViewCodeClick = student => (event) => {
-    history.push(`/users/${student.id}/code`);
+  const handleViewCodeClick = (event) => {
+    const { studentId } = anchorEl.dataset;
+    history.push(`/users/${studentId}/code`);
   };
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -186,13 +188,14 @@ const Students = (props) => {
               >
                 <ListItemText
                   primary={`${student.name} ${student.surname}`}
-                  // secondary={`Nivel ${student.lastLevel}`}
+                  secondary={isTeacher() ? `${student.email}` : ''}
                 />
                 {isTeacher() && (
-                <Fragment>
+                <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
                     size="small"
+                    data-student-id={student.id}
                     onClick={handleClick}
                     aria-controls="student-actions-menu"
                     aria-haspopup="true"
@@ -206,9 +209,9 @@ const Students = (props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem id="view-code" onClick={handleViewCodeClick(student)}>Ver código</MenuItem>
+                    <MenuItem data-student-id={student.id} onClick={handleViewCodeClick}>Ver código</MenuItem>
                   </Menu>
-                </Fragment>
+                </ListItemSecondaryAction>
                 )}
               </ListItem>
             ))}

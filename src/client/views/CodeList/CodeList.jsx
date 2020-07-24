@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
+  code: {
+    width: 'inherit',
+  },
 }));
 
 const CodeList = (props) => {
@@ -100,6 +103,7 @@ const CodeList = (props) => {
               style={darcula}
               showLineNumbers
               id="code"
+              className={classes.code}
             >
               {code.code}
             </SyntaxHighlighter>
