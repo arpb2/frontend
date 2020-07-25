@@ -6,8 +6,6 @@ import { logout, isLoggedIn } from '../../common/auth';
 
 const SignOut = (props) => {
   const signOut = () => {
-    console.log('out');
-
     if (isLoggedIn()) {
       logout();
       window.location.href = '/';
