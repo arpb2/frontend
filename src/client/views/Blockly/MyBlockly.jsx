@@ -367,11 +367,6 @@ const MyBlockly = (props) => {
                     >
                       Guardar
                     </Button>
-                    <Button
-                      href="uniwebview://arpb2?action=move_forward&amp;action=rotate_left&amp;action=move_forward"
-                    >
-                      Mock
-                    </Button>
                   </ButtonGroup>
                 </Grid>
               </Fragment>

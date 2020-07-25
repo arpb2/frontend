@@ -10,9 +10,17 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  blocklyLogo: {
-    width: '40%',
-    float: 'right',
+  '@media (max-width: 1000px)': {
+    blocklyLogo: {
+      width: '-webkit-fill-available',
+      float: 'right',
+    },
+  },
+  '@media (min-width: 1000px)': {
+    blocklyLogo: {
+      width: '40%',
+      float: 'right',
+    },
   },
 }));
 

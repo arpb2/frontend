@@ -17,7 +17,7 @@ const setTokenSentToServer = (sent) => {
 
 const showToken = (currentToken) => {
   // Show token in console and UI.
-  console.log(`Token: ${currentToken}`);
+  // console.log(`Token: ${currentToken}`);
 };
 
 // Send the Instance ID token your application server, so that it can:
@@ -94,7 +94,7 @@ if (messaging) {
 //   `messaging.setBackgroundMessageHandler` handler.
 if (messaging) {
   messaging.onMessage((payload) => {
-    console.log('Message received. ', payload);
+    // console.log('Message received. ', payload);
     // Update the UI to include the received message.
     // appendMessage(payload);
   });
@@ -151,8 +151,6 @@ const sendCodeToApp = (code) => {
     },
   })
     .then((response) => {
-      console.log(response);
-
       if (!response.ok) throw Error(response.statusText);
       return response.status;
     })

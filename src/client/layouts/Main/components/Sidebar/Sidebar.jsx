@@ -56,17 +56,21 @@ const Sidebar = (props) => {
       href: '/blockly/1',
       icon: <MemoryIcon />,
     },
-    {
+  ];
+
+  if (classroomId !== 0) {
+    pages.push({
       title: 'Aula',
       href: `/classroom/${classroomId}`,
       icon: <MenuBook />,
-    },
-    {
-      title: 'Cuenta',
-      href: '/account',
-      icon: <AccountBoxIcon />,
-    },
-  ];
+    });
+  }
+
+  pages.push({
+    title: 'Cuenta',
+    href: '/account',
+    icon: <AccountBoxIcon />,
+  });
 
   if (variant === 'temporary') {
     pages.push({

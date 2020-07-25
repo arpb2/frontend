@@ -46,6 +46,12 @@ const Professor = (props) => {
           <div>
             <Typography
               gutterBottom
+              variant="h6"
+            >
+              Estas en el aula de
+            </Typography>
+            <Typography
+              gutterBottom
               variant="h3"
             >
               {`${professor.name} ${professor.surname}`}
@@ -69,10 +75,10 @@ const Professor = (props) => {
               {professor.email}
             </Typography>
           </div>
-          <Avatar
+          {/* <Avatar
             className={classes.avatar}
             src={professor.avatar ? professor.avatar : '/public/images/avatars/professor-silhouette.png'}
-          />
+          /> */}
         </div>
       </CardContent>
       <Divider />
