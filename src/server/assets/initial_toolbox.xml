@@ -230,17 +230,17 @@
          </value>
       </block>
    </category>
+   <category name="Diccionarios" colour="#A67CA6">
+  <block type="dict_empty"></block>
+  <block type="dict_get"></block>
+  <block type="dict_set"></block>
+   </category>
    <sep />
    <category name="Acciones" colour="#A6745C">
   <block type="rotate_arpb2">
     <field name="direction">rotate_left</field>
   </block>
   <block type="move_forward_arpb2"></block>
-  <!-- <block type="pickup_arpb2"></block>
-  <block type="jump_arpb2"></block>
-  <block type="save_in_bag_arpb2"></block>
-  <block type="use_object_arpb2"></block>
-  <block type="open_bag_arpb2"></block> -->
    </category>
    <sep />
    <category name="Variables" colour="#A65C81" custom="VARIABLE" />
