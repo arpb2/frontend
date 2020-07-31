@@ -52,7 +52,7 @@ const Sidebar = (props) => {
       icon: <DashboardIcon />,
     },
     {
-      title: 'Blockly',
+      title: 'Niveles',
       href: '/blockly/1',
       icon: <MemoryIcon />,
     },
