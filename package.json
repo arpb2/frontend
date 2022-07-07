@@ -57,7 +57,7 @@
     "he": "^1.2.0",
     "intro.js": "^2.9.3",
     "intro.js-react": "^0.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-fetch": "^2.6.0",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
